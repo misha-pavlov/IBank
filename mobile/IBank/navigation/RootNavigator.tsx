@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { screens } from '../config/screens';
-import SignUp from '../screens/SignUp/SignUp';
+import SignIn from '../screens/SignIn/SignIn';
 
 const HomeScreen = () => (
   <View>
@@ -24,9 +24,9 @@ const RootNavigator = () => {
       ) : (
         <>
           <RootStack.Screen
-            name={screens.auth.SignUp}
+            name={screens.auth.SignIn}
             options={{ headerShown: false }}
-            component={SignUp}
+            component={SignIn}
           />
         </>
       )}

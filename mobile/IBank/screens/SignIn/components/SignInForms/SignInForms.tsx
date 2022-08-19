@@ -22,18 +22,18 @@ import {
   parsePhoneNumberWithError,
 } from 'libphonenumber-js';
 import { colors } from '../../../../config/colors';
-import { BackButtonText, NextButton } from './SinUpForms.styles';
+import { BackButtonText, NextButton } from './SignInForms.styles';
 import { WhiteText } from '../../../../common/common.styles';
 import { constants } from '../../../../config/constants';
 import Visibility from '../../../../assets/svg/Visibility';
 import VisibilityOff from '../../../../assets/svg/VisibilityOff';
 
-type TSinUpForms = {
+type TSignInForms = {
   currentStage: 'phone' | 'pin';
   setCurrentStage: Dispatch<SetStateAction<'phone' | 'pin'>>;
 };
 
-const SinUpForms: FC<TSinUpForms> = ({ currentStage, setCurrentStage }) => {
+const SignInForms: FC<TSignInForms> = ({ currentStage, setCurrentStage }) => {
   const [value, setValue] = useState('');
   const [pin, setPin] = useState('');
   const [showPin, setShowPin] = useState(false);
@@ -185,7 +185,6 @@ const SinUpForms: FC<TSinUpForms> = ({ currentStage, setCurrentStage }) => {
     value,
     setPin,
     showPin,
-    setValue,
     isInvalid,
     isDisabled,
     confirmPin,
@@ -202,4 +201,4 @@ const SinUpForms: FC<TSinUpForms> = ({ currentStage, setCurrentStage }) => {
   return <Center mt="30%">{renderSection}</Center>;
 };
 
-export default SinUpForms;
+export default SignInForms;

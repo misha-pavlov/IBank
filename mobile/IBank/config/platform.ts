@@ -9,13 +9,3 @@ export const isIOS = (): boolean => {
 
 export const isIphoneX = (): boolean =>
   isIOS() && SCREEN_HEIGHT >= IPHONEX_HEIGHT;
-
-export const getKeyboardVerticalOffsetForSignUp = (
-  isPhoneStage: boolean,
-): number => {
-  const iphoneXOffset = isPhoneStage ? -130 : -30;
-  return Platform.select({
-    ios: isIphoneX() ? iphoneXOffset : 80,
-    default: 0,
-  });
-};

@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7c5d8ad4-4071-40a2-8fe2-a67520d4b91d" name="Changes" comment="feat(server): add auth and user modules" />
+    <list default="true" id="7c5d8ad4-4071-40a2-8fe2-a67520d4b91d" name="Changes" comment="feat(server): add auth and user modules">
+      <change afterPath="$PROJECT_DIR$/mobile/IBank/screens/SignUp/helpers/SignIn.helpers.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile/IBank/config/platform.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/IBank/config/platform.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile/IBank/screens/SignUp/SignUp.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/IBank/screens/SignUp/SignUp.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,7 +19,7 @@
         <entry key="$PROJECT_DIR$/server/ibank" value="main" />
       </map>
     </option>
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/server/ibank" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
   <component name="HighlightingSettingsPerFile">
@@ -45,7 +50,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "prettierjs.PrettierConfiguration.Package": "/Users/misha-apiko/Desktop/IBank/mobile/IBank/node_modules/prettier",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
+    "settings.editor.selected.configurable": "settings.javascript.prettier",
     "ts.external.directory.path": "/Users/misha-apiko/Desktop/IBank/mobile/IBank/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   }
@@ -64,6 +69,9 @@
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="7c5d8ad4-4071-40a2-8fe2-a67520d4b91d" name="Changes" comment="" />
@@ -76,7 +84,8 @@
       <workItem from="1660337945460" duration="3601000" />
       <workItem from="1660574842089" duration="23279000" />
       <workItem from="1660678848624" duration="6610000" />
-      <workItem from="1660685480169" duration="1800000" />
+      <workItem from="1660685480169" duration="2030000" />
+      <workItem from="1660942292682" duration="300000" />
     </task>
     <task id="LOCAL-00001" summary="feat(init): add base files">
       <created>1660325414178</created>
