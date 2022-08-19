@@ -9,17 +9,14 @@ import React, {
 import {
   Center,
   FormControl,
-  InfoOutlineIcon,
   Input,
   Stack,
-  Text,
   WarningOutlineIcon,
 } from 'native-base';
 import { TouchableOpacity } from 'react-native';
 import {
   isValidPhoneNumber,
   parseIncompletePhoneNumber,
-  parsePhoneNumberWithError,
 } from 'libphonenumber-js';
 import { useNavigation } from '@react-navigation/native';
 import { colors } from '../../../../config/colors';
@@ -34,6 +31,7 @@ import Visibility from '../../../../assets/svg/Visibility';
 import VisibilityOff from '../../../../assets/svg/VisibilityOff';
 import { NAuthNavigatorNavigationProp } from '../../../../navigation/types/AuthNavigator.types';
 import { screens } from '../../../../config/screens';
+import PhoneInput from '../../../../components/PhoneInput/PhoneInput';
 
 type TSignInForms = {
   currentStage: 'phone' | 'pin';
@@ -78,16 +76,6 @@ const SignInForms: FC<TSignInForms> = ({ currentStage, setCurrentStage }) => {
     };
   }, [isInvalid]);
 
-  const onChangeText = useCallback((text: string) => {
-    try {
-      const phoneNumber = parsePhoneNumberWithError(text).formatInternational();
-      setValue(phoneNumber);
-    } catch (error) {
-      // Not a phone number, non-existent country, etc.
-      setValue(text);
-    }
-  }, []);
-
   const moveToSignUp = useCallback(() => {
     return navigation.navigate(screens.auth.SignUp);
   }, [navigation]);
@@ -97,26 +85,7 @@ const SignInForms: FC<TSignInForms> = ({ currentStage, setCurrentStage }) => {
       return (
         <>
           <FormControl w="75%" maxW="300px">
-            <FormControl.HelperText>
-              <Stack direction="row" alignItems="center" space="xs">
-                <InfoOutlineIcon size="sm" color={colors.gray500} />
-                <Text color={colors.gray500} fontSize={12}>
-                  Attention! Need to enter a country prefix.
-                </Text>
-              </Stack>
-            </FormControl.HelperText>
-            <Input
-              size="lg"
-              variant="underlined"
-              keyboardType="phone-pad"
-              placeholder="Enter your phone"
-              color={colors.gray100}
-              borderBottomColor={colors.gray100}
-              placeholderTextColor={colors.gray100}
-              underlineColorAndroid={colors.gray100}
-              value={value}
-              onChangeText={text => onChangeText(text)}
-            />
+            <PhoneInput value={value} setValue={setValue} />
 
             <Center>
               <NextButton
@@ -210,7 +179,6 @@ const SignInForms: FC<TSignInForms> = ({ currentStage, setCurrentStage }) => {
     isDisabled,
     value,
     moveToSignUp,
-    onChangeText,
     setCurrentStage,
   ]);
 
