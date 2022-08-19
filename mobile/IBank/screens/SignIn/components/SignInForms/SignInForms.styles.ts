@@ -10,7 +10,7 @@ export const NextButton = styled.TouchableOpacity<{ disabled?: boolean }>`
   width: 75%;
   max-width: 300px;
   margin-top: 50px;
-  ${({ disabled }) => disabled && `opacity: .5`}
+  ${({ disabled }) => disabled && 'opacity: .5'}
 `;
 
 export const BackButtonText = styled.Text`
