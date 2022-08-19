@@ -19,19 +19,25 @@ import {
   parseIncompletePhoneNumber,
 } from 'libphonenumber-js';
 import { useNavigation } from '@react-navigation/native';
+// constants
 import { colors } from '../../../../config/colors';
+import { constants } from '../../../../config/constants';
+import { screens } from '../../../../config/screens';
+// styles
 import {
   BackButtonText,
   NextButton,
   MoveToSignUpText,
 } from './SignInForms.styles';
 import { WhiteText } from '../../../../common/common.styles';
-import { constants } from '../../../../config/constants';
+// svg
 import Visibility from '../../../../assets/svg/Visibility';
 import VisibilityOff from '../../../../assets/svg/VisibilityOff';
+// types
 import { NAuthNavigatorNavigationProp } from '../../../../navigation/types/AuthNavigator.types';
-import { screens } from '../../../../config/screens';
+// components
 import PhoneInput from '../../../../components/PhoneInput/PhoneInput';
+import PinInput from '../../../../components/PinInput/PinInput';
 
 type TSignInForms = {
   currentStage: 'phone' | 'pin';
@@ -107,27 +113,15 @@ const SignInForms: FC<TSignInForms> = ({ currentStage, setCurrentStage }) => {
 
     return (
       <>
-        <Input
-          w="75%"
-          size="lg"
-          variant="underlined"
-          keyboardType="numeric"
-          placeholder="Enter your pin"
-          maxW={300}
-          maxLength={4}
-          color={colors.gray100}
-          borderBottomColor={colors.gray100}
-          placeholderTextColor={colors.gray100}
-          underlineColorAndroid={colors.gray100}
-          value={pin}
-          onChangeText={text => setPin(text)}
-          type={showPin ? 'text' : 'password'}
-          InputRightElement={
-            <TouchableOpacity onPress={() => setShowPin(!showPin)}>
-              {showPin ? <VisibilityOff /> : <Visibility />}
-            </TouchableOpacity>
-          }
-        />
+        <FormControl w="75%" maxW="300px">
+          <PinInput
+            pin={pin}
+            showPin={showPin}
+            setPin={setPin}
+            setShowPin={setShowPin}
+          />
+        </FormControl>
+
         <FormControl isInvalid={isInvalid} w="75%" maxW="300px" mt={25}>
           <Input
             size="lg"

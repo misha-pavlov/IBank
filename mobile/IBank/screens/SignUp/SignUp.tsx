@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { Center, FormControl, Stack } from 'native-base';
+import { Box, Center, FormControl, Stack } from 'native-base';
 import {
   BankNameHeader,
   BlackContentWrapper,
@@ -7,13 +7,22 @@ import {
 } from '../../common/common.styles';
 import { constants } from '../../config/constants';
 import PhoneInput from '../../components/PhoneInput/PhoneInput';
+import PinInput from '../../components/PinInput/PinInput';
 
 const SignUp = () => {
-  const [fields, setFields] = useState({ phone: '' });
+  const [fields, setFields] = useState({ phone: '', pin: '' });
+  const [showPin, setShowPin] = useState(false);
 
   const onPhoneChange = useCallback(
     (value: string) => {
       setFields({ ...fields, phone: value });
+    },
+    [fields],
+  );
+
+  const onPinChange = useCallback(
+    (value: string) => {
+      setFields({ ...fields, pin: value });
     },
     [fields],
   );
@@ -33,6 +42,15 @@ const SignUp = () => {
       <Center>
         <FormControl w="75%" maxW="300px">
           <PhoneInput value={fields.phone} setValue={onPhoneChange} />
+
+          <Box mt="30px">
+            <PinInput
+              pin={fields.pin}
+              showPin={showPin}
+              setPin={onPinChange}
+              setShowPin={setShowPin}
+            />
+          </Box>
         </FormControl>
       </Center>
     </BlackContentWrapper>
