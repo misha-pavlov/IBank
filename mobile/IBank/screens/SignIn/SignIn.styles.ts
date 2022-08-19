@@ -20,3 +20,10 @@ export const BestCardText = styled.Text<{ withMargin?: boolean }>`
   text-align: center;
   color: ${colors.gray100};
 `;
+
+export const MoveToSignUpText = styled.Text`
+  color: ${colors.pinkA100};
+  font-size: 12px;
+  text-align: center;
+  margin-top: 20px;
+`;
