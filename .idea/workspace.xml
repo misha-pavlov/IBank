@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7c5d8ad4-4071-40a2-8fe2-a67520d4b91d" name="Changes" comment="chore(renames/replace): renames and replace files">
-      <change afterPath="$PROJECT_DIR$/mobile/IBank/navigation/types/AuthNavigator.types.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mobile/IBank/screens/SignUp/SignUp.tsx" afterDir="false" />
+    <list default="true" id="7c5d8ad4-4071-40a2-8fe2-a67520d4b91d" name="Changes" comment="feat(sign up): add sign up screen">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile/IBank/config/screens.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/IBank/config/screens.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile/IBank/navigation/RootNavigator.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/IBank/navigation/RootNavigator.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile/IBank/common/common.styles.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/IBank/common/common.styles.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mobile/IBank/screens/SignIn/SignIn.styles.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/IBank/screens/SignIn/SignIn.styles.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mobile/IBank/screens/SignIn/SignIn.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/IBank/screens/SignIn/SignIn.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile/IBank/screens/SignIn/helpers/SignIn.helpers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/IBank/screens/SignIn/helpers/SignIn.helpers.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile/IBank/screens/SignIn/components/SignInForms/SignInForms.styles.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/IBank/screens/SignIn/components/SignInForms/SignInForms.styles.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile/IBank/screens/SignIn/components/SignInForms/SignInForms.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/IBank/screens/SignIn/components/SignInForms/SignInForms.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile/IBank/screens/SignUp/SignUp.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/IBank/screens/SignUp/SignUp.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +88,7 @@
       <workItem from="1660574842089" duration="23279000" />
       <workItem from="1660678848624" duration="6610000" />
       <workItem from="1660685480169" duration="2030000" />
-      <workItem from="1660942292682" duration="2078000" />
+      <workItem from="1660942292682" duration="2627000" />
     </task>
     <task id="LOCAL-00001" summary="feat(init): add base files">
       <created>1660325414178</created>
@@ -175,7 +174,14 @@
       <option name="project" value="LOCAL" />
       <updated>1660942944509</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="feat(sign up): add sign up screen">
+      <created>1660944401547</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1660944401548</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -200,7 +206,6 @@
     <MESSAGE value="feat(init): add base files" />
     <MESSAGE value="feat(init): init react native proj" />
     <MESSAGE value="feat(navigation): add base navigation" />
-    <MESSAGE value="feat(sign up): add sign up screen" />
     <MESSAGE value="refactor(sign up):small updates" />
     <MESSAGE value="refactor(sign up): small updates" />
     <MESSAGE value="chore(cleaning): remove console logs" />
@@ -208,6 +213,7 @@
     <MESSAGE value="chore(cleaning): nestjs project" />
     <MESSAGE value="feat(server): add auth and user modules" />
     <MESSAGE value="chore(renames/replace): renames and replace files" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore(renames/replace): renames and replace files" />
+    <MESSAGE value="feat(sign up): add sign up screen" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(sign up): add sign up screen" />
   </component>
 </project>

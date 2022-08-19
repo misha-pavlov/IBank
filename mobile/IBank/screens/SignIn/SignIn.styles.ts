@@ -1,12 +1,6 @@
 import styled from 'styled-components/native';
 import { colors } from '../../config/colors';
 
-export const BankNameHeader = styled.Text`
-  color: ${colors.gray100};
-  font-size: 18px;
-  font-weight: 600;
-`;
-
 export const HeaderBlock = styled.View`
   margin-top: 40px;
   margin-bottom: 75px;
@@ -19,11 +13,4 @@ export const BestCardText = styled.Text<{ withMargin?: boolean }>`
   font-size: 20px;
   text-align: center;
   color: ${colors.gray100};
-`;
-
-export const MoveToSignUpText = styled.Text`
-  color: ${colors.pinkA100};
-  font-size: 12px;
-  text-align: center;
-  margin-top: 20px;
 `;

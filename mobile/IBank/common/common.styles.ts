@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import { StyleSheet } from 'react-native';
+import { Text } from 'native-base';
 import { colors } from '../config/colors';
 
 export const BlackContentWrapper = styled.View`
@@ -8,8 +9,14 @@ export const BlackContentWrapper = styled.View`
   padding: 16px;
 `;
 
-export const WhiteText = styled.Text`
+export const WhiteText = styled(Text)`
   color: ${colors.gray100};
+`;
+
+export const BankNameHeader = styled.Text`
+  color: ${colors.gray100};
+  font-size: 18px;
+  font-weight: 600;
 `;
 
 export const commonStyles = StyleSheet.create({

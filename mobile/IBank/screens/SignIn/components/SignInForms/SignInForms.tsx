@@ -21,12 +21,19 @@ import {
   parseIncompletePhoneNumber,
   parsePhoneNumberWithError,
 } from 'libphonenumber-js';
+import { useNavigation } from '@react-navigation/native';
 import { colors } from '../../../../config/colors';
-import { BackButtonText, NextButton } from './SignInForms.styles';
+import {
+  BackButtonText,
+  NextButton,
+  MoveToSignUpText,
+} from './SignInForms.styles';
 import { WhiteText } from '../../../../common/common.styles';
 import { constants } from '../../../../config/constants';
 import Visibility from '../../../../assets/svg/Visibility';
 import VisibilityOff from '../../../../assets/svg/VisibilityOff';
+import { NAuthNavigatorNavigationProp } from '../../../../navigation/types/AuthNavigator.types';
+import { screens } from '../../../../config/screens';
 
 type TSignInForms = {
   currentStage: 'phone' | 'pin';
@@ -34,6 +41,8 @@ type TSignInForms = {
 };
 
 const SignInForms: FC<TSignInForms> = ({ currentStage, setCurrentStage }) => {
+  const navigation = useNavigation<NAuthNavigatorNavigationProp<'SignUp'>>();
+
   const [value, setValue] = useState('');
   const [pin, setPin] = useState('');
   const [showPin, setShowPin] = useState(false);
@@ -79,6 +88,10 @@ const SignInForms: FC<TSignInForms> = ({ currentStage, setCurrentStage }) => {
     }
   }, []);
 
+  const moveToSignUp = useCallback(() => {
+    return navigation.navigate(screens.auth.SignUp);
+  }, [navigation]);
+
   const renderSection = useMemo(() => {
     if (currentStage === constants.signUpStages.phone) {
       return (
@@ -112,6 +125,12 @@ const SignInForms: FC<TSignInForms> = ({ currentStage, setCurrentStage }) => {
                 <WhiteText>Next</WhiteText>
               </NextButton>
             </Center>
+
+            <TouchableOpacity onPress={moveToSignUp}>
+              <MoveToSignUpText>
+                Don't have account? Let's create.
+              </MoveToSignUpText>
+            </TouchableOpacity>
           </FormControl>
         </>
       );
@@ -181,21 +200,18 @@ const SignInForms: FC<TSignInForms> = ({ currentStage, setCurrentStage }) => {
       </>
     );
   }, [
+    currentStage,
     pin,
-    value,
-    setPin,
     showPin,
     isInvalid,
-    isDisabled,
     confirmPin,
-    setShowPin,
-    currentStage,
-    onChangeText,
-    invalidStyles,
-    setConfirmPin,
     showConfirmPin,
+    invalidStyles,
+    isDisabled,
+    value,
+    moveToSignUp,
+    onChangeText,
     setCurrentStage,
-    setShowConfirmPin,
   ]);
 
   return <Center mt="30%">{renderSection}</Center>;
