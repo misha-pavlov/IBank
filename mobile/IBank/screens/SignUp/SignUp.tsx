@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { Box, Center, FormControl, Stack } from 'native-base';
+import { Box, Center, FormControl, Stack, Select } from 'native-base';
 import DateTimePicker, {
   DateTimePickerEvent,
 } from '@react-native-community/datetimepicker';
@@ -14,6 +14,7 @@ import PhoneInput from '../../components/PhoneInput/PhoneInput';
 import PinInput from '../../components/PinInput/PinInput';
 import DefaultInput from '../../components/DefaultInput/DefaultInput';
 import { signUpStyles } from './SignUp.styles';
+import { colors } from '../../config/colors';
 
 const SignUp = () => {
   const [fields, setFields] = useState({
@@ -21,6 +22,7 @@ const SignUp = () => {
     pin: '',
     fullName: '',
     birthday: '',
+    sex: '',
   });
   const [showPin, setShowPin] = useState(false);
 
@@ -68,7 +70,7 @@ const SignUp = () => {
 
           <DefaultInput
             value={fields.fullName}
-            placeholder="Enter your full name"
+            placeholder="Enter full name"
             withMarginTop
             setValue={value => onFieldChange(value, 'fullName')}
           />
@@ -83,6 +85,19 @@ const SignUp = () => {
               ).toDate()}
               onChange={onChangeDate}
             />
+          </Stack>
+
+          <Stack mt="30px">
+            <Select
+              selectedValue={fields.sex}
+              placeholder="Enter sex"
+              variant="filled"
+              placeholderTextColor={colors.gray100}
+              color={colors.gray100}
+              onValueChange={value => onFieldChange(value, 'sex')}>
+              <Select.Item label="Male" value="m" />
+              <Select.Item label="Female" value="f" />
+            </Select>
           </Stack>
         </FormControl>
       </Center>
