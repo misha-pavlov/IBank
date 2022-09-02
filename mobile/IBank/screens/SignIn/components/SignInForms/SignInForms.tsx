@@ -24,12 +24,8 @@ import { colors } from '../../../../config/colors';
 import { constants } from '../../../../config/constants';
 import { screens } from '../../../../config/screens';
 // styles
-import {
-  BackButtonText,
-  NextButton,
-  MoveToSignUpText,
-} from './SignInForms.styles';
-import { WhiteText } from '../../../../common/common.styles';
+import { BackButtonText, MoveToSignUpText } from './SignInForms.styles';
+import { WhiteText, NextButton } from '../../../../common/common.styles';
 // svg
 import Visibility from '../../../../assets/svg/Visibility';
 import VisibilityOff from '../../../../assets/svg/VisibilityOff';

@@ -19,6 +19,18 @@ export const BankNameHeader = styled.Text`
   font-weight: 600;
 `;
 
+export const NextButton = styled.TouchableOpacity<{ disabled?: boolean }>`
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid ${colors.gray100};
+  border-radius: 25px;
+  width: 75%;
+  max-width: 300px;
+  margin-top: 50px;
+  ${({ disabled }) => disabled && 'opacity: .5'}
+`;
+
 export const commonStyles = StyleSheet.create({
   keyboardAvoiding: {
     flex: 1,

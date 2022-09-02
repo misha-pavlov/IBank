@@ -1,12 +1,14 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { Box, Center, FormControl, Stack, Select } from 'native-base';
 import DateTimePicker, {
   DateTimePickerEvent,
 } from '@react-native-community/datetimepicker';
 import moment from 'moment';
+import { isValidPhoneNumber } from 'libphonenumber-js';
 import {
   BankNameHeader,
   BlackContentWrapper,
+  NextButton,
   WhiteText,
 } from '../../common/common.styles';
 import { constants } from '../../config/constants';
@@ -40,6 +42,19 @@ const SignUp = () => {
     },
     [fields],
   );
+
+  const isDisabled = useMemo(() => {
+    const { phone, pin, fullName, birthday, sex } = fields;
+    return (
+      isValidPhoneNumber(phone) &&
+      phone.length >= 9 &&
+      pin !== '' &&
+      pin.length === 4 &&
+      fullName !== '' &&
+      birthday !== '' &&
+      sex !== ''
+    );
+  }, [fields]);
 
   return (
     <BlackContentWrapper>
@@ -103,6 +118,10 @@ const SignUp = () => {
             </Select>
           </Stack>
         </FormControl>
+
+        <NextButton disabled={!isDisabled}>
+          <WhiteText>Finish</WhiteText>
+        </NextButton>
       </Center>
     </BlackContentWrapper>
   );
