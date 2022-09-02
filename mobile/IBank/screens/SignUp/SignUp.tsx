@@ -15,6 +15,7 @@ import PinInput from '../../components/PinInput/PinInput';
 import DefaultInput from '../../components/DefaultInput/DefaultInput';
 import { signUpStyles } from './SignUp.styles';
 import { colors } from '../../config/colors';
+import IBankHeader from '../../components/IBankHeader/IBankHeader';
 
 const SignUp = () => {
   const [fields, setFields] = useState({
@@ -42,6 +43,8 @@ const SignUp = () => {
 
   return (
     <BlackContentWrapper>
+      <IBankHeader />
+
       <Stack direction="row" mt="40px" justifyContent="center">
         <BankNameHeader>{constants.appName}</BankNameHeader>
       </Stack>
