@@ -28,7 +28,6 @@ type Query {
 type UserPayload {
   _id: ObjectId!
   birthday: DateTime!
-  countryUniqNumber: String!
   fullName: String!
   image: String!
   phone: String!

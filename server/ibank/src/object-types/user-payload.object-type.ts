@@ -22,8 +22,5 @@ export class UserPayload {
   sex: 'm' | 'f';
 
   @Field(() => String)
-  countryUniqNumber: string;
-
-  @Field(() => String)
   image: string;
 }

@@ -19,7 +19,7 @@ const PinInput: FC<TPinInput> = ({ pin, setPin, showPin, setShowPin }) => {
         size="lg"
         variant="underlined"
         keyboardType="numeric"
-        placeholder="Enter your pin"
+        placeholder="Enter pin"
         maxW={300}
         maxLength={4}
         color={colors.gray100}

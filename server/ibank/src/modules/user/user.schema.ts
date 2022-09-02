@@ -28,10 +28,6 @@ export class User extends CommonSchema {
   sex: 'm' | 'f';
 
   @Field(() => String)
-  @Prop({ type: String, required: true })
-  countryUniqNumber: string;
-
-  @Field(() => String)
   @Prop({ type: String, required: false })
   image: string;
 }

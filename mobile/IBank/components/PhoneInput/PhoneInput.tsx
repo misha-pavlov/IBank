@@ -37,7 +37,7 @@ const PhoneInput: FC<TPhoneInput> = ({ value, setValue }) => {
         size="lg"
         variant="underlined"
         keyboardType="phone-pad"
-        placeholder="Enter your phone"
+        placeholder="Enter phone"
         color={colors.gray100}
         borderBottomColor={colors.gray100}
         placeholderTextColor={colors.gray100}
