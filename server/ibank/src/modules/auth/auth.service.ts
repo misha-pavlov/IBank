@@ -29,7 +29,6 @@ export class AuthService {
     fullName: string,
     birthday: Date,
     sex: 'm' | 'f',
-    countryUniqNumber: string,
   ): Promise<AuthPayload> {
     const randomNumber = Math.floor(Math.random() * 10);
     const image = CATS_MEMES_IMAGE_URLS[randomNumber];
@@ -39,7 +38,6 @@ export class AuthService {
       fullName,
       birthday,
       sex,
-      countryUniqNumber,
       image,
     });
     return { token: await this.generateToken(user) };
