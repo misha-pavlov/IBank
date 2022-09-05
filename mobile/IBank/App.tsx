@@ -12,14 +12,17 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { NativeBaseProvider } from 'native-base';
 import RootNavigator from './navigation/RootNavigator';
+import Store from './store/store';
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <NativeBaseProvider>
-        <RootNavigator />
-      </NativeBaseProvider>
-    </NavigationContainer>
+    <Store>
+      <NavigationContainer>
+        <NativeBaseProvider>
+          <RootNavigator />
+        </NativeBaseProvider>
+      </NavigationContainer>
+    </Store>
   );
 };
 

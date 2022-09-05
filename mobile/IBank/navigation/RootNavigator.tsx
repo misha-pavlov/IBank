@@ -1,18 +1,33 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { screens } from '../config/screens';
 import SignIn from '../screens/SignIn/SignIn';
 import SignUp from '../screens/SignUp/SignUp';
 import IBankTabs from './IBankTabs';
+import LoadingScreen from '../screens/LoadingScreen/LoadingScreen';
+import { Context } from '../store/store';
 
 const RootStack = createStackNavigator();
 
 const RootNavigator = () => {
-  const chto = false;
+  const { state } = useContext(Context);
+  const [loading, setLoading] = useState(true);
+
+  if (loading) {
+    return (
+      <RootStack.Navigator>
+        <RootStack.Screen
+          name={screens.app.Loading}
+          options={{ headerShown: false }}
+          component={() => <LoadingScreen setLoading={setLoading} />}
+        />
+      </RootStack.Navigator>
+    );
+  }
 
   return (
     <RootStack.Navigator>
-      {chto ? (
+      {state.isUserLoggedIn ? (
         <>
           <RootStack.Screen name={screens.app.Home} component={IBankTabs} />
         </>
@@ -28,7 +43,6 @@ const RootNavigator = () => {
             options={{ headerShown: false }}
             component={SignUp}
           />
-          <RootStack.Screen name={screens.app.Home} component={IBankTabs} />
         </>
       )}
     </RootStack.Navigator>

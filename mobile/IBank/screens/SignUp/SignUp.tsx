@@ -1,11 +1,11 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useContext, useMemo, useState } from 'react';
 import { Box, Center, FormControl, Stack, Select } from 'native-base';
 import DateTimePicker, {
   DateTimePickerEvent,
 } from '@react-native-community/datetimepicker';
 import moment from 'moment';
 import { isValidPhoneNumber } from 'libphonenumber-js';
-import { useNavigation } from '@react-navigation/native';
+import EncryptedStorage from 'react-native-encrypted-storage';
 // styles
 import {
   BankNameHeader,
@@ -17,14 +17,14 @@ import { signUpStyles } from './SignUp.styles';
 // constants
 import { constants } from '../../config/constants';
 import { colors } from '../../config/colors';
-import { screens } from '../../config/screens';
+import { actionCases } from '../../store/actionCases';
 // components
 import PhoneInput from '../../components/PhoneInput/PhoneInput';
 import PinInput from '../../components/PinInput/PinInput';
 import DefaultInput from '../../components/DefaultInput/DefaultInput';
 import IBankHeader from '../../components/IBankHeader/IBankHeader';
-// types
-import { NAppNavigatorNavigationProp } from '../../navigation/types/AppNavigator.types';
+// store
+import { Context } from '../../store/store';
 
 const SignUp = () => {
   const [fields, setFields] = useState({
@@ -36,7 +36,7 @@ const SignUp = () => {
   });
   const [showPin, setShowPin] = useState(false);
 
-  const { replace } = useNavigation<NAppNavigatorNavigationProp<'Home'>>();
+  const { dispatch } = useContext(Context);
 
   const onFieldChange = useCallback(
     (value: string, field: string) => {
@@ -64,6 +64,14 @@ const SignUp = () => {
       sex !== ''
     );
   }, [fields]);
+
+  const onPress = useCallback(async () => {
+    await EncryptedStorage.setItem(
+      constants.keys.USER_JWT,
+      JSON.stringify({ USER_JWT: '123123' }),
+    );
+    dispatch({ type: actionCases.IS_USER_LOGGED_IN, payload: true });
+  }, [dispatch]);
 
   return (
     <BlackContentWrapper>
@@ -128,9 +136,7 @@ const SignUp = () => {
           </Stack>
         </FormControl>
 
-        <NextButton
-          disabled={!isDisabled}
-          onPress={() => replace(screens.app.Home)}>
+        <NextButton disabled={!isDisabled} onPress={onPress}>
           <WhiteText>Finish</WhiteText>
         </NextButton>
       </Center>
