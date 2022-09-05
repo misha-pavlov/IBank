@@ -13,7 +13,7 @@ scalar DateTime
 
 type Mutation {
   signIn(phone: String!, pin: String!): AuthPayload!
-  signUp(birthday: DateTime!, countryUniqNumber: String!, fullName: String!, phone: String!, pin: String!, sex: String!): AuthPayload!
+  signUp(birthday: DateTime!, fullName: String!, phone: String!, pin: String!, sex: String!): AuthPayload!
 }
 
 """Mongo object id scalar type"""

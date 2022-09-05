@@ -30,15 +30,7 @@ export class AuthResolver {
     @Args('fullName') fullName: string,
     @Args('birthday') birthday: Date,
     @Args('sex') sex: 'm' | 'f',
-    @Args('countryUniqNumber') countryUniqNumber: string,
   ) {
-    return this.authService.signUp(
-      phone,
-      pin,
-      fullName,
-      birthday,
-      sex,
-      countryUniqNumber,
-    );
+    return this.authService.signUp(phone, pin, fullName, birthday, sex);
   }
 }
