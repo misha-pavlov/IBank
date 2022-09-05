@@ -5,19 +5,26 @@ import DateTimePicker, {
 } from '@react-native-community/datetimepicker';
 import moment from 'moment';
 import { isValidPhoneNumber } from 'libphonenumber-js';
+import { useNavigation } from '@react-navigation/native';
+// styles
 import {
   BankNameHeader,
   BlackContentWrapper,
   NextButton,
   WhiteText,
 } from '../../common/common.styles';
+import { signUpStyles } from './SignUp.styles';
+// constants
 import { constants } from '../../config/constants';
+import { colors } from '../../config/colors';
+import { screens } from '../../config/screens';
+// components
 import PhoneInput from '../../components/PhoneInput/PhoneInput';
 import PinInput from '../../components/PinInput/PinInput';
 import DefaultInput from '../../components/DefaultInput/DefaultInput';
-import { signUpStyles } from './SignUp.styles';
-import { colors } from '../../config/colors';
 import IBankHeader from '../../components/IBankHeader/IBankHeader';
+// types
+import { NAppNavigatorNavigationProp } from '../../navigation/types/AppNavigator.types';
 
 const SignUp = () => {
   const [fields, setFields] = useState({
@@ -28,6 +35,8 @@ const SignUp = () => {
     sex: '',
   });
   const [showPin, setShowPin] = useState(false);
+
+  const { replace } = useNavigation<NAppNavigatorNavigationProp<'Home'>>();
 
   const onFieldChange = useCallback(
     (value: string, field: string) => {
@@ -119,7 +128,9 @@ const SignUp = () => {
           </Stack>
         </FormControl>
 
-        <NextButton disabled={!isDisabled}>
+        <NextButton
+          disabled={!isDisabled}
+          onPress={() => replace(screens.app.Home)}>
           <WhiteText>Finish</WhiteText>
         </NextButton>
       </Center>

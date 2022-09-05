@@ -1,15 +1,9 @@
 import React from 'react';
-import { Text, View } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { screens } from '../config/screens';
 import SignIn from '../screens/SignIn/SignIn';
 import SignUp from '../screens/SignUp/SignUp';
-
-const HomeScreen = () => (
-  <View>
-    <Text>HomeScreen</Text>
-  </View>
-);
+import IBankTabs from './IBankTabs';
 
 const RootStack = createStackNavigator();
 
@@ -20,7 +14,7 @@ const RootNavigator = () => {
     <RootStack.Navigator>
       {chto ? (
         <>
-          <RootStack.Screen name={screens.app.Home} component={HomeScreen} />
+          <RootStack.Screen name={screens.app.Home} component={IBankTabs} />
         </>
       ) : (
         <>
@@ -34,6 +28,7 @@ const RootNavigator = () => {
             options={{ headerShown: false }}
             component={SignUp}
           />
+          <RootStack.Screen name={screens.app.Home} component={IBankTabs} />
         </>
       )}
     </RootStack.Navigator>

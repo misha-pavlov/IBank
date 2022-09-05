@@ -1,3 +1,4 @@
+import { NAppStackParamList } from '../navigation/types/AppNavigator.types';
 import { NAuthStackParamList } from '../navigation/types/AuthNavigator.types';
 
 export const screens = {
@@ -8,6 +9,6 @@ export const screens = {
   },
 
   app: {
-    Home: 'Home',
+    Home: 'Home' as keyof NAppStackParamList,
   },
 };
