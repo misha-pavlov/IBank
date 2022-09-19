@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7c5d8ad4-4071-40a2-8fe2-a67520d4b91d" name="Changes" comment="feat(sign up): add pin field" />
+    <list default="true" id="7c5d8ad4-4071-40a2-8fe2-a67520d4b91d" name="Changes" comment="feat(sign up): add pin field">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile/IBank/config/screens.ts" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/IBank/config/screens.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile/IBank/navigation/RootNavigator.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/IBank/navigation/RootNavigator.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -38,8 +42,8 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "javascript.nodejs.core.library.configured.version": "14.19.1",
-    "javascript.nodejs.core.library.typings.version": "14.18.23",
+    "javascript.nodejs.core.library.configured.version": "14.19.0",
+    "javascript.nodejs.core.library.typings.version": "14.18.28",
     "last_opened_file_path": "/Users/misha-apiko/Desktop/IBank",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -81,6 +85,7 @@
       <workItem from="1660678848624" duration="6610000" />
       <workItem from="1660685480169" duration="2030000" />
       <workItem from="1660942292682" duration="4689000" />
+      <workItem from="1663103893277" duration="2546000" />
     </task>
     <task id="LOCAL-00001" summary="feat(init): add base files">
       <created>1660325414178</created>

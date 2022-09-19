@@ -11,5 +11,6 @@ export const screens = {
   app: {
     Home: 'Home' as keyof NAppStackParamList,
     Loading: 'Loading',
+    Pin: 'Pin',
   },
 };

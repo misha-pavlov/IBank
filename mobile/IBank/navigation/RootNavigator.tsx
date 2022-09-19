@@ -6,6 +6,7 @@ import SignUp from '../screens/SignUp/SignUp';
 import IBankTabs from './IBankTabs';
 import LoadingScreen from '../screens/LoadingScreen/LoadingScreen';
 import { Context } from '../store/store';
+import Pin from '../screens/Pin/Pin';
 
 const RootStack = createStackNavigator();
 
@@ -29,6 +30,11 @@ const RootNavigator = () => {
     <RootStack.Navigator>
       {state.isUserLoggedIn ? (
         <>
+          <RootStack.Screen
+            name={screens.app.Pin}
+            options={{ headerShown: false }}
+            component={Pin}
+          />
           <RootStack.Screen name={screens.app.Home} component={IBankTabs} />
         </>
       ) : (
