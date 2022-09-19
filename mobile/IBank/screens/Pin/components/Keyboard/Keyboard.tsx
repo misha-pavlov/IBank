@@ -31,7 +31,7 @@ const Keyboard: FC<TKeyboard> = ({ setNumber, removeLastNumber }) => {
       <Stack flexDirection="row" justifyContent="space-between">
         <RoundButton text={0} onPress={() => setNumber(0)} isEmptyButton />
         <RoundButton text={0} onPress={() => setNumber(0)} />
-        <RoundButton text={0} onPress={removeLastNumber} />
+        <RoundButton text={0} onPress={removeLastNumber} isRemoveButton />
       </Stack>
     </Stack>
   );
