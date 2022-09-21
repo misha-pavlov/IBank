@@ -15,13 +15,13 @@ const correctCode = '1234';
 const Pin = () => {
   const [pinCode, setPinCode] = useState('');
   const pinRef = useRef<Animatable.View & View>(null);
-  const { replace } = useNavigation<NAppNavigatorNavigationProp<'Home'>>();
+  const { replace } = useNavigation<NAppNavigatorNavigationProp<'Card'>>();
 
 // check on correcting pin code
 useEffect(() => {
   if (pinCode.length === 4) {
     if (pinCode === correctCode) {
-      replace(screens.app.Home);
+      replace(screens.app.Card);
     } else {
       // shake and clear on error
       if (pinRef?.current?.shake) {

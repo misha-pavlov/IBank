@@ -2,7 +2,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 export type NAppStackParamList = {
-  Home: undefined;
+  Card: undefined;
 };
 
 export type NAppNavigatorRouteProp<

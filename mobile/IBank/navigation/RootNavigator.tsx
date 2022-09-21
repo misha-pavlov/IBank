@@ -35,7 +35,7 @@ const RootNavigator = () => {
             options={{ headerShown: false }}
             component={Pin}
           />
-          <RootStack.Screen name={screens.app.Home} component={IBankTabs} />
+          <RootStack.Screen name={screens.app.Card} options={{ headerShown: false }} component={IBankTabs} />
         </>
       ) : (
         <>

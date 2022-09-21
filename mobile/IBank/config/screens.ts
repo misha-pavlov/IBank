@@ -9,7 +9,7 @@ export const screens = {
   },
 
   app: {
-    Home: 'Home' as keyof NAppStackParamList,
+    Card: 'Card' as keyof NAppStackParamList,
     Loading: 'Loading',
     Pin: 'Pin',
   },
