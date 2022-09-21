@@ -1,12 +1,36 @@
 import { Avatar, Center } from 'native-base';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { View } from 'react-native';
+import * as Animatable from 'react-native-animatable';
+import { useNavigation } from '@react-navigation/native';
 import { BlackContentWrapper, WhiteText } from '../../common/common.styles';
 import { colors } from '../../config/colors';
 import Keyboard from './components/Keyboard/Keyboard';
 import PinString from './components/PinString/PinString';
+import { screens } from '../../config/screens';
+import { NAppNavigatorNavigationProp } from '../../navigation/types/AppNavigator.types';
+
+const correctCode = '1234';
 
 const Pin = () => {
   const [pinCode, setPinCode] = useState('');
+  const pinRef = useRef<Animatable.View & View>(null);
+  const { replace } = useNavigation<NAppNavigatorNavigationProp<'Home'>>();
+
+// check on correcting pin code
+useEffect(() => {
+  if (pinCode.length === 4) {
+    if (pinCode === correctCode) {
+      replace(screens.app.Home);
+    } else {
+      // shake and clear on error
+      if (pinRef?.current?.shake) {
+        pinRef?.current?.shake();
+        setPinCode('');
+      }
+    }
+  }
+}, [pinCode, correctCode, pinRef, setPinCode]);
 
   const setNumber = useCallback(
     (number: number) => {
@@ -38,8 +62,12 @@ const Pin = () => {
         </WhiteText>
       </Center>
 
-      <PinString enteredLength={pinCode.length} />
-
+      <Center>
+        <Animatable.View easing="ease-out" ref={pinRef}>
+          <PinString enteredLength={pinCode.length} />
+        </Animatable.View>
+      </Center>
+      
       <Keyboard setNumber={setNumber} removeLastNumber={removeLastNumber} />
     </BlackContentWrapper>
   );
