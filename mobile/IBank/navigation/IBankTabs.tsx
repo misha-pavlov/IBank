@@ -3,10 +3,16 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Card from '../screens/Card/Card';
 import { Text, View } from 'react-native';
 import { screens } from '../config/screens';
+import { colors } from '../config/colors';
+import CardIcon from '../assets/svg/CardIcon';
+import CreditIcon from '../assets/svg/CreditIcon';
+import SavingIcon from '../assets/svg/SavingIcon';
+import CashbackIcon from '../assets/svg/CashbackIcon';
+import MoreIcon from '../assets/svg/MoreIcon';
 
 const Tab = createBottomTabNavigator();
 
-const gg = () => (
+const Screen = () => (
   <View>
     <Text>123</Text>
   </View>
@@ -14,9 +20,20 @@ const gg = () => (
 
 const IBankTabs = () => {
   return (
-    <Tab.Navigator>
-      <Tab.Screen name={screens.app.Card} options={{ headerShown: false }} component={Card} />
-      <Tab.Screen name="Settings" component={gg} />
+    <Tab.Navigator screenOptions={{
+      tabBarStyle: { backgroundColor: colors.black1 },
+      tabBarActiveTintColor: colors.red
+    }}>
+      <Tab.Screen name={screens.app.Card} options={{ headerShown: false, 
+        tabBarIcon: ({ color }) => <CardIcon width={24} height={24} fill={color} /> }} component={Card} />
+      <Tab.Screen name="Credits" options={{ headerShown: false, 
+        tabBarIcon: ({ color }) => <CreditIcon width={24} height={24} fill={color} /> }} component={Screen} />
+      <Tab.Screen name="Saving" options={{ headerShown: false, 
+        tabBarIcon: ({ color }) => <SavingIcon width={24} height={24} fill={color} /> }} component={Screen} />
+      <Tab.Screen name="Cashback" options={{ headerShown: false, 
+        tabBarIcon: ({ color }) => <CashbackIcon width={24} height={24} fill={color} /> }} component={Screen} />
+      <Tab.Screen name="More" options={{ headerShown: false, 
+        tabBarIcon: ({ color }) => <MoreIcon width={24} height={24} fill={color} /> }} component={Screen} />
     </Tab.Navigator>
   );
 };
