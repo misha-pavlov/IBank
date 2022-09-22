@@ -12,13 +12,7 @@ type TDefaultInput = {
   onPress?: () => void;
 };
 
-const DefaultInput: FC<TDefaultInput> = ({
-  value,
-  placeholder,
-  withMarginTop,
-  setValue,
-  onPress,
-}) => {
+const DefaultInput: FC<TDefaultInput> = ({ value, placeholder, withMarginTop, setValue, onPress }) => {
   return (
     <>
       <Input

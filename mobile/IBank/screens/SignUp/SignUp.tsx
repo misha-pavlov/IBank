@@ -1,18 +1,11 @@
 import React, { useCallback, useContext, useMemo, useState } from 'react';
 import { Box, Center, FormControl, Stack, Select } from 'native-base';
-import DateTimePicker, {
-  DateTimePickerEvent,
-} from '@react-native-community/datetimepicker';
+import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import moment from 'moment';
 import { isValidPhoneNumber } from 'libphonenumber-js';
 import EncryptedStorage from 'react-native-encrypted-storage';
 // styles
-import {
-  BankNameHeader,
-  BlackContentWrapper,
-  NextButton,
-  WhiteText,
-} from '../../common/common.styles';
+import { BankNameHeader, BlackContentWrapper, NextButton, WhiteText } from '../../common/common.styles';
 import { signUpStyles } from './SignUp.styles';
 // constants
 import { constants } from '../../config/constants';
@@ -66,10 +59,7 @@ const SignUp = () => {
   }, [fields]);
 
   const onPress = useCallback(async () => {
-    await EncryptedStorage.setItem(
-      constants.keys.USER_JWT,
-      JSON.stringify({ USER_JWT: '123123' }),
-    );
+    await EncryptedStorage.setItem(constants.keys.USER_JWT, JSON.stringify({ USER_JWT: '123123' }));
     dispatch({ type: actionCases.IS_USER_LOGGED_IN, payload: true });
   }, [dispatch]);
 
@@ -89,10 +79,7 @@ const SignUp = () => {
 
       <Center>
         <FormControl w="75%" maxW="300px">
-          <PhoneInput
-            value={fields.phone}
-            setValue={value => onFieldChange(value, 'phone')}
-          />
+          <PhoneInput value={fields.phone} setValue={value => onFieldChange(value, 'phone')} />
 
           <Box mt="30px">
             <PinInput
@@ -115,9 +102,7 @@ const SignUp = () => {
             <DateTimePicker
               mode="date"
               style={signUpStyles.birthdayPicker}
-              value={moment(
-                fields.birthday === '' ? new Date() : fields.birthday,
-              ).toDate()}
+              value={moment(fields.birthday === '' ? new Date() : fields.birthday).toDate()}
               onChange={onChangeDate}
             />
           </Stack>

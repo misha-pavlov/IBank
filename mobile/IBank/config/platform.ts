@@ -7,5 +7,4 @@ export const isIOS = (): boolean => {
   return Platform.OS === 'ios';
 };
 
-export const isIphoneX = (): boolean =>
-  isIOS() && SCREEN_HEIGHT >= IPHONEX_HEIGHT;
+export const isIphoneX = (): boolean => isIOS() && SCREEN_HEIGHT >= IPHONEX_HEIGHT;

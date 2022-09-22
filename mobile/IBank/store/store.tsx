@@ -10,9 +10,7 @@ const Store = ({ children }: { children: JSX.Element }) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [state, dispatch] = useReducer(reducers, initialState);
 
-  return (
-    <Context.Provider value={{ state, dispatch }}>{children}</Context.Provider>
-  );
+  return <Context.Provider value={{ state, dispatch }}>{children}</Context.Provider>;
 };
 
 export const Context = createContext<TContext>({

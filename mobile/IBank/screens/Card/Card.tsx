@@ -1,11 +1,14 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text } from 'react-native';
+import { BlackContentWrapper } from '../../common/common.styles';
+import HeaderDoubleCards from './components/HeaderDoubleCards/HeaderDoubleCards';
 
 const Card = () => {
   return (
-    <View>
+    <BlackContentWrapper>
+      <HeaderDoubleCards />
       <Text>Card</Text>
-    </View>
+    </BlackContentWrapper>
   );
 };
 

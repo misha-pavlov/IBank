@@ -2,7 +2,8 @@ import styled from 'styled-components/native';
 import { colors } from '../../../../../../config/colors';
 
 export const RoundTouchable = styled.TouchableOpacity<{
-  isEmptyButton?: boolean; isRemoveButton?: boolean;
+  isEmptyButton?: boolean;
+  isRemoveButton?: boolean;
 }>`
   border: 1px solid
     ${({ isEmptyButton, isRemoveButton }) => (isEmptyButton || isRemoveButton ? colors.black : colors.gray100)};

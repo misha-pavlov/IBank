@@ -17,20 +17,20 @@ const Pin = () => {
   const pinRef = useRef<Animatable.View & View>(null);
   const { replace } = useNavigation<NAppNavigatorNavigationProp<'Card'>>();
 
-// check on correcting pin code
-useEffect(() => {
-  if (pinCode.length === 4) {
-    if (pinCode === correctCode) {
-      replace(screens.app.Card);
-    } else {
-      // shake and clear on error
-      if (pinRef?.current?.shake) {
-        pinRef?.current?.shake();
-        setPinCode('');
+  // check on correcting pin code
+  useEffect(() => {
+    if (pinCode.length === 4) {
+      if (pinCode === correctCode) {
+        replace(screens.app.Card);
+      } else {
+        // shake and clear on error
+        if (pinRef?.current?.shake) {
+          pinRef?.current?.shake();
+          setPinCode('');
+        }
       }
     }
-  }
-}, [pinCode, correctCode, pinRef, setPinCode]);
+  }, [pinCode, correctCode, pinRef, setPinCode]);
 
   const setNumber = useCallback(
     (number: number) => {
@@ -67,7 +67,7 @@ useEffect(() => {
           <PinString enteredLength={pinCode.length} />
         </Animatable.View>
       </Center>
-      
+
       <Keyboard setNumber={setNumber} removeLastNumber={removeLastNumber} />
     </BlackContentWrapper>
   );

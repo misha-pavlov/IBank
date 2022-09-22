@@ -5,17 +5,17 @@ export type NAppStackParamList = {
   Card: undefined;
 };
 
-export type NAppNavigatorRouteProp<
-  ScreenName extends keyof NAppStackParamList,
-> = RouteProp<NAppStackParamList, ScreenName>;
+export type NAppNavigatorRouteProp<ScreenName extends keyof NAppStackParamList> = RouteProp<
+  NAppStackParamList,
+  ScreenName
+>;
 
-export type NAppNavigatorNavigationProp<
-  ScreenName extends keyof NAppStackParamList,
-> = StackNavigationProp<NAppStackParamList, ScreenName>;
+export type NAppNavigatorNavigationProp<ScreenName extends keyof NAppStackParamList> = StackNavigationProp<
+  NAppStackParamList,
+  ScreenName
+>;
 
-export interface NAppNavigatorScreenProps<
-  ScreenName extends keyof NAppStackParamList,
-> {
+export interface NAppNavigatorScreenProps<ScreenName extends keyof NAppStackParamList> {
   route: NAppNavigatorRouteProp<ScreenName>;
   navigation: NAppNavigatorNavigationProp<ScreenName>;
 }

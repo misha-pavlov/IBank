@@ -1,23 +1,7 @@
-import React, {
-  Dispatch,
-  FC,
-  SetStateAction,
-  useCallback,
-  useMemo,
-  useState,
-} from 'react';
-import {
-  Center,
-  FormControl,
-  Input,
-  Stack,
-  WarningOutlineIcon,
-} from 'native-base';
+import React, { Dispatch, FC, SetStateAction, useCallback, useMemo, useState } from 'react';
+import { Center, FormControl, Input, Stack, WarningOutlineIcon } from 'native-base';
 import { TouchableOpacity } from 'react-native';
-import {
-  isValidPhoneNumber,
-  parseIncompletePhoneNumber,
-} from 'libphonenumber-js';
+import { isValidPhoneNumber, parseIncompletePhoneNumber } from 'libphonenumber-js';
 import { useNavigation } from '@react-navigation/native';
 // constants
 import { colors } from '../../../../config/colors';
@@ -90,17 +74,13 @@ const SignInForms: FC<TSignInForms> = ({ currentStage, setCurrentStage }) => {
             <PhoneInput value={value} setValue={setValue} />
 
             <Center>
-              <NextButton
-                disabled={!isDisabled}
-                onPress={() => setCurrentStage(constants.signUpStages.pin)}>
+              <NextButton disabled={!isDisabled} onPress={() => setCurrentStage(constants.signUpStages.pin)}>
                 <WhiteText>Next</WhiteText>
               </NextButton>
             </Center>
 
             <TouchableOpacity onPress={moveToSignUp}>
-              <MoveToSignUpText>
-                Don't have account? Let's create.
-              </MoveToSignUpText>
+              <MoveToSignUpText>Don't have account? Let's create.</MoveToSignUpText>
             </TouchableOpacity>
           </FormControl>
         </>
@@ -110,12 +90,7 @@ const SignInForms: FC<TSignInForms> = ({ currentStage, setCurrentStage }) => {
     return (
       <>
         <FormControl w="75%" maxW="300px">
-          <PinInput
-            pin={pin}
-            showPin={showPin}
-            setPin={setPin}
-            setShowPin={setShowPin}
-          />
+          <PinInput pin={pin} showPin={showPin} setPin={setPin} setShowPin={setShowPin} />
         </FormControl>
 
         <FormControl isInvalid={isInvalid} w="75%" maxW="300px" mt={25}>
@@ -131,16 +106,14 @@ const SignInForms: FC<TSignInForms> = ({ currentStage, setCurrentStage }) => {
             onChangeText={text => setConfirmPin(text)}
             type={showConfirmPin ? 'text' : 'password'}
             InputRightElement={
-              <TouchableOpacity
-                onPress={() => setShowConfirmPin(!showConfirmPin)}>
+              <TouchableOpacity onPress={() => setShowConfirmPin(!showConfirmPin)}>
                 {showConfirmPin ? <VisibilityOff /> : <Visibility />}
               </TouchableOpacity>
             }
             {...invalidStyles}
           />
           {isInvalid && (
-            <FormControl.ErrorMessage
-              leftIcon={<WarningOutlineIcon size="xs" />}>
+            <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
               Error confirming pin
             </FormControl.ErrorMessage>
           )}
@@ -151,8 +124,7 @@ const SignInForms: FC<TSignInForms> = ({ currentStage, setCurrentStage }) => {
         </NextButton>
 
         <Stack mt={25}>
-          <TouchableOpacity
-            onPress={() => setCurrentStage(constants.signUpStages.phone)}>
+          <TouchableOpacity onPress={() => setCurrentStage(constants.signUpStages.phone)}>
             <BackButtonText>← Back to phone</BackButtonText>
           </TouchableOpacity>
         </Stack>

@@ -30,25 +30,13 @@ const RootNavigator = () => {
     <RootStack.Navigator>
       {state.isUserLoggedIn ? (
         <>
-          <RootStack.Screen
-            name={screens.app.Pin}
-            options={{ headerShown: false }}
-            component={Pin}
-          />
+          <RootStack.Screen name={screens.app.Pin} options={{ headerShown: false }} component={Pin} />
           <RootStack.Screen name={screens.app.Card} options={{ headerShown: false }} component={IBankTabs} />
         </>
       ) : (
         <>
-          <RootStack.Screen
-            name={screens.auth.SignIn}
-            options={{ headerShown: false }}
-            component={SignIn}
-          />
-          <RootStack.Screen
-            name={screens.auth.SignUp}
-            options={{ headerShown: false }}
-            component={SignUp}
-          />
+          <RootStack.Screen name={screens.auth.SignIn} options={{ headerShown: false }} component={SignIn} />
+          <RootStack.Screen name={screens.auth.SignUp} options={{ headerShown: false }} component={SignUp} />
         </>
       )}
     </RootStack.Navigator>

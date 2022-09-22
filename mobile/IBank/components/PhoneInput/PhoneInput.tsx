@@ -12,8 +12,7 @@ const PhoneInput: FC<TPhoneInput> = ({ value, setValue }) => {
   const onChangeText = useCallback(
     (text: string) => {
       try {
-        const phoneNumber =
-          parsePhoneNumberWithError(text).formatInternational();
+        const phoneNumber = parsePhoneNumberWithError(text).formatInternational();
         setValue(phoneNumber);
       } catch (error) {
         // Not a phone number, non-existent country, etc.

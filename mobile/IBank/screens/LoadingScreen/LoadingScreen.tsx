@@ -6,11 +6,7 @@ import { constants } from '../../config/constants';
 import { actionCases } from '../../store/actionCases';
 import { Context } from '../../store/store';
 
-const LoadingScreen = ({
-  setLoading,
-}: {
-  setLoading: Dispatch<SetStateAction<boolean>>;
-}) => {
+const LoadingScreen = ({ setLoading }: { setLoading: Dispatch<SetStateAction<boolean>> }) => {
   const { dispatch } = useContext(Context);
 
   useEffect(() => {
