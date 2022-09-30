@@ -57,8 +57,8 @@ const SignInForms: FC<TSignInForms> = ({ currentStage, setCurrentStage }) => {
     }
 
     return {
-      borderBottomColor: colors.gray100,
-      underlineColorAndroid: colors.gray100,
+      borderBottomColor: colors.grey100,
+      underlineColorAndroid: colors.grey100,
     };
   }, [isInvalid]);
 
@@ -99,8 +99,8 @@ const SignInForms: FC<TSignInForms> = ({ currentStage, setCurrentStage }) => {
             variant="underlined"
             keyboardType="numeric"
             placeholder="Confirm your pin"
-            color={colors.gray100}
-            placeholderTextColor={colors.gray100}
+            color={colors.grey100}
+            placeholderTextColor={colors.grey100}
             maxLength={4}
             value={confirmPin}
             onChangeText={text => setConfirmPin(text)}

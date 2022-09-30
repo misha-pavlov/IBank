@@ -40,7 +40,7 @@ const HeaderDoubleCards = () => {
         <IconRoundBlock onPress={toggleModal}>
           <DoubleCards width={18} height={18} />
         </IconRoundBlock>
-        <ChevronDownIcon mt="5px" size={18} color={colors.gray500} />
+        <ChevronDownIcon mt="5px" size={18} color={colors.grey500} />
       </Center>
 
       <Modal

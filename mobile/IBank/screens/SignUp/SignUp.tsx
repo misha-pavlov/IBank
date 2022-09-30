@@ -112,8 +112,8 @@ const SignUp = () => {
               selectedValue={fields.sex}
               placeholder="Enter sex"
               variant="filled"
-              placeholderTextColor={colors.gray100}
-              color={colors.gray100}
+              placeholderTextColor={colors.grey100}
+              color={colors.grey100}
               onValueChange={value => onFieldChange(value, 'sex')}>
               <Select.Item label="Male" value="m" />
               <Select.Item label="Female" value="f" />

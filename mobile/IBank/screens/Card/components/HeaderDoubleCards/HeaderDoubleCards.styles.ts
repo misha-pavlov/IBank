@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native';
 import { colors } from '../../../../config/colors';
 
 export const IconRoundBlock = styled.TouchableOpacity`
-  background-color: ${colors.gray400_opacity35};
+  background-color: ${colors.grey400_opacity35};
   border-radius: 50px;
   padding: 8px;
 `;

@@ -10,4 +10,8 @@ export const constants = {
     phone: 'phone' as 'phone',
     pin: 'pin' as 'pin',
   },
+
+  modal: {
+    screens: ['main', 'edit_profile'],
+  },
 };

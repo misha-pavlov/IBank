@@ -26,8 +26,8 @@ const PhoneInput: FC<TPhoneInput> = ({ value, setValue }) => {
     <>
       <FormControl.HelperText>
         <Stack direction="row" alignItems="center" space="xs">
-          <InfoOutlineIcon size="sm" color={colors.gray500} />
-          <Text color={colors.gray500} fontSize={12}>
+          <InfoOutlineIcon size="sm" color={colors.grey500} />
+          <Text color={colors.grey500} fontSize={12}>
             Attention! Need to enter a country prefix.
           </Text>
         </Stack>
@@ -37,10 +37,10 @@ const PhoneInput: FC<TPhoneInput> = ({ value, setValue }) => {
         variant="underlined"
         keyboardType="phone-pad"
         placeholder="Enter phone"
-        color={colors.gray100}
-        borderBottomColor={colors.gray100}
-        placeholderTextColor={colors.gray100}
-        underlineColorAndroid={colors.gray100}
+        color={colors.grey100}
+        borderBottomColor={colors.grey100}
+        placeholderTextColor={colors.grey100}
+        underlineColorAndroid={colors.grey100}
         value={value}
         onChangeText={text => onChangeText(text)}
       />
