@@ -30,7 +30,7 @@ const Pin = () => {
         }
       }
     }
-  }, [pinCode, correctCode, pinRef, setPinCode]);
+  }, [pinCode, pinRef, setPinCode, replace]);
 
   const setNumber = useCallback(
     (number: number) => {
