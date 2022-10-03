@@ -3,6 +3,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 export type NAppStackParamList = {
   Card: undefined;
+  HeaderModal: undefined;
 };
 
 export type NAppNavigatorRouteProp<ScreenName extends keyof NAppStackParamList> = RouteProp<

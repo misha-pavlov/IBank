@@ -10,6 +10,8 @@ export const screens = {
 
   app: {
     Card: 'Card' as keyof NAppStackParamList,
+    Card1: 'Card1',
+    HeaderModal: 'HeaderModal' as keyof NAppStackParamList,
     Loading: 'Loading',
     Pin: 'Pin',
   },

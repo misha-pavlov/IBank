@@ -1,21 +1,21 @@
+import { useNavigation } from '@react-navigation/native';
 import { AddIcon, Avatar, Center, Divider, Flex, View } from 'native-base';
-import React, { FC } from 'react';
+import React from 'react';
 import { TouchableOpacity } from 'react-native';
-import CardIcon from '../../../../../../assets/svg/CardIcon';
-import Settings from '../../../../../../assets/svg/Settings';
-import { WhiteText } from '../../../../../../common/common.styles';
-import IBankGrayButton from '../../../../../../components/IBankGrayButton/IBankGrayButton';
-import { colors } from '../../../../../../config/colors';
-import { constants } from '../../../../../../config/constants';
-import { CardCube, SectionGradient } from './MainSection.styles';
+import CardIcon from '../../assets/svg/CardIcon';
+import Settings from '../../assets/svg/Settings';
+import { WhiteText, BlackContentWrapper } from '../../common/common.styles';
+import IBankGrayButton from '../../components/IBankGrayButton/IBankGrayButton';
+import { colors } from '../../config/colors';
+import { useScrollHandler } from '../../hooks/useScrollHandler';
+import { BottomBottomScrollableBlock, CardCube, ScrollBlock, SectionGradient } from './HeaderModal.styles';
 
-type TMainSection = {
-  switchScreen: (screenName: string) => void;
-};
+const HeaderModal = () => {
+  const { goBack, canGoBack } = useNavigation();
+  const scrollHandler = useScrollHandler({ onScrollTop: () => canGoBack() && goBack() });
 
-const MainSection: FC<TMainSection> = ({ switchScreen }) => {
   return (
-    <>
+    <BlackContentWrapper>
       <Center mt={50}>
         <Avatar
           bg={colors.pinkA100}
@@ -25,7 +25,7 @@ const MainSection: FC<TMainSection> = ({ switchScreen }) => {
           }}>
           FN
           <Avatar.Badge bg={colors.gray100}>
-            <TouchableOpacity onPress={() => switchScreen(constants.modal.screens[1])}>
+            <TouchableOpacity>
               <Settings width={16} height={16} fill={colors.black} />
             </TouchableOpacity>
           </Avatar.Badge>
@@ -96,8 +96,12 @@ const MainSection: FC<TMainSection> = ({ switchScreen }) => {
           </TouchableOpacity>
         </SectionGradient>
       </Center>
-    </>
+
+      <BottomBottomScrollableBlock>
+        <ScrollBlock scrollEventThrottle={16} onScroll={scrollHandler} />
+      </BottomBottomScrollableBlock>
+    </BlackContentWrapper>
   );
 };
 
-export default MainSection;
+export default HeaderModal;
