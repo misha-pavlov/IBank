@@ -7,5 +7,5 @@ export const PinPoint = styled(View)<{ isSetPoint?: boolean }>`
   height: 15px;
   margin: 45px 15px;
   border-radius: 15px;
-  background-color: ${({ isSetPoint }) => (isSetPoint ? colors.pinkA100 : colors.grey100)};
+  background-color: ${({ isSetPoint }) => (isSetPoint ? colors.pinkA100 : colors.gray100)};
 `;

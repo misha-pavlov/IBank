@@ -12,5 +12,5 @@ export const BestCardText = styled.Text<{ withMargin?: boolean }>`
   font-weight: ${({ withMargin }) => (withMargin ? 400 : 600)};
   font-size: 20px;
   text-align: center;
-  color: ${colors.grey100};
+  color: ${colors.gray100};
 `;

@@ -4,7 +4,7 @@ import { TouchableOpacity } from 'react-native';
 import CardIcon from '../../../../../../assets/svg/CardIcon';
 import Settings from '../../../../../../assets/svg/Settings';
 import { WhiteText } from '../../../../../../common/common.styles';
-import IBankGrayButton from '../../../../../../components/IBankGreyButton/IBankGreyButton';
+import IBankGrayButton from '../../../../../../components/IBankGrayButton/IBankGrayButton';
 import { colors } from '../../../../../../config/colors';
 import { constants } from '../../../../../../config/constants';
 import { CardCube, SectionGradient } from './MainSection.styles';
@@ -24,7 +24,7 @@ const MainSection: FC<TMainSection> = ({ switchScreen }) => {
             uri: 'https://images.unsplash.com/photo-1510771463146-e89e6e86560e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=627&q=80',
           }}>
           FN
-          <Avatar.Badge bg={colors.grey100}>
+          <Avatar.Badge bg={colors.gray100}>
             <TouchableOpacity onPress={() => switchScreen(constants.modal.screens[1])}>
               <Settings width={16} height={16} fill={colors.black} />
             </TouchableOpacity>
@@ -45,7 +45,7 @@ const MainSection: FC<TMainSection> = ({ switchScreen }) => {
 
       <Center mt={25}>
         <SectionGradient
-          colors={[colors.grey400, colors.grey500, colors.grey600]}
+          colors={[colors.gray400, colors.gray500, colors.gray600]}
           start={{ x: 0.0, y: 1.0 }}
           end={{ x: 0.7, y: 0.25 }}
           locations={[1, 0.5, 0]}>
@@ -74,7 +74,7 @@ const MainSection: FC<TMainSection> = ({ switchScreen }) => {
 
             <TouchableOpacity>
               <CardCube>
-                <CardIcon width={32} height={32} fill={colors.blueGrey500} />
+                <CardIcon width={32} height={32} fill={colors.blueGray500} />
               </CardCube>
               <WhiteText mt="5px" textAlign="center">
                 n $
@@ -83,11 +83,11 @@ const MainSection: FC<TMainSection> = ({ switchScreen }) => {
           </Flex>
 
           {/* Hide next section if user already have a 3 cards */}
-          <Divider bg={colors.blueGrey700} mt={25} mb={15} />
+          <Divider bg={colors.blueGray700} mt={25} mb={15} />
 
           <TouchableOpacity>
             <Flex flexDirection="row" justifyContent="center" alignItems="center">
-              <View backgroundColor={colors.grey100} borderRadius={50} p="2px" mr="5px">
+              <View backgroundColor={colors.gray100} borderRadius={50} p="2px" mr="5px">
                 <AddIcon color={colors.black} size="xs" />
               </View>
 

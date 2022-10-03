@@ -6,7 +6,7 @@ export const RoundTouchable = styled.TouchableOpacity<{
   isRemoveButton?: boolean;
 }>`
   border: 1px solid
-    ${({ isEmptyButton, isRemoveButton }) => (isEmptyButton || isRemoveButton ? colors.black : colors.grey100)};
+    ${({ isEmptyButton, isRemoveButton }) => (isEmptyButton || isRemoveButton ? colors.black : colors.gray100)};
   padding: ${({ isRemoveButton }) => (isRemoveButton ? '15px 15px' : '15px 23px')};
   border-radius: 50px;
   margin-bottom: 25px;

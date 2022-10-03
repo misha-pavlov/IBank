@@ -20,10 +20,10 @@ const DefaultInput: FC<TDefaultInput> = ({ value, placeholder, withMarginTop, se
         variant="underlined"
         placeholder={placeholder}
         maxW={300}
-        color={colors.grey100}
-        borderBottomColor={colors.grey100}
-        placeholderTextColor={colors.grey100}
-        underlineColorAndroid={colors.grey100}
+        color={colors.gray100}
+        borderBottomColor={colors.gray100}
+        placeholderTextColor={colors.gray100}
+        underlineColorAndroid={colors.gray100}
         value={value}
         onChangeText={text => setValue(text)}
         onPressIn={onPress}

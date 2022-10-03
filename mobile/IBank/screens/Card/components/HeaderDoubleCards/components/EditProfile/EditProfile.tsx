@@ -23,7 +23,7 @@ const EditProfile = () => {
         </Avatar>
       </Center>
 
-      <Center mt={25} ml={8} mr={8} backgroundColor={colors.grey900}>
+      <Center mt={25} ml={8} mr={8} backgroundColor={colors.gray900}>
         <WhiteText fontSize={20} fontWeight={600}>
           Your personal data
         </WhiteText>

@@ -12,6 +12,6 @@ export const SectionGradient = styled(LinearGradient)`
 export const CardCube = styled(View)<{ isSelectedCard?: boolean }>`
   padding: 10px;
   border-radius: 15px;
-  border: 1px solid ${colors.grey100};
-  ${({ isSelectedCard }) => isSelectedCard && `background-color: ${colors.grey100_opacity45}`}
+  border: 1px solid ${colors.gray100};
+  ${({ isSelectedCard }) => isSelectedCard && `background-color: ${colors.gray100_opacity45}`}
 `;

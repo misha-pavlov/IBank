@@ -22,10 +22,10 @@ const PinInput: FC<TPinInput> = ({ pin, setPin, showPin, setShowPin }) => {
         placeholder="Enter pin"
         maxW={300}
         maxLength={4}
-        color={colors.grey100}
-        borderBottomColor={colors.grey100}
-        placeholderTextColor={colors.grey100}
-        underlineColorAndroid={colors.grey100}
+        color={colors.gray100}
+        borderBottomColor={colors.gray100}
+        placeholderTextColor={colors.gray100}
+        underlineColorAndroid={colors.gray100}
         value={pin}
         onChangeText={text => setPin(text)}
         type={showPin ? 'text' : 'password'}
