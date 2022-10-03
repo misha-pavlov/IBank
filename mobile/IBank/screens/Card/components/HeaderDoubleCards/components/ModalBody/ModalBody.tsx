@@ -17,7 +17,7 @@ const ModalBody = () => {
       case constants.modal.screens[0]:
         return <MainSection switchScreen={switchScreen} />;
       case constants.modal.screens[1]:
-        return <EditProfile />;
+        return <EditProfile switchScreen={switchScreen} />;
       default:
         return <MainSection switchScreen={switchScreen} />;
     }

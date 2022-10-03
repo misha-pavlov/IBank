@@ -20,4 +20,10 @@ export const colors = {
   blueGray700: '#455A64',
   // use this color for iron card
   blueGray500: '#607D8B',
+
+  yellow700: '#FBC02D',
+
+  green600: '#43A047',
+
+  orange600: '#FB8C00',
 };
