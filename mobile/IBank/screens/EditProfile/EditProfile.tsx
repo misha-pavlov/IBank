@@ -1,26 +1,22 @@
 import { ArrowBackIcon, Avatar, Center, Flex, View } from 'native-base';
-import React, { FC } from 'react';
-import { TouchableOpacity, useWindowDimensions } from 'react-native';
-import ChatIcon from '../../../../../../assets/svg/ChatIcon';
-import DocumentIcon from '../../../../../../assets/svg/DocumentIcon';
-import MailIcon from '../../../../../../assets/svg/MailIcon';
-import PhoneIcon from '../../../../../../assets/svg/PhoneIcon';
-import { WhiteText } from '../../../../../../common/common.styles';
-import { colors } from '../../../../../../config/colors';
-import { constants } from '../../../../../../config/constants';
+import React from 'react';
+import { TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import ChatIcon from '../../assets/svg/ChatIcon';
+import DocumentIcon from '../../assets/svg/DocumentIcon';
+import MailIcon from '../../assets/svg/MailIcon';
+import PhoneIcon from '../../assets/svg/PhoneIcon';
+import { WhiteText, BlackContentWrapper } from '../../common/common.styles';
+import { colors } from '../../config/colors';
 import PersonalDataRow from './components/PersonalDataRow/PersonalDataRow';
 
-type TEditProfile = {
-  switchScreen: (screenName: string) => void;
-};
-
-const EditProfile: FC<TEditProfile> = ({ switchScreen }) => {
-  const { width } = useWindowDimensions();
+const EditProfile = () => {
+  const { goBack } = useNavigation();
 
   return (
-    <>
-      <View position="absolute" top={60} left="16px">
-        <TouchableOpacity onPress={() => switchScreen(constants.modal.screens[0])}>
+    <BlackContentWrapper position="relative">
+      <View position="absolute" top={75} left="16px" zIndex={100}>
+        <TouchableOpacity onPress={goBack}>
           <ArrowBackIcon color={colors.gray100} />
         </TouchableOpacity>
       </View>
@@ -42,14 +38,7 @@ const EditProfile: FC<TEditProfile> = ({ switchScreen }) => {
         </Avatar>
       </Center>
 
-      <Flex
-        mt={25}
-        p="16px"
-        ml="-16px"
-        w={width - 32}
-        flexDirection="column"
-        backgroundColor={colors.gray900}
-        borderRadius={8}>
+      <Flex mt={25} p="16px" flexDirection="column" backgroundColor={colors.gray900} borderRadius={8}>
         <PersonalDataRow
           label="What is your name?"
           text="Firs + Last name"
@@ -82,7 +71,7 @@ const EditProfile: FC<TEditProfile> = ({ switchScreen }) => {
           icon={<DocumentIcon width={24} height={24} fill={colors.gray100} />}
         />
       </Flex>
-    </>
+    </BlackContentWrapper>
   );
 };
 

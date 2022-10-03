@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import { AddIcon, Avatar, Center, Divider, Flex, View } from 'native-base';
+import { AddIcon, Avatar, Center, Divider, Flex, HStack, View } from 'native-base';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import CardIcon from '../../assets/svg/CardIcon';
@@ -7,11 +7,13 @@ import Settings from '../../assets/svg/Settings';
 import { WhiteText, BlackContentWrapper } from '../../common/common.styles';
 import IBankGrayButton from '../../components/IBankGrayButton/IBankGrayButton';
 import { colors } from '../../config/colors';
+import { screens } from '../../config/screens';
 import { useScrollHandler } from '../../hooks/useScrollHandler';
+import { NAppNavigatorNavigationProp } from '../../navigation/types/AppNavigator.types';
 import { BottomBottomScrollableBlock, CardCube, ScrollBlock, SectionGradient } from './HeaderModal.styles';
 
 const HeaderModal = () => {
-  const { goBack, canGoBack } = useNavigation();
+  const { goBack, canGoBack, navigate } = useNavigation<NAppNavigatorNavigationProp<'EditProfile'>>();
   const scrollHandler = useScrollHandler({ onScrollTop: () => canGoBack() && goBack() });
 
   return (
@@ -25,7 +27,7 @@ const HeaderModal = () => {
           }}>
           FN
           <Avatar.Badge bg={colors.gray100}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigate(screens.app.EditProfile)}>
               <Settings width={16} height={16} fill={colors.black} />
             </TouchableOpacity>
           </Avatar.Badge>
@@ -38,10 +40,10 @@ const HeaderModal = () => {
         </WhiteText>
       </Center>
 
-      <Center mt={25} flexDirection="row" justifyContent="space-between">
+      <HStack mt={25} flexDirection="row" justifyContent="center" space={3}>
         <IBankGrayButton text="💎 Statistics" onPress={() => console.log('123')} w={150} />
         <IBankGrayButton text="💰 Capital" onPress={() => console.log('123')} w={150} />
-      </Center>
+      </HStack>
 
       <Center mt={25}>
         <SectionGradient
@@ -97,6 +99,7 @@ const HeaderModal = () => {
         </SectionGradient>
       </Center>
 
+      {/* Next block for closing screen on scroll from down to top */}
       <BottomBottomScrollableBlock>
         <ScrollBlock scrollEventThrottle={16} onScroll={scrollHandler} />
       </BottomBottomScrollableBlock>

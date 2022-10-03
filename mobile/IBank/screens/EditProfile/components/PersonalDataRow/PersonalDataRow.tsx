@@ -1,8 +1,8 @@
 import { Flex, Input, Text } from 'native-base';
 import React, { FC, useCallback, useMemo, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
-import { WhiteText } from '../../../../../../../../common/common.styles';
-import { colors } from '../../../../../../../../config/colors';
+import { WhiteText } from '../../../../common/common.styles';
+import { colors } from '../../../../config/colors';
 import { IconWrapper } from './PersonalDataRow.styles';
 
 type TPersonalDataRow = {

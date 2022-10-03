@@ -3,6 +3,7 @@ import { createStackNavigator, StackCardInterpolationProps, StackNavigationOptio
 import { screens } from '../config/screens';
 import Card from '../screens/Card/Card';
 import HeaderModal from '../screens/HeaderModal/HeaderModal';
+import EditProfile from '../screens/EditProfile/EditProfile';
 
 const CardStack = createStackNavigator();
 
@@ -26,9 +27,14 @@ export const verticalAnimation: StackNavigationOptions = {
 
 const CardNavigation = () => {
   return (
-    <CardStack.Navigator screenOptions={verticalAnimation}>
-      <CardStack.Screen name={screens.app.Card1} options={{ headerShown: false }} component={Card} />
-      <CardStack.Screen name={screens.app.HeaderModal} options={{ headerShown: false }} component={HeaderModal} />
+    <CardStack.Navigator>
+      <CardStack.Screen name={screens.app.Card} options={{ headerShown: false }} component={Card} />
+      <CardStack.Screen
+        name={screens.app.HeaderModal}
+        options={{ headerShown: false, ...verticalAnimation }}
+        component={HeaderModal}
+      />
+      <CardStack.Screen name={screens.app.EditProfile} options={{ headerShown: false }} component={EditProfile} />
     </CardStack.Navigator>
   );
 };

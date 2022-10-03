@@ -26,7 +26,7 @@ const IBankTabs = () => {
         tabBarActiveTintColor: colors.red,
       }}>
       <Tab.Screen
-        name={screens.app.Card}
+        name={screens.app.CardNavigation}
         options={{ headerShown: false, tabBarIcon: ({ color }) => <CardIcon width={24} height={24} fill={color} /> }}
         component={CardNavigation}
       />
