@@ -9,6 +9,7 @@ import PhoneIcon from '../../assets/svg/PhoneIcon';
 import { WhiteText, BlackContentWrapper } from '../../common/common.styles';
 import { colors } from '../../config/colors';
 import PersonalDataRow from './components/PersonalDataRow/PersonalDataRow';
+import IBankBlackButton from '../../components/IBankBlackButton/IBankBlackButton';
 
 const EditProfile = () => {
   const { goBack } = useNavigation();
@@ -38,7 +39,7 @@ const EditProfile = () => {
         </Avatar>
       </Center>
 
-      <Flex mt={25} p="16px" flexDirection="column" backgroundColor={colors.gray900} borderRadius={8}>
+      <Flex mt={25} px="16px" py="32px" flexDirection="column" backgroundColor={colors.gray900} borderRadius={10}>
         <PersonalDataRow
           label="What is your name?"
           text="Firs + Last name"
@@ -71,6 +72,10 @@ const EditProfile = () => {
           icon={<DocumentIcon width={24} height={24} fill={colors.gray100} />}
         />
       </Flex>
+
+      <View mt={12}>
+        <IBankBlackButton text="Sign Out" onPress={() => console.log('SIGN OUT')} />
+      </View>
     </BlackContentWrapper>
   );
 };
