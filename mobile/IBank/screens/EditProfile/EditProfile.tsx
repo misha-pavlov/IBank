@@ -1,7 +1,5 @@
-import { ArrowBackIcon, Avatar, Center, Flex, View } from 'native-base';
+import { Avatar, Center, Flex, View } from 'native-base';
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import ChatIcon from '../../assets/svg/ChatIcon';
 import DocumentIcon from '../../assets/svg/DocumentIcon';
 import MailIcon from '../../assets/svg/MailIcon';
@@ -12,17 +10,9 @@ import PersonalDataRow from './components/PersonalDataRow/PersonalDataRow';
 import IBankBlackButton from '../../components/IBankBlackButton/IBankBlackButton';
 
 const EditProfile = () => {
-  const { goBack } = useNavigation();
-
   return (
-    <BlackContentWrapper position="relative">
-      <View position="absolute" top={75} left="16px" zIndex={100}>
-        <TouchableOpacity onPress={goBack}>
-          <ArrowBackIcon color={colors.gray100} />
-        </TouchableOpacity>
-      </View>
-
-      <Center mt={50}>
+    <BlackContentWrapper>
+      <Center mt={-25}>
         <WhiteText fontSize={20} fontWeight={600}>
           Your personal data
         </WhiteText>
