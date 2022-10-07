@@ -33,6 +33,6 @@ export const s = StyleSheet.create({
   },
   backdropStyle: {
     backgroundColor: colors.black,
-    marginTop: '-45%',
+    height: 459,
   },
 });

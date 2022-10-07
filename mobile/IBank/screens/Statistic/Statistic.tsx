@@ -1,16 +1,19 @@
 import { useNavigation } from '@react-navigation/native';
 import moment from 'moment';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import DateRangePicker from 'react-native-daterange-picker';
 import { BlurView } from '@react-native-community/blur';
-import BottomSheet from '@gorhom/bottom-sheet';
-import { ChevronLeftIcon, ChevronRightIcon } from 'native-base';
+import BottomSheet, { BottomSheetBackdrop, BottomSheetFooter } from '@gorhom/bottom-sheet';
+import { ChevronLeftIcon, ChevronRightIcon, View } from 'native-base';
 import { useWindowDimensions } from 'react-native';
+import { BottomSheetDefaultBackdropProps } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types';
+import { BottomSheetDefaultFooterProps } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetFooter/types';
 import CalendarIcon from '../../assets/svg/CalendarIcon';
 import { GradientCententWrapper, WhiteText } from '../../common/common.styles';
 import { colors } from '../../config/colors';
 import { constants } from '../../config/constants';
 import { DateTouchable, s } from './Statistic.styles';
+import IBankBlackButton from '../../components/IBankBlackButton/IBankBlackButton';
 
 type TDates = {
   endDate?: moment.Moment;
@@ -45,15 +48,15 @@ const Statistic = () => {
   }, [isEquelDateYears]);
 
   const setDates = (dates: TDates) => {
-    if (dates.startDate !== undefined) {
+    if (dates.startDate) {
       setStartDate(dates.startDate);
     }
 
-    if (dates.displayedDate !== undefined) {
+    if (dates.displayedDate) {
       setDisplayedDate(dates.displayedDate);
     }
 
-    if (dates.endDate !== undefined) {
+    if (dates.endDate) {
       setEndDate(dates.endDate);
     }
   };
@@ -64,6 +67,24 @@ const Statistic = () => {
 
   // variables
   const snapPoints = useMemo(() => ['25%', '50%', '90%'], []);
+
+  const renderBackdrop = useCallback(
+    (props: BottomSheetDefaultBackdropProps) => (
+      <BottomSheetBackdrop {...props} disappearsOnIndex={1} appearsOnIndex={2} opacity={0} />
+    ),
+    [],
+  );
+
+  const renderFooter = useCallback(
+    (props: BottomSheetDefaultFooterProps) => (
+      <BottomSheetFooter {...props}>
+        <View px="16px" pb="16px">
+          <IBankBlackButton text="Done" onPress={() => bottomSheetRef.current?.close()} />
+        </View>
+      </BottomSheetFooter>
+    ),
+    [],
+  );
 
   return (
     <GradientCententWrapper
@@ -89,7 +110,9 @@ const Statistic = () => {
         ref={bottomSheetRef}
         enablePanDownToClose
         snapPoints={snapPoints}
+        footerComponent={renderFooter}
         backgroundStyle={s.bottomSheet}
+        backdropComponent={renderBackdrop}
         handleIndicatorStyle={s.gray100Backround}>
         <DateRangePicker
           open
@@ -97,8 +120,8 @@ const Statistic = () => {
           endDate={endDate}
           onChange={setDates}
           startDate={startDate}
-          dayTextStyle={s.gray100Color}
           displayedDate={displayedDate}
+          dayTextStyle={s.gray100Color}
           selectedStyle={s.redBackground}
           backdropStyle={s.backdropStyle}
           headerTextStyle={s.gray100Color}
