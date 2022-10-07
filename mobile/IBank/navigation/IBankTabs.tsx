@@ -27,7 +27,11 @@ const IBankTabs = () => {
       }}>
       <Tab.Screen
         name={screens.app.CardNavigation}
-        options={{ headerShown: false, tabBarIcon: ({ color }) => <CardIcon width={24} height={24} fill={color} /> }}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color }) => <CardIcon width={24} height={24} fill={color} />,
+          title: screens.app.Card,
+        }}
         component={CardNavigation}
       />
       <Tab.Screen

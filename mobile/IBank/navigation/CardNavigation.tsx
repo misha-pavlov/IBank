@@ -4,7 +4,8 @@ import { screens } from '../config/screens';
 import Card from '../screens/Card/Card';
 import HeaderModal from '../screens/HeaderModal/HeaderModal';
 import EditProfile from '../screens/EditProfile/EditProfile';
-import { colors } from '../config/colors';
+import { emptyBlackWithBackButton } from '../common/navigationOptions';
+import Statistic from '../screens/Statistic/Statistic';
 
 const CardStack = createStackNavigator();
 
@@ -35,17 +36,8 @@ const CardNavigation = () => {
         options={{ headerShown: false, ...verticalAnimation }}
         component={HeaderModal}
       />
-      {/* use ' ' instead '' for headerBackTitle because only with this value show without text */}
-      <CardStack.Screen
-        name={screens.app.EditProfile}
-        options={{
-          headerBackTitle: ' ',
-          headerTitle: '',
-          headerTintColor: colors.gray100,
-          headerStyle: { backgroundColor: colors.black, shadowColor: colors.black },
-        }}
-        component={EditProfile}
-      />
+      <CardStack.Screen name={screens.app.EditProfile} options={emptyBlackWithBackButton} component={EditProfile} />
+      <CardStack.Screen name={screens.app.Statistic} options={emptyBlackWithBackButton} component={Statistic} />
     </CardStack.Navigator>
   );
 };

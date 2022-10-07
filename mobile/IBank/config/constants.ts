@@ -10,4 +10,9 @@ export const constants = {
     phone: 'phone' as 'phone',
     pin: 'pin' as 'pin',
   },
+
+  dateFormats: {
+    D_MMMM_WithSpaces: 'D MMMM',
+    D_MMMM_YYYY_WithSpaces: 'D MMMM YYYY',
+  },
 };

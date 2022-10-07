@@ -1,17 +1,28 @@
 import { Avatar, Center, Flex, View } from 'native-base';
-import React from 'react';
+import React, { useEffect } from 'react';
 import ChatIcon from '../../assets/svg/ChatIcon';
 import DocumentIcon from '../../assets/svg/DocumentIcon';
 import MailIcon from '../../assets/svg/MailIcon';
 import PhoneIcon from '../../assets/svg/PhoneIcon';
-import { WhiteText, BlackContentWrapper } from '../../common/common.styles';
+import { WhiteText, GradientCententWrapper } from '../../common/common.styles';
 import { colors } from '../../config/colors';
 import PersonalDataRow from './components/PersonalDataRow/PersonalDataRow';
 import IBankBlackButton from '../../components/IBankBlackButton/IBankBlackButton';
+import { useNavigation } from '@react-navigation/native';
 
 const EditProfile = () => {
+  const { setOptions } = useNavigation();
+
+  useEffect(() => {
+    setOptions({ headerStyle: { backgroundColor: colors.black2, shadowColor: colors.black2 } });
+  }, [setOptions]);
+
   return (
-    <BlackContentWrapper>
+    <GradientCententWrapper
+      colors={[colors.black2, colors.black3, colors.black3]}
+      start={{ x: 0.0, y: 1.0 }}
+      end={{ x: 0.7, y: 0.25 }}
+      locations={[1, 0.5, 0]}>
       <Center mt={-25}>
         <WhiteText fontSize={20} fontWeight={600}>
           Your personal data
@@ -66,7 +77,7 @@ const EditProfile = () => {
       <View mt={12}>
         <IBankBlackButton text="Sign Out" onPress={() => console.log('SIGN OUT')} />
       </View>
-    </BlackContentWrapper>
+    </GradientCententWrapper>
   );
 };
 

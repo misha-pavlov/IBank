@@ -4,7 +4,7 @@ import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import CardIcon from '../../assets/svg/CardIcon';
 import Settings from '../../assets/svg/Settings';
-import { WhiteText, BlackContentWrapper } from '../../common/common.styles';
+import { WhiteText, GradientCententWrapper } from '../../common/common.styles';
 import IBankGrayButton from '../../components/IBankGrayButton/IBankGrayButton';
 import { colors } from '../../config/colors';
 import { screens } from '../../config/screens';
@@ -17,7 +17,11 @@ const HeaderModal = () => {
   const scrollHandler = useScrollHandler({ onScrollTop: () => canGoBack() && goBack() });
 
   return (
-    <BlackContentWrapper>
+    <GradientCententWrapper
+      colors={[colors.black2, colors.black3, colors.black3]}
+      start={{ x: 0.0, y: 1.0 }}
+      end={{ x: 0.7, y: 0.25 }}
+      locations={[1, 0.5, 0]}>
       <Center mt={50}>
         <Avatar
           bg={colors.pinkA100}
@@ -41,7 +45,7 @@ const HeaderModal = () => {
       </Center>
 
       <HStack mt={25} flexDirection="row" justifyContent="center" space={3}>
-        <IBankGrayButton text="💎 Statistics" onPress={() => console.log('123')} w={150} />
+        <IBankGrayButton text="💎 Statistics" onPress={() => navigate(screens.app.Statistic)} w={150} />
         <IBankGrayButton text="💰 Capital" onPress={() => console.log('123')} w={150} />
       </HStack>
 
@@ -103,7 +107,7 @@ const HeaderModal = () => {
       <BottomBottomScrollableBlock>
         <ScrollBlock scrollEventThrottle={16} onScroll={scrollHandler} />
       </BottomBottomScrollableBlock>
-    </BlackContentWrapper>
+    </GradientCententWrapper>
   );
 };
 

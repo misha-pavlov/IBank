@@ -1,9 +1,16 @@
 import styled from 'styled-components/native';
 import { StyleSheet } from 'react-native';
 import { Text, View } from 'native-base';
+import LinearGradient from 'react-native-linear-gradient';
 import { colors } from '../config/colors';
 
 export const BlackContentWrapper = styled(View)`
+  flex: 1;
+  background-color: ${colors.black};
+  padding: 16px;
+`;
+
+export const GradientCententWrapper = styled(LinearGradient)`
   flex: 1;
   background-color: ${colors.black};
   padding: 16px;
