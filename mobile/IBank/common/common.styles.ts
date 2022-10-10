@@ -42,4 +42,10 @@ export const commonStyles = StyleSheet.create({
   keyboardAvoiding: {
     flex: 1,
   },
+  blackBackground: {
+    backgroundColor: colors.black,
+  },
+  gray100Backround: {
+    backgroundColor: colors.gray100,
+  },
 });

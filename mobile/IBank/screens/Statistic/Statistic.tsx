@@ -9,11 +9,12 @@ import { useWindowDimensions } from 'react-native';
 import { BottomSheetDefaultBackdropProps } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types';
 import { BottomSheetDefaultFooterProps } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetFooter/types';
 import CalendarIcon from '../../assets/svg/CalendarIcon';
-import { GradientCententWrapper, WhiteText } from '../../common/common.styles';
+import { commonStyles, GradientCententWrapper, WhiteText } from '../../common/common.styles';
 import { colors } from '../../config/colors';
 import { constants } from '../../config/constants';
 import { DateTouchable, s } from './Statistic.styles';
 import IBankBlackButton from '../../components/IBankBlackButton/IBankBlackButton';
+import CardPicker from '../../components/CardPicker/CardPicker';
 
 type TDates = {
   endDate?: moment.Moment;
@@ -105,15 +106,17 @@ const Statistic = () => {
         </BlurView>
       </DateTouchable>
 
+      <CardPicker />
+
       <BottomSheet
         index={-1}
         ref={bottomSheetRef}
         enablePanDownToClose
         snapPoints={snapPoints}
         footerComponent={renderFooter}
-        backgroundStyle={s.bottomSheet}
+        backgroundStyle={commonStyles.blackBackground}
         backdropComponent={renderBackdrop}
-        handleIndicatorStyle={s.gray100Backround}>
+        handleIndicatorStyle={commonStyles.gray100Backround}>
         <DateRangePicker
           open
           range
@@ -127,7 +130,7 @@ const Statistic = () => {
           headerTextStyle={s.gray100Color}
           buttonTextStyle={s.gray100Color}
           dayHeaderTextStyle={s.gray100Color}
-          containerStyle={{ ...s.bottomSheet, width }}
+          containerStyle={{ ...commonStyles.blackBackground, width }}
           monthPrevButton={<ChevronLeftIcon color={colors.gray100} />}
           monthNextButton={<ChevronRightIcon color={colors.gray100} />}
         />

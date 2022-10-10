@@ -2,8 +2,8 @@ import { useNavigation } from '@react-navigation/native';
 import { AddIcon, Avatar, Center, Divider, Flex, HStack, View } from 'native-base';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
-import CardIcon from '../../assets/svg/CardIcon';
 import Settings from '../../assets/svg/Settings';
+import { BlackCard, IronCard, PinkCard } from '../../common/cards';
 import { WhiteText, GradientCententWrapper } from '../../common/common.styles';
 import IBankGrayButton from '../../components/IBankGrayButton/IBankGrayButton';
 import { colors } from '../../config/colors';
@@ -62,7 +62,7 @@ const HeaderModal = () => {
           <Flex flexDirection="row" justifyContent="space-between" mt={15}>
             <TouchableOpacity>
               <CardCube isSelectedCard>
-                <CardIcon width={32} height={32} fill={colors.black1} />
+                <BlackCard />
               </CardCube>
               <WhiteText mt="5px" textAlign="center">
                 n $
@@ -71,7 +71,7 @@ const HeaderModal = () => {
 
             <TouchableOpacity>
               <CardCube>
-                <CardIcon width={32} height={32} fill={colors.pink500} />
+                <PinkCard />
               </CardCube>
               <WhiteText mt="5px" textAlign="center">
                 n $
@@ -80,7 +80,7 @@ const HeaderModal = () => {
 
             <TouchableOpacity>
               <CardCube>
-                <CardIcon width={32} height={32} fill={colors.blueGray500} />
+                <IronCard />
               </CardCube>
               <WhiteText mt="5px" textAlign="center">
                 n $

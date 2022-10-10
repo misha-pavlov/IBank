@@ -19,12 +19,6 @@ export const s = StyleSheet.create({
     borderRadius: 10,
     marginLeft: 8,
   },
-  bottomSheet: {
-    backgroundColor: colors.black,
-  },
-  gray100Backround: {
-    backgroundColor: colors.gray100,
-  },
   gray100Color: {
     color: colors.gray100,
   },

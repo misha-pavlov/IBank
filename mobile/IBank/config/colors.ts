@@ -19,11 +19,12 @@ export const colors = {
 
   red: 'rgb(239, 68, 68);',
 
-  blueGray700: '#455A64',
-  // use this color for iron card
-  blueGray500: '#607D8B',
   blueGray1: '#141E30',
   blueGray2: '#243B55',
+  blueGray200: '#B0BEC5',
+  // use this color for iron card
+  blueGray500: '#607D8B',
+  blueGray700: '#455A64',
 
   yellow700: '#FBC02D',
 
@@ -34,4 +35,6 @@ export const colors = {
   purple1: '#24243e',
 
   darkBlue: '#1A1B2D',
+
+  transparent: 'rgba(255, 255, 255, 0.1)',
 };
