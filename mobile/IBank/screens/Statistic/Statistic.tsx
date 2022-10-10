@@ -1,10 +1,10 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect } from 'react';
+import { FlatList, Flex, Text, View } from 'native-base';
 import { GradientCententWrapper, SectionGradient, TransparentBox, WhiteText } from '../../common/common.styles';
 import { colors } from '../../config/colors';
 import CardPicker from '../../components/CardPicker/CardPicker';
 import CalendarPiker from './components/CalendarPiker/CalendarPiker';
-import { FlatList, Flex, Text, View } from 'native-base';
 import CategoryIcon from '../../assets/svg/CategoryIcon';
 import TransactionItem from '../../components/TransactionItem/TransactionItem';
 
@@ -29,6 +29,7 @@ const Statistic = () => {
       <CalendarPiker />
       <CardPicker />
 
+      {/* Categories */}
       <View mt={25}>
         <SectionGradient
           colors={[colors.blueYellow1, colors.blueYellow2, colors.blueYellow3]}
@@ -52,6 +53,7 @@ const Statistic = () => {
         </SectionGradient>
       </View>
 
+      {/* Transactions */}
       <WhiteText fontSize={16} fontWeight={600} mt={25} mb={15}>
         Transactions list
       </WhiteText>
