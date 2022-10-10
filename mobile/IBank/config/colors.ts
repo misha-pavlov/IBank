@@ -37,4 +37,8 @@ export const colors = {
   darkBlue: '#1A1B2D',
 
   transparent: 'rgba(255, 255, 255, 0.1)',
+
+  blueYellow1: '#6B6C80',
+  blueYellow2: '#626378',
+  blueYellow3: '#50546D',
 };

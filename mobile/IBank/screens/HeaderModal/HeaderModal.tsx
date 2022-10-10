@@ -4,13 +4,13 @@ import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import Settings from '../../assets/svg/Settings';
 import { BlackCard, IronCard, PinkCard } from '../../common/cards';
-import { WhiteText, GradientCententWrapper } from '../../common/common.styles';
+import { WhiteText, GradientCententWrapper, SectionGradient } from '../../common/common.styles';
 import IBankGrayButton from '../../components/IBankGrayButton/IBankGrayButton';
 import { colors } from '../../config/colors';
 import { screens } from '../../config/screens';
 import { useScrollHandler } from '../../hooks/useScrollHandler';
 import { NAppNavigatorNavigationProp } from '../../navigation/types/AppNavigator.types';
-import { BottomBottomScrollableBlock, CardCube, ScrollBlock, SectionGradient } from './HeaderModal.styles';
+import { BottomBottomScrollableBlock, CardCube, ScrollBlock } from './HeaderModal.styles';
 
 const HeaderModal = () => {
   const { goBack, canGoBack, navigate } = useNavigation<NAppNavigatorNavigationProp<'EditProfile'>>();

@@ -38,6 +38,18 @@ export const NextButton = styled.TouchableOpacity<{ disabled?: boolean }>`
   ${({ disabled }) => disabled && 'opacity: .5'}
 `;
 
+export const SectionGradient = styled(LinearGradient)`
+  width: 100%;
+  padding: 16px;
+  border-radius: 8px;
+`;
+
+export const TransparentBox = styled(View)`
+  background-color: ${colors.transparent};
+  padding: 16px;
+  border-radius: 10px;
+`;
+
 export const commonStyles = StyleSheet.create({
   keyboardAvoiding: {
     flex: 1,
