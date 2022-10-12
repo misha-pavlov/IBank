@@ -44,9 +44,9 @@ export const SectionGradient = styled(LinearGradient)`
   border-radius: 8px;
 `;
 
-export const TransparentBox = styled(View)`
+export const TransparentBox = styled(View)<{ p?: number }>`
   background-color: ${colors.transparent};
-  padding: 16px;
+  padding: ${({ p }) => p || 16}px;
   border-radius: 10px;
 `;
 

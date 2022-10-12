@@ -6,6 +6,7 @@ import HeaderModal from '../screens/HeaderModal/HeaderModal';
 import EditProfile from '../screens/EditProfile/EditProfile';
 import { emptyBlackWithBackButton } from '../common/navigationOptions';
 import Statistic from '../screens/Statistic/Statistic';
+import Capital from '../screens/Capital/Capital';
 
 const CardStack = createStackNavigator();
 
@@ -38,6 +39,7 @@ const CardNavigation = () => {
       />
       <CardStack.Screen name={screens.app.EditProfile} options={emptyBlackWithBackButton} component={EditProfile} />
       <CardStack.Screen name={screens.app.Statistic} options={emptyBlackWithBackButton} component={Statistic} />
+      <CardStack.Screen name={screens.app.Capital} options={emptyBlackWithBackButton} component={Capital} />
     </CardStack.Navigator>
   );
 };

@@ -46,7 +46,7 @@ const HeaderModal = () => {
 
       <HStack mt={25} flexDirection="row" justifyContent="center" space={3}>
         <IBankGrayButton text="💎 Statistics" onPress={() => navigate(screens.app.Statistic)} w={150} />
-        <IBankGrayButton text="💰 Capital" onPress={() => console.log('123')} w={150} />
+        <IBankGrayButton text="💰 Capital" onPress={() => navigate(screens.app.Capital)} w={150} />
       </HStack>
 
       <Center mt={25}>

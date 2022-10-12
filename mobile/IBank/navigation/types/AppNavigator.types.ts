@@ -3,6 +3,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 export type NAppStackParamList = {
   Card: undefined;
+  Capital: undefined;
   Statistic: undefined;
   EditProfile: undefined;
   HeaderModal: undefined;

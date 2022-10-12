@@ -1,6 +1,6 @@
 export const colors = {
-  black: '#1A1A1B',
   // use this color for black card
+  black: '#1A1A1B',
   black1: '#424242',
   black2: '#232526',
   black3: '#414345',
@@ -41,4 +41,13 @@ export const colors = {
   blueYellow1: '#6B6C80',
   blueYellow2: '#626378',
   blueYellow3: '#50546D',
+
+  darkGreen: '#072D30',
+  darkGreen1: '#113932',
+
+  lightGreen: '#4A6669',
+  lightGreen1: '#455D61',
+  lightGreen2: '#3B5053',
+
+  aqua: '#21CFD7',
 };

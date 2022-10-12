@@ -10,6 +10,7 @@ export const screens = {
 
   app: {
     Card: 'Card' as keyof NAppStackParamList,
+    Capital: 'Capital' as keyof NAppStackParamList,
     Statistic: 'Statistic' as keyof NAppStackParamList,
     HeaderModal: 'HeaderModal' as keyof NAppStackParamList,
     EditProfile: 'EditProfile' as keyof NAppStackParamList,

@@ -1,7 +1,17 @@
-import React from 'react';
+import React, { FC } from 'react';
 import CardIcon from '../assets/svg/CardIcon';
 import { colors } from '../config/colors';
 
-export const BlackCard = () => <CardIcon width={32} height={32} fill={colors.black1} />;
-export const PinkCard = () => <CardIcon width={32} height={32} fill={colors.pink500} />;
-export const IronCard = () => <CardIcon width={32} height={32} fill={colors.blueGray500} />;
+type TCard = {
+  size?: number;
+};
+
+export const BlackCard: FC<TCard> = ({ size }) => (
+  <CardIcon width={size || 32} height={size || 32} fill={colors.black} />
+);
+export const PinkCard: FC<TCard> = ({ size }) => (
+  <CardIcon width={size || 32} height={size || 32} fill={colors.pink500} />
+);
+export const IronCard: FC<TCard> = ({ size }) => (
+  <CardIcon width={size || 32} height={size || 32} fill={colors.blueGray500} />
+);
