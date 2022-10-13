@@ -4,10 +4,10 @@ import { Text, View } from 'native-base';
 import LinearGradient from 'react-native-linear-gradient';
 import { colors } from '../config/colors';
 
-export const BlackContentWrapper = styled(View)`
+export const BlackContentWrapper = styled(View)<{ withoutPadding?: boolean }>`
   flex: 1;
   background-color: ${colors.black};
-  padding: 16px;
+  padding: ${({ withoutPadding }) => (withoutPadding ? 0 : 16)}px;
 `;
 
 export const GradientCententWrapper = styled(LinearGradient)`
@@ -38,10 +38,10 @@ export const NextButton = styled.TouchableOpacity<{ disabled?: boolean }>`
   ${({ disabled }) => disabled && 'opacity: .5'}
 `;
 
-export const SectionGradient = styled(LinearGradient)`
+export const SectionGradient = styled(LinearGradient)<{ withoutBorderRadius?: boolean }>`
   width: 100%;
   padding: 16px;
-  border-radius: 8px;
+  border-radius: ${({ withoutBorderRadius }) => (withoutBorderRadius ? 0 : 8)}px;
 `;
 
 export const TransparentBox = styled(View)<{ p?: number }>`

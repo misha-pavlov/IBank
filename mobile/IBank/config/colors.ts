@@ -50,4 +50,9 @@ export const colors = {
   lightGreen2: '#3B5053',
 
   aqua: '#21CFD7',
+
+  whiteRed: '#A2858F',
+
+  whiteBlue: '#7C7095',
+  whiteBlue1: '#5D61A1',
 };

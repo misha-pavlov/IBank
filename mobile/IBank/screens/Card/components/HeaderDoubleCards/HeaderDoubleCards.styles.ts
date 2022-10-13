@@ -9,6 +9,9 @@ export const IconRoundBlock = styled.TouchableOpacity`
 `;
 
 export const ScrollBlock = styled(Animated.ScrollView)`
-  /* strange flex value for changing size scrollable zone */
-  flex: 0.135;
+  width: 100%;
+  z-index: 150;
+  margin-top: 10px;
+  position: absolute;
+  border: 1px solid red;
 `;
