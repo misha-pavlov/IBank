@@ -13,5 +13,4 @@ export const ScrollBlock = styled(Animated.ScrollView)`
   z-index: 150;
   margin-top: 10px;
   position: absolute;
-  border: 1px solid red;
 `;

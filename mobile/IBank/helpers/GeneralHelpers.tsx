@@ -30,3 +30,5 @@ export const getTransactionTitleByType = (type: string) => {
       return 'Nothing';
   }
 };
+
+export const getFormattedAmount = (amount: number) => new Intl.NumberFormat('de-DE').format(amount);

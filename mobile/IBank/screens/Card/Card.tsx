@@ -1,4 +1,3 @@
-import { View } from 'native-base';
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { useWindowDimensions } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
@@ -8,37 +7,49 @@ import Amount from './screens/Amount/Amount';
 import CardOperation from './screens/CardOperation/CardOperation';
 
 const Card = () => {
-  const carouselRef = useRef(null);
+  const carouselRef = useRef<Carousel<{ id: number }>>(null);
   const [screenIndex, setScreenIndex] = useState(0);
   const { width } = useWindowDimensions();
 
-  const screens = [{ id: 1 }, { id: 2 }];
-
-  const renderItem = useCallback(({ item }: { item: { id: number } }) => {
-    if (item.id === 1) {
-      return <Amount />;
+  const moveToNextScreen = useCallback(() => {
+    setScreenIndex(1);
+    if (carouselRef.current) {
+      carouselRef.current.snapToNext(true);
     }
-
-    return <CardOperation />;
   }, []);
+
+  const screens = [{ id: 1 }, { id: 2 }];
 
   const renderPaginaton = useMemo(
     () => (
-      <View position="absolute" top="70%" left={0} right={0}>
-        <Pagination
-          dotsLength={screens.length}
-          activeDotIndex={screenIndex}
-          carouselRef={carouselRef}
-          dotStyle={s.pagination}
-          inactiveDotOpacity={0.4}
-          animatedDuration={0.1}
-          inactiveDotScale={0.6}
-          tappableDots={false}
-        />
-      </View>
+      <Pagination
+        dotsLength={screens.length}
+        activeDotIndex={screenIndex}
+        carouselRef={carouselRef}
+        dotStyle={s.pagination}
+        inactiveDotOpacity={0.4}
+        animatedDuration={0.1}
+        inactiveDotScale={1}
+        tappableDots={false}
+      />
     ),
     [screenIndex, screens.length],
   );
+
+  const renderItem = useCallback(
+    ({ item }: { item: { id: number } }) => {
+      if (item.id === 1) {
+        return <Amount renderPaginaton={renderPaginaton} moveToNextScreen={moveToNextScreen} />;
+      }
+
+      return <CardOperation renderPaginaton={renderPaginaton} />;
+    },
+    [moveToNextScreen, renderPaginaton],
+  );
+
+  const onSnapToItem = useCallback((index: number) => {
+    setScreenIndex(index);
+  }, []);
 
   return (
     <BlackContentWrapper withoutPadding>
@@ -51,13 +62,11 @@ const Card = () => {
         sliderWidth={width}
         itemWidth={width}
         inactiveSlideShift={0}
-        onSnapToItem={(index: number) => setScreenIndex(index)}
+        onSnapToItem={onSnapToItem}
         useScrollView
         shouldOptimizeUpdates
         useExperimentalSnap
       />
-
-      {renderPaginaton}
     </BlackContentWrapper>
   );
 };
