@@ -1,15 +1,18 @@
 import { Text, View } from 'native-base';
 import React from 'react';
 import { GameIcon } from '../assets/svg';
+import RoundTouchable from '../components/RoundTouchable/RoundTouchable';
 import { colors } from '../config/colors';
 
 export const getTransactionIconByType = (type: string) => {
   switch (type) {
     case 'play':
       return (
-        <View backgroundColor={colors.green600} padding="8px" borderRadius="8px">
-          <GameIcon width={24} height={24} fill={colors.gray100} />
-        </View>
+        <RoundTouchable
+          icon={<GameIcon width={24} height={24} fill={colors.gray100} />}
+          backgroundColor={colors.green600}
+          disabled
+        />
       );
 
     default:

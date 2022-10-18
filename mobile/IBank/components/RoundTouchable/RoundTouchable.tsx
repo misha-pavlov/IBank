@@ -7,11 +7,12 @@ import { RTouchable } from './RoundTouchable.styles';
 type TRoundTouchable = {
   text?: string;
   backgroundColor?: string;
+  disabled?: boolean;
   icon: JSX.Element;
-  onPress: () => void;
+  onPress?: () => void;
 };
 
-const RoundTouchable: FC<TRoundTouchable> = ({ backgroundColor = colors.black, icon, onPress, text }) => {
+const RoundTouchable: FC<TRoundTouchable> = ({ backgroundColor = colors.black, icon, onPress, text, disabled }) => {
   const renderTextContent = useMemo(() => {
     if (text) {
       return (
@@ -25,7 +26,7 @@ const RoundTouchable: FC<TRoundTouchable> = ({ backgroundColor = colors.black, i
   }, [text]);
 
   return (
-    <RTouchable onPress={onPress}>
+    <RTouchable onPress={onPress} disabled={disabled}>
       <View backgroundColor={backgroundColor} borderRadius={50} p="10px" maxW="44px">
         {icon}
       </View>
