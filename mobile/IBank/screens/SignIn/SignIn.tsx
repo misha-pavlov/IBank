@@ -3,10 +3,10 @@ import { Center, KeyboardAvoidingView, ScrollView } from 'native-base';
 import { BankNameHeader, BlackContentWrapper, commonStyles } from '../../common/common.styles';
 import { BestCardText, HeaderBlock } from './SignIn.styles';
 import { constants } from '../../config/constants';
-import Card from '../../components/Card/Card';
 import SignInForms from './components/SignInForms/SignInForms';
 import { isIOS } from '../../config/platform';
 import { getKeyboardVerticalOffsetForSignUp } from './helpers/SignIn.helpers';
+import { Card } from '../../components';
 
 const cardNumber = '1234 1234 1234 1234';
 

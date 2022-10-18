@@ -12,10 +12,7 @@ import { constants } from '../../config/constants';
 import { colors } from '../../config/colors';
 import { actionCases } from '../../store/actionCases';
 // components
-import PhoneInput from '../../components/PhoneInput/PhoneInput';
-import PinInput from '../../components/PinInput/PinInput';
-import DefaultInput from '../../components/DefaultInput/DefaultInput';
-import IBankHeader from '../../components/IBankHeader/IBankHeader';
+import { DefaultInput, IBankHeader, PhoneInput, PinInput } from '../../components';
 // store
 import { Context } from '../../store/store';
 

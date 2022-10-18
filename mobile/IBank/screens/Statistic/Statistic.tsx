@@ -3,10 +3,9 @@ import React, { useEffect } from 'react';
 import { FlatList, Flex, Text, View } from 'native-base';
 import { GradientCententWrapper, SectionGradient, TransparentBox, WhiteText } from '../../common/common.styles';
 import { colors } from '../../config/colors';
-import CardPicker from '../../components/CardPicker/CardPicker';
 import CalendarPiker from './components/CalendarPiker/CalendarPiker';
-import TransactionItem from '../../components/TransactionItem/TransactionItem';
 import { CategoryIcon } from '../../assets/svg';
+import { CardPicker, TransactionItem } from '../../components';
 
 const Statistic = () => {
   const { setOptions } = useNavigation();

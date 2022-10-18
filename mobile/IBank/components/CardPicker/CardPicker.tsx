@@ -6,7 +6,7 @@ import { BlackCard } from '../../common/cards';
 import { colors } from '../../config/colors';
 import { commonStyles, WhiteText } from '../../common/common.styles';
 import { s } from './CardPicker.styles';
-import CardListtem from '../CardListtem/CardListtem';
+import { CardListtem } from '..';
 
 const CardPicker = () => {
   // ref

@@ -5,7 +5,7 @@ import { TouchableOpacity } from 'react-native';
 import { Settings } from '../../assets/svg';
 import { BlackCard, IronCard, PinkCard } from '../../common/cards';
 import { WhiteText, GradientCententWrapper, SectionGradient } from '../../common/common.styles';
-import IBankGrayButton from '../../components/IBankGrayButton/IBankGrayButton';
+import { IBankGrayButton } from '../../components';
 import { colors } from '../../config/colors';
 import { screens } from '../../config/screens';
 import { useScrollHandler } from '../../hooks/useScrollHandler';

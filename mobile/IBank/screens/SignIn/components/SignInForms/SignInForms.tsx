@@ -15,8 +15,7 @@ import { Visibility, VisibilityOff } from '../../../../assets/svg';
 // types
 import { NAuthNavigatorNavigationProp } from '../../../../navigation/types/AuthNavigator.types';
 // components
-import PhoneInput from '../../../../components/PhoneInput/PhoneInput';
-import PinInput from '../../../../components/PinInput/PinInput';
+import { PhoneInput, PinInput } from '../../../../components';
 
 type TSignInForms = {
   currentStage: 'phone' | 'pin';

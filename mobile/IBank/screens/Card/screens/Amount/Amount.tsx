@@ -2,7 +2,7 @@ import { Center, HStack, View } from 'native-base';
 import React, { FC } from 'react';
 import { AnotherActionsIcon, SendOnCardIcon, TopUpIcon } from '../../../../assets/svg';
 import { SectionGradient, WhiteText } from '../../../../common/common.styles';
-import RoundTouchable from '../../../../components/RoundTouchable/RoundTouchable';
+import { RoundTouchable } from '../../../../components';
 import { colors } from '../../../../config/colors';
 import { getFormattedAmount } from '../../../../helpers/GeneralHelpers';
 import HeaderDoubleCards from '../../components/HeaderDoubleCards/HeaderDoubleCards';

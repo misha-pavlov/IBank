@@ -1,7 +1,7 @@
 import { Text, View } from 'native-base';
 import React from 'react';
 import { GameIcon } from '../assets/svg';
-import RoundTouchable from '../components/RoundTouchable/RoundTouchable';
+import { RoundTouchable } from '../components';
 import { colors } from '../config/colors';
 
 export const getTransactionIconByType = (type: string) => {

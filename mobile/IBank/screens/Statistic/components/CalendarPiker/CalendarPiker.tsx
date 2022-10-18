@@ -9,7 +9,7 @@ import { useWindowDimensions } from 'react-native';
 import DateRangePicker from 'react-native-daterange-picker';
 import { CalendarIcon } from '../../../../assets/svg';
 import { commonStyles, WhiteText } from '../../../../common/common.styles';
-import IBankBlackButton from '../../../../components/IBankBlackButton/IBankBlackButton';
+import { IBankBlackButton } from '../../../../components';
 import { colors } from '../../../../config/colors';
 import { constants } from '../../../../config/constants';
 import { DateTouchable, s } from './CalendarPiker.styles';
