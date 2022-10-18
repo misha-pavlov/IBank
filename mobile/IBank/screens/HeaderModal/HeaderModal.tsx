@@ -8,7 +8,7 @@ import { WhiteText, GradientCententWrapper, SectionGradient } from '../../common
 import { IBankGrayButton } from '../../components';
 import { colors } from '../../config/colors';
 import { screens } from '../../config/screens';
-import { useScrollHandler } from '../../hooks/useScrollHandler';
+import { useScrollHandler } from '../../hooks';
 import { NAppNavigatorNavigationProp } from '../../navigation/types/AppNavigator.types';
 import { BottomBottomScrollableBlock, CardCube, ScrollBlock } from './HeaderModal.styles';
 

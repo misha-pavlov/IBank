@@ -5,8 +5,8 @@ import { colors } from '../../../../config/colors';
 import { IconRoundBlock, ScrollBlock } from './HeaderDoubleCards.styles';
 import { screens } from '../../../../config/screens';
 import { NAppNavigatorNavigationProp } from '../../../../navigation/types/AppNavigator.types';
-import { useScrollHandler } from '../../../../hooks/useScrollHandler';
 import { DoubleCards } from '../../../../assets/svg';
+import { useScrollHandler } from '../../../../hooks';
 
 const HeaderDoubleCards = () => {
   const { navigate } = useNavigation<NAppNavigatorNavigationProp<'HeaderModal'>>();

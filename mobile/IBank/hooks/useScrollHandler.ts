@@ -1,13 +1,7 @@
 import { useAnimatedScrollHandler, useSharedValue } from 'react-native-reanimated';
 import { isFunction } from 'lodash';
 
-export const useScrollHandler = ({
-  onScrollDown,
-  onScrollTop,
-}: {
-  onScrollDown?: () => void;
-  onScrollTop?: () => void;
-}) => {
+const useScrollHandler = ({ onScrollDown, onScrollTop }: { onScrollDown?: () => void; onScrollTop?: () => void }) => {
   const translateY = useSharedValue(0);
   const lastContentOffset = useSharedValue(0);
   const isScrolling = useSharedValue(false);
@@ -33,3 +27,5 @@ export const useScrollHandler = ({
 
   return scrollHandler;
 };
+
+export default useScrollHandler;
