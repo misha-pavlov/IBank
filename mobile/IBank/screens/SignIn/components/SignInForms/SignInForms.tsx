@@ -11,8 +11,7 @@ import { screens } from '../../../../config/screens';
 import { BackButtonText, MoveToSignUpText } from './SignInForms.styles';
 import { WhiteText, NextButton } from '../../../../common/common.styles';
 // svg
-import Visibility from '../../../../assets/svg/Visibility';
-import VisibilityOff from '../../../../assets/svg/VisibilityOff';
+import { Visibility, VisibilityOff } from '../../../../assets/svg';
 // types
 import { NAuthNavigatorNavigationProp } from '../../../../navigation/types/AuthNavigator.types';
 // components

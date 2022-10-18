@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Stack, Text, View } from 'native-base';
 import React, { useEffect } from 'react';
 import { useWindowDimensions } from 'react-native';
-import BagIcon from '../../assets/svg/BagIcon';
+import { BagIcon } from '../../assets/svg';
 import { BlackCard, IronCard, PinkCard } from '../../common/cards';
 import { GradientCententWrapper, SectionGradient, TransparentBox, WhiteText } from '../../common/common.styles';
 import { colors } from '../../config/colors';

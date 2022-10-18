@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import { AddIcon, Avatar, Center, Divider, Flex, HStack, View } from 'native-base';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
-import Settings from '../../assets/svg/Settings';
+import { Settings } from '../../assets/svg';
 import { BlackCard, IronCard, PinkCard } from '../../common/cards';
 import { WhiteText, GradientCententWrapper, SectionGradient } from '../../common/common.styles';
 import IBankGrayButton from '../../components/IBankGrayButton/IBankGrayButton';

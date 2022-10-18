@@ -1,8 +1,6 @@
 import { Center, HStack, View } from 'native-base';
 import React, { FC } from 'react';
-import AnotherActionsIcon from '../../../../assets/svg/AnotherActionsIcon';
-import SendOnCardIcon from '../../../../assets/svg/SendOnCardIcon';
-import TopUpIcon from '../../../../assets/svg/TopUpIcon';
+import { AnotherActionsIcon, SendOnCardIcon, TopUpIcon } from '../../../../assets/svg';
 import { SectionGradient, WhiteText } from '../../../../common/common.styles';
 import RoundTouchable from '../../../../components/RoundTouchable/RoundTouchable';
 import { colors } from '../../../../config/colors';

@@ -7,7 +7,7 @@ import { ChevronLeftIcon, ChevronRightIcon, View } from 'native-base';
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { useWindowDimensions } from 'react-native';
 import DateRangePicker from 'react-native-daterange-picker';
-import CalendarIcon from '../../../../assets/svg/CalendarIcon';
+import { CalendarIcon } from '../../../../assets/svg';
 import { commonStyles, WhiteText } from '../../../../common/common.styles';
 import IBankBlackButton from '../../../../components/IBankBlackButton/IBankBlackButton';
 import { colors } from '../../../../config/colors';

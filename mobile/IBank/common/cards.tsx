@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import CardIcon from '../assets/svg/CardIcon';
+import { CardIcon } from '../assets/svg';
 import { colors } from '../config/colors';
 
 type TCard = {

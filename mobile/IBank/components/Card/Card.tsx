@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import { BankName, BottomBlock, CardBlock, CardNumber, cardStyles, ExpiredDate } from './Card.styles';
 import { constants } from '../../config/constants';
-import MasterCard from '../../assets/svg/MasterCard';
 import { TCard } from './Card.types';
+import { MasterCard } from '../../assets/svg';
 
 const Card: FC<TCard> = ({ cardNumber, withFlip, expiredDate }) => {
   return (

@@ -1,6 +1,6 @@
 import { Text, View } from 'native-base';
 import React from 'react';
-import GameIcon from '../assets/svg/GameIcon';
+import { GameIcon } from '../assets/svg';
 import { colors } from '../config/colors';
 
 export const getTransactionIconByType = (type: string) => {

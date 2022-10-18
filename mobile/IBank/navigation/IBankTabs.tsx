@@ -3,12 +3,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Text, View } from 'react-native';
 import { screens } from '../config/screens';
 import { colors } from '../config/colors';
-import CardIcon from '../assets/svg/CardIcon';
-import CreditIcon from '../assets/svg/CreditIcon';
-import SavingIcon from '../assets/svg/SavingIcon';
-import CashbackIcon from '../assets/svg/CashbackIcon';
-import MoreIcon from '../assets/svg/MoreIcon';
 import CardNavigation from './CardNavigation';
+import { CardIcon, CashbackIcon, CreditIcon, MoreIcon, SavingIcon } from '../assets/svg';
 
 const Tab = createBottomTabNavigator();
 

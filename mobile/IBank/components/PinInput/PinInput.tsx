@@ -2,8 +2,7 @@ import React, { FC } from 'react';
 import { Input } from 'native-base';
 import { TouchableOpacity } from 'react-native';
 import { colors } from '../../config/colors';
-import VisibilityOff from '../../assets/svg/VisibilityOff';
-import Visibility from '../../assets/svg/Visibility';
+import { Visibility, VisibilityOff } from '../../assets/svg';
 
 type TPinInput = {
   pin: string;

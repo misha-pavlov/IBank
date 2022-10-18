@@ -1,5 +1,5 @@
 import React, { FC, useMemo } from 'react';
-import Backspace from '../../../../../../assets/svg/Backspace';
+import { Backspace } from '../../../../../../assets/svg';
 import { WhiteText } from '../../../../../../common/common.styles';
 import { RoundTouchable } from './RoundButton.styles';
 

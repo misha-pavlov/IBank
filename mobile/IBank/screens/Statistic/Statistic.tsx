@@ -5,8 +5,8 @@ import { GradientCententWrapper, SectionGradient, TransparentBox, WhiteText } fr
 import { colors } from '../../config/colors';
 import CardPicker from '../../components/CardPicker/CardPicker';
 import CalendarPiker from './components/CalendarPiker/CalendarPiker';
-import CategoryIcon from '../../assets/svg/CategoryIcon';
 import TransactionItem from '../../components/TransactionItem/TransactionItem';
+import { CategoryIcon } from '../../assets/svg';
 
 const Statistic = () => {
   const { setOptions } = useNavigation();

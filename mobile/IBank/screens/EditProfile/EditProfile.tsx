@@ -1,14 +1,11 @@
 import { Avatar, Center, Flex, View } from 'native-base';
 import React, { useEffect } from 'react';
-import ChatIcon from '../../assets/svg/ChatIcon';
-import DocumentIcon from '../../assets/svg/DocumentIcon';
-import MailIcon from '../../assets/svg/MailIcon';
-import PhoneIcon from '../../assets/svg/PhoneIcon';
 import { WhiteText, GradientCententWrapper } from '../../common/common.styles';
 import { colors } from '../../config/colors';
 import PersonalDataRow from './components/PersonalDataRow/PersonalDataRow';
 import IBankBlackButton from '../../components/IBankBlackButton/IBankBlackButton';
 import { useNavigation } from '@react-navigation/native';
+import { ChatIcon, DocumentIcon, MailIcon, PhoneIcon } from '../../assets/svg';
 
 const EditProfile = () => {
   const { setOptions } = useNavigation();
