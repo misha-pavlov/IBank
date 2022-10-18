@@ -24,9 +24,9 @@ const TransactionItem: FC<TTransactionItem> = ({ type, additionalText, amount })
         </View>
       </Flex>
 
-      <View alignContent="flex-end">
+      <Flex justifyContent="center">
         <WhiteText fontSize={18}>{amount} $</WhiteText>
-      </View>
+      </Flex>
     </Flex>
   );
 };

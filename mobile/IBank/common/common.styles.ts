@@ -60,4 +60,7 @@ export const commonStyles = StyleSheet.create({
   gray100Backround: {
     backgroundColor: colors.gray100,
   },
+  container16: {
+    paddingHorizontal: 16,
+  },
 });

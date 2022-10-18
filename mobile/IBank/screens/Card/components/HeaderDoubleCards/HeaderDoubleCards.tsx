@@ -1,5 +1,5 @@
-import { Center, ChevronDownIcon } from 'native-base';
-import React from 'react';
+import { Center, ChevronDownIcon, Fade } from 'native-base';
+import React, { memo } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { colors } from '../../../../config/colors';
 import { IconRoundBlock, ScrollBlock } from './HeaderDoubleCards.styles';
@@ -14,14 +14,16 @@ const HeaderDoubleCards = () => {
 
   return (
     <ScrollBlock scrollEventThrottle={16} onScroll={scrollHandler}>
-      <Center mt={35}>
-        <IconRoundBlock onPress={() => navigate(screens.app.HeaderModal)}>
-          <DoubleCards width={18} height={18} />
-        </IconRoundBlock>
-        <ChevronDownIcon mt="5px" size={18} color={colors.gray500} />
-      </Center>
+      <Fade in>
+        <Center mt={35}>
+          <IconRoundBlock onPress={() => navigate(screens.app.HeaderModal)}>
+            <DoubleCards width={18} height={18} />
+          </IconRoundBlock>
+          <ChevronDownIcon mt="5px" size={18} color={colors.gray500} />
+        </Center>
+      </Fade>
     </ScrollBlock>
   );
 };
 
-export default HeaderDoubleCards;
+export default memo(HeaderDoubleCards);
