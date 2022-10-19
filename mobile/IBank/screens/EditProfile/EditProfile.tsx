@@ -42,7 +42,7 @@ const EditProfile = () => {
           label="What is your name?"
           text="Firs + Last name"
           iconColor={colors.orange600}
-          icon={<ChatIcon width={24} height={24} fill={colors.gray100} />}
+          icon={<ChatIcon />}
         />
 
         <PersonalDataRow
@@ -50,7 +50,7 @@ const EditProfile = () => {
           label="Phone"
           text="User phone"
           iconColor={colors.blueGray500}
-          icon={<PhoneIcon width={24} height={24} fill={colors.gray100} />}
+          icon={<PhoneIcon />}
         />
 
         <PersonalDataRow
@@ -58,7 +58,7 @@ const EditProfile = () => {
           label="Your email"
           text="User email"
           iconColor={colors.green600}
-          icon={<MailIcon width={24} height={24} fill={colors.gray100} />}
+          icon={<MailIcon />}
         />
 
         <PersonalDataRow
@@ -67,7 +67,7 @@ const EditProfile = () => {
           label="Document"
           text="Your documents which you added"
           iconColor={colors.yellow700}
-          icon={<DocumentIcon width={24} height={24} fill={colors.gray100} />}
+          icon={<DocumentIcon />}
         />
       </Flex>
 

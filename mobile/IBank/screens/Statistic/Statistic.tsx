@@ -46,7 +46,7 @@ const Statistic = () => {
 
               <Flex alignItems="flex-start" mt="15px">
                 <TransparentBox w="50%">
-                  <CategoryIcon width={24} height={24} fill={colors.gray100} />
+                  <CategoryIcon />
                   <WhiteText fontSize={22} fontWeight={600}>
                     1
                   </WhiteText>

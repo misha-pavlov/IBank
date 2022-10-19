@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { FC } from 'react';
 import Svg, { Path } from 'react-native-svg';
+import { colors } from '../../config/colors';
+import { TIcon } from './types';
 
-const AnotherActionsIcon = ({ width, height, fill }: { width: number; height: number; fill: string }) => {
+const AnotherActionsIcon: FC<TIcon> = ({ width = 24, height = 24, fill = colors.gray100 }) => {
   return (
     <Svg
       width={width}

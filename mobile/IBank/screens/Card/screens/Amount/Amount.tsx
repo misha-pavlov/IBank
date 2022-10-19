@@ -147,7 +147,7 @@ const Amount: FC<TAmount> = ({ renderPaginaton, moveToNextScreen }) => {
         end={{ x: 0.9, y: 0.5 }}
         locations={[1, 0.5, 0]}
         withoutBorderRadius>
-        <View mt="100px" mb="100px" justifyContent="space-between">
+        <View mt="100px" mb="100px">
           <View flexDirection="row" justifyContent="space-between">
             <WhiteText fontSize={40} fontWeight={600} ml={34}>
               {getFormattedAmount(6717.61)} $
@@ -161,21 +161,11 @@ const Amount: FC<TAmount> = ({ renderPaginaton, moveToNextScreen }) => {
               {renderPaginaton}
             </Center>
             <HStack justifyContent="space-between" mx={34}>
-              <RoundTouchable
-                text="Top up your card"
-                icon={<TopUpIcon width={24} height={24} fill={colors.gray100} />}
-                onPress={() => console.log('123gg')}
-              />
-
-              <RoundTouchable
-                text="Send on card"
-                icon={<SendOnCardIcon width={24} height={24} fill={colors.gray100} />}
-                onPress={() => console.log('123gg')}
-              />
-
+              <RoundTouchable text="Top up your card" icon={<TopUpIcon />} onPress={() => console.log('123gg')} />
+              <RoundTouchable text="Send on card" icon={<SendOnCardIcon />} onPress={() => console.log('123gg')} />
               <RoundTouchable
                 text="Another actions"
-                icon={<AnotherActionsIcon width={24} height={24} fill={colors.gray100} />}
+                icon={<AnotherActionsIcon />}
                 onPress={() => console.log('123gg')}
               />
             </HStack>

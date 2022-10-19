@@ -27,13 +27,13 @@ const Capital = () => {
       </WhiteText>
 
       <SectionGradient
-        colors={[colors.lightGreen, colors.lightGreen1, colors.lightGreen2]}
+        colors={[colors.darkGreen2, colors.darkGreen3, colors.darkGreen4]}
         start={{ x: 0.0, y: 1.0 }}
         end={{ x: 0.7, y: 0.25 }}
         locations={[1, 0.5, 0]}>
         <View alignItems="flex-start">
           <View backgroundColor={colors.aqua} p="8px" mb="10px" borderRadius={50}>
-            <BagIcon width={25} height={25} fill={colors.gray100} />
+            <BagIcon width={25} height={25} />
           </View>
         </View>
 

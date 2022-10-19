@@ -25,32 +25,32 @@ const IBankTabs = () => {
         name={screens.app.CardNavigation}
         options={{
           headerShown: false,
-          tabBarIcon: ({ color }) => <CardIcon width={24} height={24} fill={color} />,
+          tabBarIcon: ({ color }) => <CardIcon fill={color} />,
           title: screens.app.Card,
         }}
         component={CardNavigation}
       />
       <Tab.Screen
         name="Credits"
-        options={{ headerShown: false, tabBarIcon: ({ color }) => <CreditIcon width={24} height={24} fill={color} /> }}
+        options={{ headerShown: false, tabBarIcon: ({ color }) => <CreditIcon fill={color} /> }}
         component={Screen}
       />
       <Tab.Screen
         name="Saving"
-        options={{ headerShown: false, tabBarIcon: ({ color }) => <SavingIcon width={24} height={24} fill={color} /> }}
+        options={{ headerShown: false, tabBarIcon: ({ color }) => <SavingIcon fill={color} /> }}
         component={Screen}
       />
       <Tab.Screen
         name="Cashback"
         options={{
           headerShown: false,
-          tabBarIcon: ({ color }) => <CashbackIcon width={24} height={24} fill={color} />,
+          tabBarIcon: ({ color }) => <CashbackIcon fill={color} />,
         }}
         component={Screen}
       />
       <Tab.Screen
         name="More"
-        options={{ headerShown: false, tabBarIcon: ({ color }) => <MoreIcon width={24} height={24} fill={color} /> }}
+        options={{ headerShown: false, tabBarIcon: ({ color }) => <MoreIcon fill={color} /> }}
         component={Screen}
       />
     </Tab.Navigator>

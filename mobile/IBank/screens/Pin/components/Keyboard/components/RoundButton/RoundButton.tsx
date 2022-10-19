@@ -13,7 +13,7 @@ type TRoundButton = {
 const RoundButton: FC<TRoundButton> = ({ text, isEmptyButton, isRemoveButton, onPress }) => {
   const renderContent = useMemo(() => {
     if (isRemoveButton) {
-      return <Backspace width={24} height={24} />;
+      return <Backspace />;
     }
 
     return <WhiteText fontSize={16}>{!isEmptyButton ? text : ''}</WhiteText>;

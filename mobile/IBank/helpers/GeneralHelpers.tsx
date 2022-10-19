@@ -7,13 +7,7 @@ import { colors } from '../config/colors';
 export const getTransactionIconByType = (type: string) => {
   switch (type) {
     case 'play':
-      return (
-        <RoundTouchable
-          icon={<GameIcon width={24} height={24} fill={colors.gray100} />}
-          backgroundColor={colors.green600}
-          disabled
-        />
-      );
+      return <RoundTouchable icon={<GameIcon />} backgroundColor={colors.green600} disabled />;
 
     default:
       return (

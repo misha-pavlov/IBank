@@ -86,7 +86,7 @@ const CalendarPiker = () => {
         <WhiteText>{endDate.format(constants.dateFormats.D_MMMM_YYYY_WithSpaces)}</WhiteText>
 
         <BlurView blurType="light" style={s.blur}>
-          <CalendarIcon width={11} height={11} fill={colors.gray100} />
+          <CalendarIcon width={11} height={11} />
         </BlurView>
       </DateTouchable>
 
