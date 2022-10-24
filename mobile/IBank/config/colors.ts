@@ -30,6 +30,9 @@ export const colors = {
 
   green600: '#43A047',
 
+  orange1: '#C4775B',
+  orange2: '#A46852',
+  orange3: '#C3916C',
   orange600: '#FB8C00',
 
   purple1: '#24243e',
@@ -44,10 +47,11 @@ export const colors = {
 
   darkGreen: '#072D30',
   darkGreen1: '#113932',
+  darkGreen2: '#4A6669',
+  darkGreen3: '#455D61',
+  darkGreen4: '#3B5053',
 
-  lightGreen: '#4A6669',
-  lightGreen1: '#455D61',
-  lightGreen2: '#3B5053',
+  lightGreenA400: '#76FF03',
 
   aqua: '#21CFD7',
 

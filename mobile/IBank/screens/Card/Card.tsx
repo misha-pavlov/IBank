@@ -4,7 +4,7 @@ import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { BlackContentWrapper } from '../../common/common.styles';
 import { s } from './Card.styles';
 import Amount from './screens/Amount/Amount';
-import CardOperation from './screens/CardOperation/CardOperation';
+import CardOperations from './screens/CardOperations/CardOperations';
 
 const Card = () => {
   const carouselRef = useRef<Carousel<{ id: number }>>(null);
@@ -42,7 +42,7 @@ const Card = () => {
         return <Amount renderPaginaton={renderPaginaton} moveToNextScreen={moveToNextScreen} />;
       }
 
-      return <CardOperation renderPaginaton={renderPaginaton} />;
+      return <CardOperations renderPaginaton={renderPaginaton} />;
     },
     [moveToNextScreen, renderPaginaton],
   );

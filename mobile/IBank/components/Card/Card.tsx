@@ -4,11 +4,11 @@ import { constants } from '../../config/constants';
 import { TCard } from './Card.types';
 import { MasterCard } from '../../assets/svg';
 
-const Card: FC<TCard> = ({ cardNumber, withFlip, expiredDate }) => {
+const Card: FC<TCard> = ({ cardNumber, withFlip, expiredDate, withFullWidth }) => {
   return (
-    <CardBlock style={withFlip ? cardStyles.flip : cardStyles.empty}>
+    <CardBlock style={withFlip ? cardStyles.flip : cardStyles.empty} withFullWidth={withFullWidth}>
       <BankName>{constants.appName}</BankName>
-      <CardNumber>{cardNumber}</CardNumber>
+      <CardNumber withFullWidth={withFullWidth}>{cardNumber}</CardNumber>
 
       <BottomBlock>
         <ExpiredDate>{expiredDate.toString()}</ExpiredDate>

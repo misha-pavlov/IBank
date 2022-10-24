@@ -4,7 +4,7 @@ import { GameIcon } from '../assets/svg';
 import { RoundTouchable } from '../components';
 import { colors } from '../config/colors';
 
-export const getTransactionIconByType = (type: string) => {
+export const getTransactionIconByType = (type?: string) => {
   switch (type) {
     case 'play':
       return <RoundTouchable icon={<GameIcon />} backgroundColor={colors.green600} disabled />;
@@ -18,7 +18,7 @@ export const getTransactionIconByType = (type: string) => {
   }
 };
 
-export const getTransactionTitleByType = (type: string) => {
+export const getTransactionTitleByType = (type?: string) => {
   switch (type) {
     case 'play':
       return 'Games';
