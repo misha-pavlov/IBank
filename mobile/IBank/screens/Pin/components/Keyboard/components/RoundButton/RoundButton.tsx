@@ -1,4 +1,4 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC, memo, useMemo } from 'react';
 import { Backspace } from '../../../../../../assets/svg';
 import { WhiteText } from '../../../../../../common/common.styles';
 import { RoundTouchable } from './RoundButton.styles';
@@ -30,4 +30,4 @@ const RoundButton: FC<TRoundButton> = ({ text, isEmptyButton, isRemoveButton, on
   );
 };
 
-export default RoundButton;
+export default memo(RoundButton);

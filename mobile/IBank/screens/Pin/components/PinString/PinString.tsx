@@ -1,5 +1,5 @@
 import { Center } from 'native-base';
-import React from 'react';
+import React, { memo } from 'react';
 import { PinPoint } from './PinString.styles';
 
 const PinString = ({ enteredLength }: { enteredLength: number }) => {
@@ -13,4 +13,4 @@ const PinString = ({ enteredLength }: { enteredLength: number }) => {
   );
 };
 
-export default PinString;
+export default memo(PinString);
