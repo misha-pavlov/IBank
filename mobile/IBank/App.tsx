@@ -11,18 +11,22 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { NativeBaseProvider } from 'native-base';
+import { ApolloProvider } from '@apollo/client';
 import RootNavigator from './navigation/RootNavigator';
 import Store from './store/store';
+import { client } from './apollo/connect';
 
 const App = () => {
   return (
-    <Store>
-      <NavigationContainer>
-        <NativeBaseProvider>
-          <RootNavigator />
-        </NativeBaseProvider>
-      </NavigationContainer>
-    </Store>
+    <ApolloProvider client={client}>
+      <Store>
+        <NavigationContainer>
+          <NativeBaseProvider>
+            <RootNavigator />
+          </NativeBaseProvider>
+        </NavigationContainer>
+      </Store>
+    </ApolloProvider>
   );
 };
 

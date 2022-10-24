@@ -4,7 +4,6 @@ export { default as CardPicker } from './CardPicker/CardPicker';
 export { default as DefaultInput } from './DefaultInput/DefaultInput';
 export { default as IBankBlackButton } from './IBankBlackButton/IBankBlackButton';
 export { default as IBankGrayButton } from './IBankGrayButton/IBankGrayButton';
-export { default as IBankHeader } from './IBankHeader/IBankHeader';
 export { default as PhoneInput } from './PhoneInput/PhoneInput';
 export { default as PinInput } from './PinInput/PinInput';
 export { default as RoundTouchable } from './RoundTouchable/RoundTouchable';

@@ -7,6 +7,7 @@ import IBankTabs from './IBankTabs';
 import LoadingScreen from '../screens/LoadingScreen/LoadingScreen';
 import { Context } from '../store/store';
 import Pin from '../screens/Pin/Pin';
+import { emptyBlackWithBackButton } from '../common/navigationOptions';
 
 const RootStack = createStackNavigator();
 
@@ -36,7 +37,7 @@ const RootNavigator = () => {
       ) : (
         <>
           <RootStack.Screen name={screens.auth.SignIn} options={{ headerShown: false }} component={SignIn} />
-          <RootStack.Screen name={screens.auth.SignUp} options={{ headerShown: false }} component={SignUp} />
+          <RootStack.Screen name={screens.auth.SignUp} options={emptyBlackWithBackButton} component={SignUp} />
         </>
       )}
     </RootStack.Navigator>

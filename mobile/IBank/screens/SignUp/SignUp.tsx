@@ -4,17 +4,15 @@ import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/dat
 import moment from 'moment';
 import { isValidPhoneNumber } from 'libphonenumber-js';
 import EncryptedStorage from 'react-native-encrypted-storage';
-// styles
+import { useMutation } from '@apollo/client';
 import { BankNameHeader, BlackContentWrapper, NextButton, WhiteText } from '../../common/common.styles';
 import { signUpStyles } from './SignUp.styles';
-// constants
 import { constants } from '../../config/constants';
 import { colors } from '../../config/colors';
 import { actionCases } from '../../store/actionCases';
-// components
-import { DefaultInput, IBankHeader, PhoneInput, PinInput } from '../../components';
-// store
+import { DefaultInput, PhoneInput, PinInput } from '../../components';
 import { Context } from '../../store/store';
+import { SIGN_UP } from './gql/SignUp.mutations';
 
 const SignUp = () => {
   const [fields, setFields] = useState({
@@ -27,6 +25,10 @@ const SignUp = () => {
   const [showPin, setShowPin] = useState(false);
 
   const { dispatch } = useContext(Context);
+
+  const [mutate] = useMutation(SIGN_UP, {
+    onError: e => console.log('SIGN_UP = ', e),
+  });
 
   const onFieldChange = useCallback(
     (value: string, field: string) => {
@@ -56,14 +58,24 @@ const SignUp = () => {
   }, [fields]);
 
   const onPress = useCallback(async () => {
-    await EncryptedStorage.setItem(constants.keys.USER_JWT, JSON.stringify({ USER_JWT: '123123' }));
-    dispatch({ type: actionCases.IS_USER_LOGGED_IN, payload: true });
-  }, [dispatch]);
+    const { phone, pin, fullName, birthday, sex } = fields;
+
+    await mutate({
+      variables: {
+        phone,
+        pin,
+        fullName,
+        birthday,
+        sex,
+      },
+      onCompleted: ({ signUp }) => console.log(signUp.token),
+    });
+    // await EncryptedStorage.setItem(constants.keys.USER_JWT, JSON.stringify({ USER_JWT: '123123' }));
+    // dispatch({ type: actionCases.IS_USER_LOGGED_IN, payload: true });
+  }, []);
 
   return (
     <BlackContentWrapper>
-      <IBankHeader />
-
       <Stack direction="row" mt="40px" justifyContent="center">
         <BankNameHeader>{constants.appName}</BankNameHeader>
       </Stack>
