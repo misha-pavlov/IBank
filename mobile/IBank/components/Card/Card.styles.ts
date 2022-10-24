@@ -22,7 +22,7 @@ export const CardNumber = styled.Text<{ withFullWidth?: boolean }>`
   font-size: 25px;
   font-weight: 700;
   padding-left: 3px;
-  letter-spacing: 1.5px;
+  letter-spacing: ${({ withFullWidth }) => (withFullWidth ? 1.5 : 0)}px;
 `;
 
 export const BottomBlock = styled.View`

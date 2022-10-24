@@ -1,11 +1,13 @@
 import { Avatar, Center, Flex, View } from 'native-base';
 import React, { useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import EncryptedStorage from 'react-native-encrypted-storage';
 import { WhiteText, GradientCententWrapper } from '../../common/common.styles';
 import { colors } from '../../config/colors';
 import PersonalDataRow from './components/PersonalDataRow/PersonalDataRow';
 import { ChatIcon, DocumentIcon, MailIcon, PhoneIcon } from '../../assets/svg';
 import { IBankBlackButton } from '../../components';
+import { constants } from '../../config/constants';
 
 const EditProfile = () => {
   const { setOptions } = useNavigation();
@@ -72,7 +74,7 @@ const EditProfile = () => {
       </Flex>
 
       <View mt={12}>
-        <IBankBlackButton text="Sign Out" onPress={() => console.log('SIGN OUT')} />
+        <IBankBlackButton text="Sign Out" onPress={() => EncryptedStorage.removeItem(constants.keys.USER_JWT)} />
       </View>
     </GradientCententWrapper>
   );
