@@ -1,5 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { Types } from 'mongoose';
+import { USER_SEX_ENUM } from 'src/modules/user/user.schema';
 
 @ObjectType()
 export class UserPayload {
@@ -19,7 +20,7 @@ export class UserPayload {
   birthday: Date;
 
   @Field(() => String)
-  sex: 'm' | 'f';
+  sex: USER_SEX_ENUM;
 
   @Field(() => String)
   image: string;

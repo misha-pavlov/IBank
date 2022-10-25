@@ -1,7 +1,10 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { Logger, UseGuards } from '@nestjs/common';
+import { UseGuards } from '@nestjs/common';
 
-import { AuthPayload } from 'src/object-types/auth-payload.object-type';
+import {
+  AuthPayload,
+  SignUpPayload,
+} from 'src/object-types/auth-payload.object-type';
 import { ContextUser } from 'src/decorators/context-user.decorator';
 import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
 
@@ -23,7 +26,7 @@ export class AuthResolver {
     return this.authService.signIn(phone, pin);
   }
 
-  @Mutation(() => AuthPayload)
+  @Mutation(() => SignUpPayload)
   async signUp(
     @Args('phone') phone: string,
     @Args('pin') pin: string,

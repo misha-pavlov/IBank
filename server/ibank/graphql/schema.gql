@@ -6,14 +6,36 @@ type AuthPayload {
   token: String!
 }
 
+enum CARD_TYPE_ENUM {
+  BLACK
+  IRON
+  PLATINUM
+}
+
+type Card {
+  _id: ObjectId!
+  amount: Float!
+  createdAt: DateTime!
+  deleted: Boolean!
+  expired: DateTime!
+  internetLimit: Float!
+  isBlocked: Boolean!
+  isMasterCard: Boolean!
+  number: String!
+  owner: String!
+  pin: Float!
+  type: CARD_TYPE_ENUM!
+}
+
 """
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
 scalar DateTime
 
 type Mutation {
+  createCard(isMasterCard: Boolean!, owner: String!, pin: Float!, type: String!): Card!
   signIn(phone: String!, pin: String!): AuthPayload!
-  signUp(birthday: DateTime!, fullName: String!, phone: String!, pin: String!, sex: String!): AuthPayload!
+  signUp(birthday: DateTime!, fullName: String!, phone: String!, pin: String!, sex: String!): SignUpPayload!
 }
 
 """Mongo object id scalar type"""
@@ -23,6 +45,11 @@ type Query {
   Hello: String!
   auth: AuthPayload!
   getUser: UserPayload!
+}
+
+type SignUpPayload {
+  newUserId: ObjectId!
+  token: String!
 }
 
 type UserPayload {

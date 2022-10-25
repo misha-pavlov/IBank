@@ -8,6 +8,7 @@ import { UserPayload } from '../../object-types/user-payload.object-type';
 
 @Resolver()
 export class UserResolver {
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   constructor() {}
 
   @Query(() => UserPayload)

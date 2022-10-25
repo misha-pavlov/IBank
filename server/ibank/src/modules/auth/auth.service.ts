@@ -1,7 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
-import { AuthPayload } from 'src/object-types/auth-payload.object-type';
+import {
+  AuthPayload,
+  SignUpPayload,
+} from 'src/object-types/auth-payload.object-type';
 
 import { CATS_MEMES_IMAGE_URLS } from './static/images';
 import { UserService } from '../user/user.service';
@@ -29,7 +32,7 @@ export class AuthService {
     fullName: string,
     birthday: Date,
     sex: 'm' | 'f',
-  ): Promise<AuthPayload> {
+  ): Promise<SignUpPayload> {
     const randomNumber = Math.floor(Math.random() * 10);
     const image = CATS_MEMES_IMAGE_URLS[randomNumber];
     const user = await this.userService.createUser({
@@ -40,6 +43,6 @@ export class AuthService {
       sex,
       image,
     });
-    return { token: await this.generateToken(user) };
+    return { token: await this.generateToken(user), newUserId: user._id };
   }
 }
