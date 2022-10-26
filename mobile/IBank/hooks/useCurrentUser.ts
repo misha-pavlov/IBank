@@ -1,14 +1,15 @@
 import { useQuery } from '@apollo/client';
 import { GET_USER } from '../gql/user.queries';
 import { ApolloFetchPolicy } from '../types/apollo';
+import { TUser } from '../types/user';
 
-const useGetUser = () => {
+const useCurrentUser = (): { user?: TUser; loading: boolean } => {
   const { data, loading } = useQuery(GET_USER, {
     pollInterval: 5000,
     fetchPolicy: ApolloFetchPolicy.CacheAndNetwork,
   });
 
-  return { user: data?.GetUser, loading };
+  return { user: data?.getUser, loading };
 };
 
-export default useGetUser;
+export default useCurrentUser;

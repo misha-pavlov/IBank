@@ -1,3 +1,3 @@
-export { default as useGetUser } from './useGetUser';
-export { default as useScrollHandler } from './useScrollHandler';
+export { default as useCurrentUser } from './useCurrentUser';
 export { default as useUserLoggedIn } from './useUserLoggedIn';
+export { default as useScrollHandler } from './useScrollHandler';

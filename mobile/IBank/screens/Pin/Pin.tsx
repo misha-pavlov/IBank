@@ -9,6 +9,7 @@ import Keyboard from './components/Keyboard/Keyboard';
 import PinString from './components/PinString/PinString';
 import { screens } from '../../config/screens';
 import { NAppNavigatorNavigationProp } from '../../navigation/types/AppNavigator.types';
+import { useCurrentUser } from '../../hooks';
 
 const correctCode = '1234';
 
@@ -16,6 +17,8 @@ const Pin = () => {
   const [pinCode, setPinCode] = useState('');
   const pinRef = useRef<Animatable.View & View>(null);
   const { replace } = useNavigation<NAppNavigatorNavigationProp<'Card'>>();
+
+  const { user } = useCurrentUser();
 
   // check on correcting pin code
   useEffect(() => {
@@ -50,10 +53,10 @@ const Pin = () => {
     <BlackContentWrapper>
       <Center pt={35}>
         <Avatar
-          bg={colors.pinkA100}
+          bg={colors.gray100}
           size="xl"
           source={{
-            uri: 'https://images.unsplash.com/photo-1510771463146-e89e6e86560e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=627&q=80',
+            uri: user?.image,
           }}>
           FN
         </Avatar>

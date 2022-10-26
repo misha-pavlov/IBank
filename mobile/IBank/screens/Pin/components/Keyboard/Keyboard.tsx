@@ -1,5 +1,5 @@
 import { Stack } from 'native-base';
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 import RoundButton from './components/RoundButton/RoundButton';
 
 type TKeyboard = {
@@ -37,4 +37,4 @@ const Keyboard: FC<TKeyboard> = ({ setNumber, removeLastNumber }) => {
   );
 };
 
-export default Keyboard;
+export default memo(Keyboard);
