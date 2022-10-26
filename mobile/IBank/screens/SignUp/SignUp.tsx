@@ -1,9 +1,8 @@
-import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Box, Center, FormControl, Stack, Select, Radio } from 'native-base';
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import moment from 'moment';
 import { isValidPhoneNumber } from 'libphonenumber-js';
-import EncryptedStorage from 'react-native-encrypted-storage';
 import { useMutation } from '@apollo/client';
 // styles
 import { BankNameHeader, NextButton, ScrollableBlackContentWrapper, WhiteText } from '../../common/common.styles';
@@ -11,11 +10,8 @@ import { signUpStyles } from './SignUp.styles';
 // constans
 import { constants } from '../../config/constants';
 import { colors } from '../../config/colors';
-import { actionCases } from '../../store/actionCases';
 // components
 import { DefaultInput, PhoneInput, PinInput } from '../../components';
-// store
-import { Context } from '../../store/store';
 // gql
 import { SIGN_UP } from './gql/SignUp.mutations';
 import { CREATE_CARD } from '../../gql/card.mutations';
@@ -24,6 +20,8 @@ import { isTrueSet } from './SignUp.helpers';
 // types
 import { UserSex } from '../../types/user';
 import { CardType } from '../../types/card';
+// hooks
+import { useUserLoggedIn } from '../../hooks';
 
 const SignUp = () => {
   const [fields, setFields] = useState({
@@ -39,9 +37,9 @@ const SignUp = () => {
 
   const [showPin, setShowPin] = useState(false);
   const [newUserId, setNewUserId] = useState(null);
-  const [newUserJWT, setNewUserJWT] = useState(null);
+  const [newUserJWT, setNewUserJWT] = useState();
 
-  const { dispatch } = useContext(Context);
+  const { setUserAsLoggedIn } = useUserLoggedIn();
 
   const [signUpMutation] = useMutation(SIGN_UP, {
     onError: e => console.error('SIGN_UP = ', e),
@@ -49,11 +47,6 @@ const SignUp = () => {
   const [createCardMutation] = useMutation(CREATE_CARD, {
     onError: e => console.error('CREATE_CARD = ', e),
   });
-
-  const setUserAsAuthorized = useCallback(async () => {
-    await EncryptedStorage.setItem(constants.keys.USER_JWT, JSON.stringify({ USER_JWT: newUserJWT }));
-    dispatch({ type: actionCases.IS_USER_LOGGED_IN, payload: true });
-  }, [dispatch, newUserJWT]);
 
   useEffect(() => {
     if (newUserId && newUserJWT) {
@@ -66,10 +59,10 @@ const SignUp = () => {
           isMasterCard: isTrueSet(isMasterCard),
           type: type,
         },
-        onCompleted: () => setUserAsAuthorized(),
+        onCompleted: () => setUserAsLoggedIn(newUserJWT),
       });
     }
-  }, [createCardMutation, fields, newUserId, newUserJWT, setUserAsAuthorized]);
+  }, [createCardMutation, fields, newUserId, newUserJWT, setUserAsLoggedIn]);
 
   const onFieldChange = useCallback(
     (value: string, field: string) => {
