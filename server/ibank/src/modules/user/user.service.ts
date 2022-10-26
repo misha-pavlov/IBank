@@ -11,7 +11,7 @@ export class UserService {
   constructor(@InjectModel(User.name) private userModel: UserModel) {}
 
   async validateUser(phone: string, pin: string): Promise<User> {
-    const targetUser = await this.userModel.findOne({ phone, pin });
+    const targetUser = await this.userModel.findOne({ phone });
     if (!targetUser) throw new Error('Invalid credentials');
 
     const isPinValid = await compare(pin, targetUser.pin);

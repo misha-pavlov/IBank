@@ -3,6 +3,7 @@ import { Center, FormControl, Input, Stack, WarningOutlineIcon } from 'native-ba
 import { TouchableOpacity } from 'react-native';
 import { isValidPhoneNumber, parseIncompletePhoneNumber } from 'libphonenumber-js';
 import { useNavigation } from '@react-navigation/native';
+import { useMutation } from '@apollo/client';
 // constants
 import { colors } from '../../../../config/colors';
 import { constants } from '../../../../config/constants';
@@ -16,6 +17,10 @@ import { Visibility, VisibilityOff } from '../../../../assets/svg';
 import { NAuthNavigatorNavigationProp } from '../../../../navigation/types/AuthNavigator.types';
 // components
 import { PhoneInput, PinInput } from '../../../../components';
+// gql
+import { SIGN_IN } from './gql/SignInForms.mutations';
+// hooks
+import { useUserLoggedIn } from '../../../../hooks';
 
 type TSignInForms = {
   currentStage: 'phone' | 'pin';
@@ -23,13 +28,26 @@ type TSignInForms = {
 };
 
 const SignInForms: FC<TSignInForms> = ({ currentStage, setCurrentStage }) => {
-  const navigation = useNavigation<NAuthNavigatorNavigationProp<'SignUp'>>();
+  const { navigate } = useNavigation<NAuthNavigatorNavigationProp<'SignUp'>>();
 
-  const [value, setValue] = useState('');
+  const [phone, setPhone] = useState('');
   const [pin, setPin] = useState('');
   const [showPin, setShowPin] = useState(false);
   const [confirmPin, setConfirmPin] = useState('');
   const [showConfirmPin, setShowConfirmPin] = useState(false);
+
+  const [signInMutate] = useMutation(SIGN_IN, { onError: e => console.error('SIGN_IN = ', e) });
+  const { setUserAsLoggedIn } = useUserLoggedIn();
+
+  const onPress = useCallback(() => {
+    signInMutate({
+      variables: {
+        phone,
+        pin,
+      },
+      onCompleted: ({ signIn }) => setUserAsLoggedIn(signIn.token),
+    });
+  }, [phone, pin, signInMutate, setUserAsLoggedIn]);
 
   const isInvalid = useMemo(() => {
     if (pin.length === confirmPin.length) {
@@ -39,12 +57,12 @@ const SignInForms: FC<TSignInForms> = ({ currentStage, setCurrentStage }) => {
 
   const isDisabled = useMemo(() => {
     if (currentStage === constants.signUpStages.phone) {
-      const phone = parseIncompletePhoneNumber(value);
-      return isValidPhoneNumber(phone) && value.length >= 9;
+      const parsedPhone = parseIncompletePhoneNumber(phone);
+      return isValidPhoneNumber(parsedPhone) && phone.length >= 9;
     }
 
     return pin.length === 4 && confirmPin.length === 4 && !isInvalid;
-  }, [value, currentStage, pin, confirmPin, isInvalid]);
+  }, [phone, currentStage, pin, confirmPin, isInvalid]);
 
   const invalidStyles = useMemo(() => {
     if (isInvalid) {
@@ -61,15 +79,15 @@ const SignInForms: FC<TSignInForms> = ({ currentStage, setCurrentStage }) => {
   }, [isInvalid]);
 
   const moveToSignUp = useCallback(() => {
-    return navigation.navigate(screens.auth.SignUp);
-  }, [navigation]);
+    return navigate(screens.auth.SignUp);
+  }, [navigate]);
 
   const renderSection = useMemo(() => {
     if (currentStage === constants.signUpStages.phone) {
       return (
         <>
           <FormControl w="75%" maxW="300px">
-            <PhoneInput value={value} setValue={setValue} />
+            <PhoneInput value={phone} setValue={setPhone} />
 
             <Center>
               <NextButton disabled={!isDisabled} onPress={() => setCurrentStage(constants.signUpStages.pin)}>
@@ -117,7 +135,7 @@ const SignInForms: FC<TSignInForms> = ({ currentStage, setCurrentStage }) => {
           )}
         </FormControl>
 
-        <NextButton disabled={!isDisabled}>
+        <NextButton disabled={!isDisabled} onPress={onPress}>
           <WhiteText>Finish</WhiteText>
         </NextButton>
 
@@ -129,16 +147,17 @@ const SignInForms: FC<TSignInForms> = ({ currentStage, setCurrentStage }) => {
       </>
     );
   }, [
-    currentStage,
     pin,
+    phone,
+    onPress,
     showPin,
     isInvalid,
     confirmPin,
-    showConfirmPin,
-    invalidStyles,
     isDisabled,
-    value,
     moveToSignUp,
+    currentStage,
+    invalidStyles,
+    showConfirmPin,
     setCurrentStage,
   ]);
 
