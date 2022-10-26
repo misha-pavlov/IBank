@@ -9,7 +9,7 @@ import { ContextUser } from 'src/decorators/context-user.decorator';
 import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
 
 import { AuthService } from './auth.service';
-import { User } from '../user/user.schema';
+import { User, USER_SEX_ENUM } from '../user/user.schema';
 
 @Resolver()
 export class AuthResolver {
@@ -32,7 +32,7 @@ export class AuthResolver {
     @Args('pin') pin: string,
     @Args('fullName') fullName: string,
     @Args('birthday') birthday: Date,
-    @Args('sex') sex: 'm' | 'f',
+    @Args('sex') sex: USER_SEX_ENUM,
   ) {
     return this.authService.signUp(phone, pin, fullName, birthday, sex);
   }

@@ -8,7 +8,7 @@ import {
 
 import { CATS_MEMES_IMAGE_URLS } from './static/images';
 import { UserService } from '../user/user.service';
-import { User } from '../user/user.schema';
+import { User, USER_SEX_ENUM } from '../user/user.schema';
 
 @Injectable()
 export class AuthService {
@@ -31,7 +31,7 @@ export class AuthService {
     pin: string,
     fullName: string,
     birthday: Date,
-    sex: 'm' | 'f',
+    sex: USER_SEX_ENUM,
   ): Promise<SignUpPayload> {
     const randomNumber = Math.floor(Math.random() * 10);
     const image = CATS_MEMES_IMAGE_URLS[randomNumber];
