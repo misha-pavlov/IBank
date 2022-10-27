@@ -23,7 +23,7 @@ type Card {
   isMasterCard: Boolean!
   number: String!
   owner: String!
-  pin: Float!
+  pin: String!
   type: CARD_TYPE_ENUM!
 }
 
@@ -33,7 +33,7 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 scalar DateTime
 
 type Mutation {
-  createCard(isMasterCard: Boolean!, owner: String!, pin: Float!, type: String!): Card!
+  createCard(isMasterCard: Boolean!, owner: String!, pin: String!, type: String!): Card!
   signIn(phone: String!, pin: String!): AuthPayload!
   signUp(birthday: DateTime!, fullName: String!, phone: String!, pin: String!, sex: String!): SignUpPayload!
 }
@@ -44,6 +44,7 @@ scalar ObjectId
 type Query {
   Hello: String!
   auth: AuthPayload!
+  checkUserPin(pin: String!, userId: ObjectId!): Boolean!
   getUser: UserPayload!
 }
 

@@ -10,7 +10,7 @@ export class CardService {
 
   async createCard(
     owner: string,
-    pin: number,
+    pin: string,
     isMasterCard: boolean,
     type: CARD_TYPE_ENUM,
   ): Promise<Card> {

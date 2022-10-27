@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { hash, compare } from 'bcrypt';
 import { Types } from 'mongoose';
@@ -36,5 +36,17 @@ export class UserService {
     if (!user && throwError) throw new Error('User not found');
 
     return user;
+  }
+
+  async checkUserPin(userId: Types.ObjectId, pin: string): Promise<boolean> {
+    const targetUser = await this.userModel.findOne({ _id: userId });
+    if (!targetUser) throw new Error('User not found!');
+
+    const isPinValid = await compare(pin, targetUser.pin);
+    if (!isPinValid) {
+      throw new Error('Pin not correct!');
+    }
+
+    return true;
   }
 }

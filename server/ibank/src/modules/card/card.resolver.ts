@@ -8,7 +8,7 @@ export class CardResolver {
 
   @Mutation(() => Card)
   async createCard(
-    @Args('pin') pin: number,
+    @Args('pin') pin: string,
     @Args('owner') owner: string,
     @Args('isMasterCard') isMasterCard: boolean,
     @Args('type') type: CARD_TYPE_ENUM,

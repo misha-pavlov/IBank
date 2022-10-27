@@ -23,6 +23,7 @@ import { CardType } from '../../types/card';
 // hooks
 import { useUserLoggedIn } from '../../hooks';
 
+// TODO: fix bug with fields cleaning when user select card type
 const SignUp = () => {
   const [fields, setFields] = useState({
     phone: '',
@@ -54,7 +55,7 @@ const SignUp = () => {
 
       createCardMutation({
         variables: {
-          pin: Number(pin),
+          pin,
           owner: newUserId,
           isMasterCard: isTrueSet(isMasterCard),
           type: type,
