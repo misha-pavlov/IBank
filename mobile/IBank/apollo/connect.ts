@@ -1,6 +1,6 @@
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import { getUserJwt } from '../helpers/JwtHelpers';
+import { getUserJwt } from '../helpers/jwtHelpers';
 
 const httpLink = createHttpLink({
   uri: 'http://localhost:8080/graphql',

@@ -9,7 +9,7 @@ const useCurrentUser = (): { user?: TUser; loading: boolean } => {
     fetchPolicy: ApolloFetchPolicy.CacheAndNetwork,
   });
 
-  return { user: data?.getUser, loading };
+  return { user: data?.getUser || {}, loading };
 };
 
 export default useCurrentUser;

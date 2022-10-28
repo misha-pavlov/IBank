@@ -8,13 +8,14 @@ import { WhiteText, GradientCententWrapper, SectionGradient } from '../../common
 import { IBankGrayButton } from '../../components';
 import { colors } from '../../config/colors';
 import { screens } from '../../config/screens';
-import { useScrollHandler } from '../../hooks';
+import { useCurrentUser, useScrollHandler } from '../../hooks';
 import { NAppNavigatorNavigationProp } from '../../navigation/types/AppNavigator.types';
 import { BottomBottomScrollableBlock, CardCube, ScrollBlock } from './HeaderModal.styles';
 
 const HeaderModal = () => {
   const { goBack, canGoBack, navigate } = useNavigation<NAppNavigatorNavigationProp<'EditProfile'>>();
   const scrollHandler = useScrollHandler({ onScrollTop: () => canGoBack() && goBack() });
+  const { user } = useCurrentUser();
 
   return (
     <GradientCententWrapper
@@ -24,10 +25,10 @@ const HeaderModal = () => {
       locations={[1, 0.5, 0]}>
       <Center mt={50}>
         <Avatar
-          bg={colors.pinkA100}
+          bg={colors.gray100}
           size="lg"
           source={{
-            uri: 'https://images.unsplash.com/photo-1510771463146-e89e6e86560e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=627&q=80',
+            uri: user?.image,
           }}>
           FN
           <Avatar.Badge bg={colors.gray100}>
@@ -40,7 +41,7 @@ const HeaderModal = () => {
 
       <Center mt="20px">
         <WhiteText fontWeight={600} fontSize={18}>
-          First Last
+          {user?.fullName}
         </WhiteText>
       </Center>
 

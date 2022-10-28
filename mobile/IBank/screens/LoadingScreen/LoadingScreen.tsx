@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction, useContext, useEffect } from 'react';
 import { ActivityIndicator } from 'react-native';
 import { BlackContentWrapper } from '../../common/common.styles';
-import { getUserJwt } from '../../helpers/JwtHelpers';
+import { getUserJwt } from '../../helpers/jwtHelpers';
 import { actionCases } from '../../store/actionCases';
 import { Context } from '../../store/store';
 
