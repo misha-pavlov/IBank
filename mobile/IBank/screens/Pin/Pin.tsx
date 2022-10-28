@@ -12,6 +12,7 @@ import { screens } from '../../config/screens';
 import { NAppNavigatorNavigationProp } from '../../navigation/types/AppNavigator.types';
 import { useCurrentUser } from '../../hooks';
 import { CHECK_USER_PIN } from './gql/Pin.queries';
+import { getInitial } from '../../helpers/userHelpers';
 
 const Pin = () => {
   const [pinCode, setPinCode] = useState('');
@@ -58,12 +59,12 @@ const Pin = () => {
     <BlackContentWrapper>
       <Center pt={35}>
         <Avatar
-          bg={colors.gray100}
+          bg={colors.black}
           size="xl"
           source={{
             uri: user?.image,
           }}>
-          FN
+          {getInitial(user?.fullName)}
         </Avatar>
         <WhiteText fontSize={16} mt={15}>
           Enter your pin

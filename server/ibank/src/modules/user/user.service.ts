@@ -1,11 +1,10 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { hash, compare } from 'bcrypt';
 import { Types } from 'mongoose';
 
 import { CommonFields } from '../../common/common.schema';
 import { User, UserModel } from './user.schema';
-
 @Injectable()
 export class UserService {
   constructor(@InjectModel(User.name) private userModel: UserModel) {}
@@ -39,7 +38,7 @@ export class UserService {
   }
 
   async checkUserPin(userId: Types.ObjectId, pin: string): Promise<boolean> {
-    const targetUser = await this.userModel.findOne({ _id: userId });
+    const targetUser = await this.userModel.findById(userId);
     if (!targetUser) throw new Error('User not found!');
 
     const isPinValid = await compare(pin, targetUser.pin);
@@ -48,5 +47,21 @@ export class UserService {
     }
 
     return true;
+  }
+
+  async editProfile(
+    userId: Types.ObjectId,
+    fullName: string,
+    phone: string,
+    birthday: Date,
+  ): Promise<User> {
+    const targetUser = await this.userModel.findById(userId);
+    if (!targetUser) throw new Error('User not found!');
+
+    return this.userModel.findByIdAndUpdate(userId, {
+      fullName,
+      phone,
+      birthday,
+    });
   }
 }

@@ -34,6 +34,7 @@ scalar DateTime
 
 type Mutation {
   createCard(isMasterCard: Boolean!, owner: String!, pin: String!, type: String!): Card!
+  editProfile(birthday: DateTime!, fullName: String!, phone: String!, userId: ObjectId!): User!
   signIn(phone: String!, pin: String!): AuthPayload!
   signUp(birthday: DateTime!, fullName: String!, phone: String!, pin: String!, sex: String!): SignUpPayload!
 }
@@ -51,6 +52,23 @@ type Query {
 type SignUpPayload {
   newUserId: ObjectId!
   token: String!
+}
+
+enum USER_SEX_ENUM {
+  F
+  M
+}
+
+type User {
+  _id: ObjectId!
+  birthday: DateTime!
+  createdAt: DateTime!
+  deleted: Boolean!
+  fullName: String!
+  image: String!
+  phone: String!
+  pin: String!
+  sex: USER_SEX_ENUM!
 }
 
 type UserPayload {

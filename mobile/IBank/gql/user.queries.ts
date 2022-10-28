@@ -5,7 +5,9 @@ export const GET_USER = gql`
     getUser {
       _id
       image
+      phone
       fullName
+      birthday
     }
   }
 `;

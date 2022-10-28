@@ -1,6 +1,8 @@
 import { Flex, Input, Text } from 'native-base';
-import React, { FC, useCallback, useMemo, useState } from 'react';
+import React, { FC, memo, useMemo, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import moment from 'moment';
 import { WhiteText } from '../../../../common/common.styles';
 import { colors } from '../../../../config/colors';
 import { IconWrapper } from './PersonalDataRow.styles';
@@ -9,29 +11,50 @@ type TPersonalDataRow = {
   label: string;
   text: string;
   iconColor: string;
+  fieldName?: string;
   disabled?: boolean;
   withMarginTop?: boolean;
   icon: JSX.Element;
+  onFieldChange?: (value: string | Date, field: string) => void;
 };
 
-const PersonalDataRow: FC<TPersonalDataRow> = ({ label, text, iconColor, withMarginTop, icon, disabled }) => {
+const PersonalDataRow: FC<TPersonalDataRow> = ({
+  label,
+  text,
+  iconColor,
+  withMarginTop,
+  icon,
+  disabled,
+  fieldName,
+  onFieldChange,
+}) => {
   const [isShowInput, setIsShowInput] = useState(false);
-  const [inputText, setInputText] = useState(text);
 
-  const changeInputText = useCallback((value: string) => {
-    setInputText(value);
-  }, []);
+  const isDate = fieldName === 'birthday';
 
   const renderInputText = useMemo(() => {
+    if (isDate && onFieldChange) {
+      return (
+        <DateTimePicker
+          mode="date"
+          value={moment(text).toDate()}
+          onChange={(event, selectedDate) => onFieldChange(moment(selectedDate).toString(), fieldName)}
+        />
+      );
+    }
+
     if (isShowInput) {
       return (
         <Input
           autoFocus
-          value={inputText}
+          minW={150}
+          value={text}
           variant="underlined"
           color={colors.gray100}
-          onChangeText={changeInputText}
-          onSubmitEditing={() => setIsShowInput(false)}
+          onChangeText={newText => onFieldChange && fieldName && onFieldChange(newText, fieldName)}
+          onSubmitEditing={() => {
+            setIsShowInput(false);
+          }}
         />
       );
     }
@@ -41,11 +64,13 @@ const PersonalDataRow: FC<TPersonalDataRow> = ({ label, text, iconColor, withMar
         <WhiteText fontWeight={500}>{text}</WhiteText>
       </TouchableOpacity>
     );
-  }, [changeInputText, disabled, inputText, isShowInput, text]);
+  }, [disabled, fieldName, isDate, isShowInput, onFieldChange, text]);
 
   return (
-    <Flex flexDirection="row" {...(withMarginTop && { mt: 25 })}>
-      <IconWrapper backgroundColor={iconColor}>{icon}</IconWrapper>
+    <Flex flexDirection="row" alignItems="center" {...(withMarginTop && { mt: 25 })}>
+      <IconWrapper backgroundColor={iconColor} isDate={isDate}>
+        {icon}
+      </IconWrapper>
 
       <Flex>
         <Text fontWeight={600} color={colors.gray500}>
@@ -58,4 +83,4 @@ const PersonalDataRow: FC<TPersonalDataRow> = ({ label, text, iconColor, withMar
   );
 };
 
-export default PersonalDataRow;
+export default memo(PersonalDataRow);

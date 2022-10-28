@@ -25,7 +25,7 @@ const HeaderModal = () => {
       locations={[1, 0.5, 0]}>
       <Center mt={50}>
         <Avatar
-          bg={colors.gray100}
+          bg={colors.black}
           size="lg"
           source={{
             uri: user?.image,

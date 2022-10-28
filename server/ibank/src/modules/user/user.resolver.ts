@@ -1,12 +1,12 @@
 import { UserService } from './user.service';
-import { Args, Query, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
+import { Types } from 'mongoose';
 
 import { JwtAuthGuard } from '../../guards/jwt-auth.guard';
 import { ContextUser } from '../../decorators/context-user.decorator';
 import { User } from './user.schema';
 import { UserPayload } from '../../object-types/user-payload.object-type';
-import { Types } from 'mongoose';
 
 @Resolver()
 export class UserResolver {
@@ -24,5 +24,15 @@ export class UserResolver {
     @Args('pin') pin: string,
   ) {
     return this.userService.checkUserPin(userId, pin);
+  }
+
+  @Mutation(() => User)
+  async editProfile(
+    @Args('userId') userId: Types.ObjectId,
+    @Args('fullName') fullName: string,
+    @Args('phone') phone: string,
+    @Args('birthday') birthday: Date,
+  ) {
+    return this.userService.editProfile(userId, fullName, phone, birthday);
   }
 }

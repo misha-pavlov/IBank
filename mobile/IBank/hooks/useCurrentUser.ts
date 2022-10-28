@@ -5,7 +5,7 @@ import { TUser } from '../types/user';
 
 const useCurrentUser = (): { user?: TUser; loading: boolean } => {
   const { data, loading } = useQuery(GET_USER, {
-    pollInterval: 5000,
+    pollInterval: 2500,
     fetchPolicy: ApolloFetchPolicy.CacheAndNetwork,
   });
 
