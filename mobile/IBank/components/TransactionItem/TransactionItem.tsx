@@ -2,7 +2,7 @@ import { Flex, Text, View } from 'native-base';
 import React, { FC, memo, useMemo } from 'react';
 import { WhiteText } from '../../common/common.styles';
 import { colors } from '../../config/colors';
-import { getTransactionIconByType, getTransactionTitleByType } from '../../helpers/GeneralHelpers';
+import { getTransactionIconByType, getTransactionTitleByType } from '../../helpers/transactionHelpers';
 
 type TTransactionItem = {
   type?: string;

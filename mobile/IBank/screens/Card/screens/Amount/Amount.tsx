@@ -6,7 +6,7 @@ import { AnotherActionsIcon, SendOnCardIcon, TopUpIcon } from '../../../../asset
 import { commonStyles, SectionGradient, WhiteText } from '../../../../common/common.styles';
 import { RoundTouchable, TransactionItem } from '../../../../components';
 import { colors } from '../../../../config/colors';
-import { getFormattedAmount } from '../../../../helpers/GeneralHelpers';
+import { getFormattedAmount } from '../../../../helpers/transactionHelpers';
 import HeaderDoubleCards from '../../components/HeaderDoubleCards/HeaderDoubleCards';
 import MoveToCard from './components/MoveToCard/MoveToCard';
 

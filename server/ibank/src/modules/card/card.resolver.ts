@@ -1,10 +1,15 @@
-import { Args, Mutation, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Resolver, Query } from '@nestjs/graphql';
 import { CardService } from './card.service';
 import { Card, CARD_TYPE_ENUM } from './card.schema';
 
 @Resolver()
 export class CardResolver {
   constructor(private cardService: CardService) {}
+
+  @Query(() => [Card])
+  async getUserCards(@Args('owner') owner: string) {
+    return this.cardService.getUserCards(owner);
+  }
 
   @Mutation(() => Card)
   async createCard(

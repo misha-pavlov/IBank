@@ -30,4 +30,8 @@ export class CardService {
       type,
     });
   }
+
+  async getUserCards(owner: string): Promise<Card[]> {
+    return this.cardModel.find({ owner });
+  }
 }

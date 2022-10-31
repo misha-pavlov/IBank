@@ -3,3 +3,16 @@ export enum CardType {
   IRON = 'IRON',
   PLATINUM = 'PLATINUM',
 }
+
+export type TCard = {
+  _id: string;
+  pin: string;
+  type: CardType;
+  owner: string;
+  amount: number;
+  number: string;
+  expired: Date;
+  isBlocked: boolean;
+  isMasterCar: boolean;
+  internetLimit: number;
+};

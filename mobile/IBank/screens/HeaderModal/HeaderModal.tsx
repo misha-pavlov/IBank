@@ -1,21 +1,53 @@
+import { useQuery } from '@apollo/client';
 import { useNavigation } from '@react-navigation/native';
 import { AddIcon, Avatar, Center, Divider, Flex, HStack, View } from 'native-base';
-import React from 'react';
-import { TouchableOpacity } from 'react-native';
+import React, { useMemo } from 'react';
+import { ActivityIndicator, TouchableOpacity } from 'react-native';
+// svg
 import { Settings } from '../../assets/svg';
-import { BlackCard, IronCard, PinkCard } from '../../common/cards';
+// styles
 import { WhiteText, GradientCententWrapper, SectionGradient } from '../../common/common.styles';
+import { BottomBottomScrollableBlock, CardCube, ScrollBlock } from './HeaderModal.styles';
+// components
 import { IBankGrayButton } from '../../components';
+// constants
 import { colors } from '../../config/colors';
 import { screens } from '../../config/screens';
+// helpers
+import { getCardByType } from '../../helpers/cardHelpers';
+// hooks
 import { useCurrentUser, useScrollHandler } from '../../hooks';
+// types
 import { NAppNavigatorNavigationProp } from '../../navigation/types/AppNavigator.types';
-import { BottomBottomScrollableBlock, CardCube, ScrollBlock } from './HeaderModal.styles';
+import { TCard } from '../../types/card';
+// gql
+import { GET_USER_CARDS } from './gql/HeaderModal.queries';
 
 const HeaderModal = () => {
   const { goBack, canGoBack, navigate } = useNavigation<NAppNavigatorNavigationProp<'EditProfile'>>();
   const scrollHandler = useScrollHandler({ onScrollTop: () => canGoBack() && goBack() });
   const { user } = useCurrentUser();
+
+  const { data: cards, loading } = useQuery(GET_USER_CARDS, { variables: { owner: user?._id } });
+
+  const renderCards = useMemo(() => {
+    if (loading || !cards.getUserCards) {
+      return <ActivityIndicator color={colors.black} />;
+    }
+
+    return (
+      <Flex flexDirection="row" justifyContent="space-between" mt={15}>
+        {cards?.getUserCards.map((card: TCard) => (
+          <TouchableOpacity key={card._id}>
+            <CardCube isSelectedCard>{getCardByType(card.type)}</CardCube>
+            <WhiteText mt="5px" textAlign="center">
+              {card.amount} $
+            </WhiteText>
+          </TouchableOpacity>
+        ))}
+      </Flex>
+    );
+  }, [cards, loading]);
 
   return (
     <GradientCententWrapper
@@ -60,47 +92,23 @@ const HeaderModal = () => {
             Your cards
           </WhiteText>
 
-          <Flex flexDirection="row" justifyContent="space-between" mt={15}>
-            <TouchableOpacity>
-              <CardCube isSelectedCard>
-                <BlackCard />
-              </CardCube>
-              <WhiteText mt="5px" textAlign="center">
-                n $
-              </WhiteText>
-            </TouchableOpacity>
+          {renderCards}
 
-            <TouchableOpacity>
-              <CardCube>
-                <PinkCard />
-              </CardCube>
-              <WhiteText mt="5px" textAlign="center">
-                n $
-              </WhiteText>
-            </TouchableOpacity>
+          {cards?.getUserCards.length < 3 && (
+            <>
+              <Divider bg={colors.blueGray700} mt={25} mb={15} />
 
-            <TouchableOpacity>
-              <CardCube>
-                <IronCard />
-              </CardCube>
-              <WhiteText mt="5px" textAlign="center">
-                n $
-              </WhiteText>
-            </TouchableOpacity>
-          </Flex>
+              <TouchableOpacity>
+                <Flex flexDirection="row" justifyContent="center" alignItems="center">
+                  <View backgroundColor={colors.gray100} borderRadius={50} p="2px" mr="5px">
+                    <AddIcon color={colors.black} size="xs" />
+                  </View>
 
-          {/* Hide next section if user already have a 3 cards */}
-          <Divider bg={colors.blueGray700} mt={25} mb={15} />
-
-          <TouchableOpacity>
-            <Flex flexDirection="row" justifyContent="center" alignItems="center">
-              <View backgroundColor={colors.gray100} borderRadius={50} p="2px" mr="5px">
-                <AddIcon color={colors.black} size="xs" />
-              </View>
-
-              <WhiteText>Add a new card</WhiteText>
-            </Flex>
-          </TouchableOpacity>
+                  <WhiteText>Add a new card</WhiteText>
+                </Flex>
+              </TouchableOpacity>
+            </>
+          )}
         </SectionGradient>
       </Center>
 
