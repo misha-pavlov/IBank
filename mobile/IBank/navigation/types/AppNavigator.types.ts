@@ -1,13 +1,9 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { NCardStackParamList } from './CardNavigator.types';
 
 export type NAppStackParamList = {
-  Card: undefined;
-  Capital: undefined;
-  Statistic: undefined;
-  EditProfile: undefined;
-  HeaderModal: undefined;
-  CardNavigation: undefined;
+  CardNavigator: NCardStackParamList;
 };
 
 export type NAppNavigatorRouteProp<ScreenName extends keyof NAppStackParamList> = RouteProp<

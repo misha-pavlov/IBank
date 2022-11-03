@@ -1,9 +1,9 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Text, View } from 'react-native';
-import { screens } from '../config/screens';
+import { appEnum, cardEnum } from '../config/screens';
 import { colors } from '../config/colors';
-import CardNavigation from './CardNavigation';
+import CardNavigator from './CardNavigator';
 import { CardIcon, CashbackIcon, CreditIcon, MoreIcon, SavingIcon } from '../assets/svg';
 
 const Tab = createBottomTabNavigator();
@@ -22,13 +22,13 @@ const IBankTabs = () => {
         tabBarActiveTintColor: colors.red,
       }}>
       <Tab.Screen
-        name={screens.app.CardNavigation}
+        name={appEnum.CardNavigator}
         options={{
           headerShown: false,
           tabBarIcon: ({ color }) => <CardIcon fill={color} />,
-          title: screens.app.Card,
+          title: cardEnum.Card,
         }}
-        component={CardNavigation}
+        component={CardNavigator}
       />
       <Tab.Screen
         name="Credits"

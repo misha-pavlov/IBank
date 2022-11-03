@@ -7,19 +7,21 @@ import { Visibility, VisibilityOff } from '../../assets/svg';
 type TPinInput = {
   pin: string;
   showPin: boolean;
+  placeholder?: string;
+  isMaxWidth?: boolean;
   setPin: (pin: string) => void;
   setShowPin: (showPin: boolean) => void;
 };
 
-const PinInput: FC<TPinInput> = ({ pin, setPin, showPin, setShowPin }) => {
+const PinInput: FC<TPinInput> = ({ pin, setPin, showPin, setShowPin, placeholder, isMaxWidth }) => {
   return (
     <>
       <Input
         size="lg"
         variant="underlined"
         keyboardType="numeric"
-        placeholder="Enter pin"
-        maxW={300}
+        placeholder={placeholder || 'Enter pin'}
+        maxW={isMaxWidth ? '100%' : 300}
         maxLength={4}
         color={colors.gray100}
         borderBottomColor={colors.gray100}

@@ -10,3 +10,7 @@ export const emptyBlackWithBackButton = {
   headerStyle: { backgroundColor: colors.black, shadowColor: colors.black },
   headerBackImage: () => <ChevronLeftIcon ml="16px" color={colors.gray100} size="lg" />,
 };
+
+export const empty = {
+  headerShown: false,
+};

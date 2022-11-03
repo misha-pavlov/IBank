@@ -6,25 +6,25 @@ import { ActivityIndicator, TouchableOpacity } from 'react-native';
 // svg
 import { Settings } from '../../assets/svg';
 // styles
-import { WhiteText, GradientCententWrapper, SectionGradient } from '../../common/common.styles';
-import { BottomBottomScrollableBlock, CardCube, ScrollBlock } from './HeaderModal.styles';
+import { WhiteText, GradientCententWrapper, SectionGradient, CardCube } from '../../common/common.styles';
+import { BottomBottomScrollableBlock, ScrollBlock } from './HeaderModal.styles';
 // components
 import { IBankGrayButton } from '../../components';
 // constants
 import { colors } from '../../config/colors';
-import { screens } from '../../config/screens';
+import { cardEnum } from '../../config/screens';
 // helpers
 import { getCardByType } from '../../helpers/cardHelpers';
 // hooks
 import { useCurrentUser, useScrollHandler } from '../../hooks';
 // types
-import { NAppNavigatorNavigationProp } from '../../navigation/types/AppNavigator.types';
+import { NCardNavigatorNavigationProp } from '../../navigation/types/CardNavigator.types';
 import { TCard } from '../../types/card';
 // gql
 import { GET_USER_CARDS } from './gql/HeaderModal.queries';
 
 const HeaderModal = () => {
-  const { goBack, canGoBack, navigate } = useNavigation<NAppNavigatorNavigationProp<'EditProfile'>>();
+  const { goBack, canGoBack, navigate } = useNavigation<NCardNavigatorNavigationProp<'EditProfile'>>();
   const scrollHandler = useScrollHandler({ onScrollTop: () => canGoBack() && goBack() });
   const { user } = useCurrentUser();
 
@@ -64,7 +64,7 @@ const HeaderModal = () => {
           }}>
           FN
           <Avatar.Badge bg={colors.gray100}>
-            <TouchableOpacity onPress={() => navigate(screens.app.EditProfile)}>
+            <TouchableOpacity onPress={() => navigate(cardEnum.EditProfile)}>
               <Settings width={16} height={16} fill={colors.black} />
             </TouchableOpacity>
           </Avatar.Badge>
@@ -78,8 +78,8 @@ const HeaderModal = () => {
       </Center>
 
       <HStack mt={25} flexDirection="row" justifyContent="center" space={3}>
-        <IBankGrayButton text="💎 Statistics" onPress={() => navigate(screens.app.Statistic)} w={150} />
-        <IBankGrayButton text="💰 Capital" onPress={() => navigate(screens.app.Capital)} w={150} />
+        <IBankGrayButton text="💎 Statistics" onPress={() => navigate(cardEnum.Statistic)} w={150} />
+        <IBankGrayButton text="💰 Capital" onPress={() => navigate(cardEnum.Capital)} w={150} />
       </HStack>
 
       <Center mt={25}>
@@ -98,7 +98,7 @@ const HeaderModal = () => {
             <>
               <Divider bg={colors.blueGray700} mt={25} mb={15} />
 
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigate(cardEnum.AddNewCard)}>
                 <Flex flexDirection="row" justifyContent="center" alignItems="center">
                   <View backgroundColor={colors.gray100} borderRadius={50} p="2px" mr="5px">
                     <AddIcon color={colors.black} size="xs" />

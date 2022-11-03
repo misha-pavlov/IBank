@@ -8,8 +8,8 @@ import { BlackContentWrapper, WhiteText } from '../../common/common.styles';
 import { colors } from '../../config/colors';
 import Keyboard from './components/Keyboard/Keyboard';
 import PinString from './components/PinString/PinString';
-import { screens } from '../../config/screens';
-import { NAppNavigatorNavigationProp } from '../../navigation/types/AppNavigator.types';
+import { cardEnum } from '../../config/screens';
+import { NCardNavigatorNavigationProp } from '../../navigation/types/CardNavigator.types';
 import { useCurrentUser } from '../../hooks';
 import { CHECK_USER_PIN } from './gql/Pin.queries';
 import { getInitial } from '../../helpers/userHelpers';
@@ -17,7 +17,7 @@ import { getInitial } from '../../helpers/userHelpers';
 const Pin = () => {
   const [pinCode, setPinCode] = useState('');
   const pinRef = useRef<Animatable.View & View>(null);
-  const { replace } = useNavigation<NAppNavigatorNavigationProp<'Card'>>();
+  const { replace } = useNavigation<NCardNavigatorNavigationProp<'Card'>>();
 
   const { user } = useCurrentUser();
   const [checkUserPin] = useLazyQuery(CHECK_USER_PIN);
@@ -29,7 +29,7 @@ const Pin = () => {
         const { data } = await checkUserPin({ variables: { userId: user?._id, pin: pinCode } });
 
         if (data?.checkUserPin) {
-          replace(screens.app.Card);
+          replace(cardEnum.Card);
         } else {
           // shake and clear on error
           if (pinRef?.current?.shake) {

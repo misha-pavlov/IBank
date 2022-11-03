@@ -42,10 +42,10 @@ const SignUp = () => {
 
   const { setUserAsLoggedIn } = useUserLoggedIn();
 
-  const [signUpMutation] = useMutation(SIGN_UP, {
+  const [signUpMutate] = useMutation(SIGN_UP, {
     onError: e => console.error('SIGN_UP = ', e),
   });
-  const [createCardMutation] = useMutation(CREATE_CARD, {
+  const [createCardMutate] = useMutation(CREATE_CARD, {
     onError: e => console.error('CREATE_CARD = ', e),
   });
 
@@ -53,7 +53,7 @@ const SignUp = () => {
     if (newUserId && newUserJWT) {
       const { pin, isMasterCard, type } = fields;
 
-      createCardMutation({
+      createCardMutate({
         variables: {
           pin,
           owner: newUserId,
@@ -63,7 +63,7 @@ const SignUp = () => {
         onCompleted: () => setUserAsLoggedIn(newUserJWT),
       });
     }
-  }, [createCardMutation, fields, newUserId, newUserJWT, setUserAsLoggedIn]);
+  }, [createCardMutate, fields, newUserId, newUserJWT, setUserAsLoggedIn]);
 
   const onFieldChange = useCallback(
     (value: string, field: string) => {
@@ -96,7 +96,7 @@ const SignUp = () => {
   const onPress = useCallback(async () => {
     const { phone, pin, fullName, birthday, sex } = fields;
 
-    await signUpMutation({
+    await signUpMutate({
       variables: {
         phone,
         pin,
@@ -109,7 +109,7 @@ const SignUp = () => {
         setNewUserId(signUp.newUserId);
       },
     });
-  }, [fields, signUpMutation]);
+  }, [fields, signUpMutate]);
 
   return (
     <ScrollableBlackContentWrapper>

@@ -1,14 +1,14 @@
 import React from 'react';
-import { BlackCard } from '../common/cards';
+import { BlackCard, IronCard, PinkCard } from '../common/cards';
 import { CardType } from '../types/card';
 
 export const getCardByType = (type: CardType) => {
   switch (type) {
     case CardType.IRON:
-      return <BlackCard />;
+      return <IronCard />;
 
     case CardType.PLATINUM:
-      return <BlackCard />;
+      return <PinkCard />;
 
     default:
       return <BlackCard />;

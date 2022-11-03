@@ -7,7 +7,7 @@ import { useMutation } from '@apollo/client';
 // constants
 import { colors } from '../../../../config/colors';
 import { constants } from '../../../../config/constants';
-import { screens } from '../../../../config/screens';
+import { authEnum } from '../../../../config/screens';
 // styles
 import { BackButtonText, MoveToSignUpText } from './SignInForms.styles';
 import { WhiteText, NextButton } from '../../../../common/common.styles';
@@ -79,7 +79,7 @@ const SignInForms: FC<TSignInForms> = ({ currentStage, setCurrentStage }) => {
   }, [isInvalid]);
 
   const moveToSignUp = useCallback(() => {
-    return navigate(screens.auth.SignUp);
+    return navigate(authEnum.SignUp);
   }, [navigate]);
 
   const renderSection = useMemo(() => {

@@ -1,21 +1,21 @@
-import { NAppStackParamList } from '../navigation/types/AppNavigator.types';
-import { NAuthStackParamList } from '../navigation/types/AuthNavigator.types';
+export enum authEnum {
+  SignUp = 'SignUp',
+  SignIn = 'SignIn',
+  PinLogin = 'PinLogin',
+}
 
-export const screens = {
-  auth: {
-    SignUp: 'SignUp' as keyof NAuthStackParamList,
-    SignIn: 'SignIn',
-    PinLogin: 'PinLogin',
-  },
+export enum cardEnum {
+  Card = 'Card',
+  Capital = 'Capital',
+  NewCard = 'NewCard',
+  Statistic = 'Statistic',
+  AddNewCard = 'AddNewCard',
+  HeaderModal = 'HeaderModal',
+  EditProfile = 'EditProfile',
+}
 
-  app: {
-    Card: 'Card' as keyof NAppStackParamList,
-    Capital: 'Capital' as keyof NAppStackParamList,
-    Statistic: 'Statistic' as keyof NAppStackParamList,
-    HeaderModal: 'HeaderModal' as keyof NAppStackParamList,
-    EditProfile: 'EditProfile' as keyof NAppStackParamList,
-    CardNavigation: 'CardNavigation' as keyof NAppStackParamList,
-    Pin: 'Pin',
-    Loading: 'Loading',
-  },
-};
+export enum appEnum {
+  Pin = 'Pin',
+  Loading = 'Loading',
+  CardNavigator = 'CardNavigator',
+}

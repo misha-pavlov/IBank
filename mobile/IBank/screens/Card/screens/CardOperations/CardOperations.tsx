@@ -51,7 +51,7 @@ const CardOperations: FC<TCardOperation> = ({ renderPaginaton }) => {
         />
       </BottomSheet>
     );
-  }, [snapPoints]);
+  }, [renderItem, snapPoints]);
 
   return (
     <View flex={1}>

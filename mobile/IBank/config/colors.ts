@@ -8,6 +8,7 @@ export const colors = {
   gray100: '#F5F5F5',
   gray100_opacity45: 'rgba(245, 245, 245, 0.45)',
   gray400: '#BDBDBD',
+  gray400_opacity25: 'rgba(189, 189, 189, 0.25)',
   gray400_opacity35: 'rgba(189, 189, 189, 0.35)',
   gray500: '#9E9E9E',
   gray600: '#757575',

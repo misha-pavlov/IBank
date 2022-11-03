@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { screens } from '../config/screens';
+import { appEnum, authEnum, cardEnum } from '../config/screens';
 import SignIn from '../screens/SignIn/SignIn';
 import SignUp from '../screens/SignUp/SignUp';
 import IBankTabs from './IBankTabs';
@@ -19,7 +19,7 @@ const RootNavigator = () => {
     return (
       <RootStack.Navigator>
         <RootStack.Screen
-          name={screens.app.Loading}
+          name={appEnum.Loading}
           options={{ headerShown: false }}
           component={() => <LoadingScreen setLoading={setLoading} />}
         />
@@ -31,13 +31,13 @@ const RootNavigator = () => {
     <RootStack.Navigator>
       {state.isUserLoggedIn ? (
         <>
-          <RootStack.Screen name={screens.app.Pin} options={{ headerShown: false }} component={Pin} />
-          <RootStack.Screen name={screens.app.Card} options={{ headerShown: false }} component={IBankTabs} />
+          <RootStack.Screen name={appEnum.Pin} options={{ headerShown: false }} component={Pin} />
+          <RootStack.Screen name={cardEnum.Card} options={{ headerShown: false }} component={IBankTabs} />
         </>
       ) : (
         <>
-          <RootStack.Screen name={screens.auth.SignIn} options={{ headerShown: false }} component={SignIn} />
-          <RootStack.Screen name={screens.auth.SignUp} options={emptyBlackWithBackButton} component={SignUp} />
+          <RootStack.Screen name={authEnum.SignIn} options={{ headerShown: false }} component={SignIn} />
+          <RootStack.Screen name={authEnum.SignUp} options={emptyBlackWithBackButton} component={SignUp} />
         </>
       )}
     </RootStack.Navigator>
