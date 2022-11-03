@@ -1,12 +1,14 @@
 import styled from 'styled-components/native';
 import { StyleSheet } from 'react-native';
 import { colors } from '../../config/colors';
+import { getCardColorByType } from '../../helpers/cardHelpers';
+import { CardType } from './../../types/card';
 
-export const CardBlock = styled.View<{ withFullWidth?: boolean }>`
+export const CardBlock = styled.View<{ withFullWidth?: boolean; type: CardType }>`
   width: ${({ withFullWidth }) => (withFullWidth ? '100%' : '300px')};
   height: ${({ withFullWidth }) => (withFullWidth ? 220 : 175)}px;
   border-radius: 20px;
-  background-color: ${colors.pinkA100};
+  background-color: ${({ type }) => getCardColorByType(type)};
   padding: 18px;
 `;
 

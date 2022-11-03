@@ -7,6 +7,7 @@ import SignInForms from './components/SignInForms/SignInForms';
 import { isIOS } from '../../config/platform';
 import { getKeyboardVerticalOffsetForSignUp } from './helpers/SignIn.helpers';
 import { Card } from '../../components';
+import { CardType } from '../../types/card';
 
 const cardNumber = '1234 1234 1234 1234';
 
@@ -27,7 +28,7 @@ const SignIn = () => {
           </HeaderBlock>
 
           <Center>
-            <Card cardNumber={cardNumber} expiredDate="10/29" withFlip />
+            <Card cardNumber={cardNumber} expiredDate="10/29" isMasterCard type={CardType.PLATINUM} withFlip />
           </Center>
 
           <BestCardText withMargin>Best card only with</BestCardText>

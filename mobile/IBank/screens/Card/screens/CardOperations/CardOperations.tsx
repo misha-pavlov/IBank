@@ -6,6 +6,7 @@ import { CalendarIcon } from '../../../../assets/svg';
 import { commonStyles, SectionGradient, WhiteText } from '../../../../common/common.styles';
 import { Card, RoundTouchable, TransactionItem } from '../../../../components';
 import { colors } from '../../../../config/colors';
+import { CardType } from '../../../../types/card';
 import { cardSettings } from './constants';
 import { TCardSettings } from './types';
 
@@ -62,7 +63,7 @@ const CardOperations: FC<TCardOperation> = ({ renderPaginaton }) => {
         locations={[1, 0.5, 0]}
         withoutBorderRadius>
         <View mt="45px">
-          <Card cardNumber={cardNumber} expiredDate="10/29" withFullWidth />
+          <Card cardNumber={cardNumber} expiredDate="10/29" isMasterCard type={CardType.PLATINUM} withFullWidth />
         </View>
         <Center>{renderPaginaton}</Center>
 

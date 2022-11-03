@@ -12,6 +12,7 @@ import { capitalizeFirstLetter } from '../../helpers/generalHelpers';
 import { useCurrentUser } from '../../hooks';
 import { NCardNavigatorNavigationProp } from '../../navigation/types/CardNavigator.types';
 import { CardType, TCard } from '../../types/card';
+import { GET_USER_CARDS } from '../HeaderModal/gql/HeaderModal.queries';
 
 const IBANK_CARDS = [CardType.BLACK, CardType.IRON, CardType.PLATINUM];
 const IS_MASTER_CARD = 'isMasterCard';
@@ -34,7 +35,8 @@ const AddNewCard = () => {
     if (user) {
       createCardMutate({
         variables: { pin, owner: user?._id, isMasterCard: groupValues.includes(IS_MASTER_CARD), type: selected },
-        onCompleted: (card: TCard) => navigate(cardEnum.NewCard, { card }),
+        onCompleted: (card: { createCard: TCard }) => navigate(cardEnum.NewCard, { card: card.createCard }),
+        refetchQueries: [{ query: GET_USER_CARDS, variables: { owner: user?._id } }],
       });
     }
   }, [createCardMutate, groupValues, navigate, pin, selected, user]);
