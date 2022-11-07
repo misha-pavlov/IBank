@@ -48,6 +48,7 @@ type Query {
   checkUserPin(pin: String!, userId: ObjectId!): Boolean!
   getUser: UserPayload!
   getUserCards(owner: String!): [Card!]!
+  getUserFirstCard(owner: String!): Card!
 }
 
 type SignUpPayload {

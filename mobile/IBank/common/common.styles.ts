@@ -59,9 +59,8 @@ export const TransparentBox = styled(View)<{ p?: number }>`
 export const CardCube = styled(View)<{ isSelectedCard?: boolean }>`
   padding: 10px;
   border-radius: 15px;
-  border: 1px solid ${colors.gray100};
-  background-color: ${colors.gray400_opacity25};
-  ${({ isSelectedCard }) => isSelectedCard && `background-color: ${colors.gray400}`}
+  border: 1px solid;
+  ${({ isSelectedCard }) => `border-color: ${isSelectedCard ? colors.gray100 : colors.transparent}`}
 `;
 
 export const commonStyles = StyleSheet.create({

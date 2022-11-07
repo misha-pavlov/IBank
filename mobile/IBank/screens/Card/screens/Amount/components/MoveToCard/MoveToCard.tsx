@@ -1,7 +1,7 @@
 import { ArrowForwardIcon, View } from 'native-base';
 import React, { FC } from 'react';
-import { BlackCard } from '../../../../../../common/cards';
-import { colors } from '../../../../../../config/colors';
+import { getCardByType, getCardColorByType } from '../../../../../../helpers/cardHelpers';
+import { useCurrentCard } from '../../../../../../hooks';
 import { Touchable } from './MoveToCard.styles';
 
 type TMoveToCard = {
@@ -9,12 +9,14 @@ type TMoveToCard = {
 };
 
 const MoveToCard: FC<TMoveToCard> = ({ moveToNextScreen }) => {
+  const { currentCard } = useCurrentCard();
+
   return (
     <Touchable onPress={moveToNextScreen}>
-      <BlackCard />
+      {getCardByType(currentCard.type)}
 
       <View>
-        <ArrowForwardIcon color={colors.black} ml="8px" />
+        <ArrowForwardIcon color={getCardColorByType(currentCard.type)} ml="8px" />
       </View>
     </Touchable>
   );

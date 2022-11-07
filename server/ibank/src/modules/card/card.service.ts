@@ -34,4 +34,8 @@ export class CardService {
   async getUserCards(owner: string): Promise<Card[]> {
     return this.cardModel.find({ owner });
   }
+
+  async getUserFirstCard(owner: string): Promise<Card> {
+    return this.cardModel.findOne({ owner }).sort({ createdAt: 1 }).limit(1);
+  }
 }

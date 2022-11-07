@@ -7,6 +7,7 @@ import { commonStyles, SectionGradient, WhiteText } from '../../../../common/com
 import { RoundTouchable, TransactionItem } from '../../../../components';
 import { colors } from '../../../../config/colors';
 import { getFormattedAmount } from '../../../../helpers/transactionHelpers';
+import { useCurrentCard } from '../../../../hooks';
 import HeaderDoubleCards from '../../components/HeaderDoubleCards/HeaderDoubleCards';
 import MoveToCard from './components/MoveToCard/MoveToCard';
 
@@ -19,6 +20,8 @@ const Amount: FC<TAmount> = ({ renderPaginaton, moveToNextScreen }) => {
   const [bottomSheetIndex, setBottomSheetIndex] = useState(0);
   const [isSearchMode, setIsSearchMode] = useState(false);
   const [searchText, setSearchText] = useState('');
+
+  const { currentCard } = useCurrentCard();
 
   // ref
   const bottomSheetRef = useRef<BottomSheet>(null);
@@ -64,7 +67,7 @@ const Amount: FC<TAmount> = ({ renderPaginaton, moveToNextScreen }) => {
         <View position="absolute" right={0} left={0} top="60px" zIndex={150} w="100%">
           <Fade in>
             <WhiteText fontWeight={600} textAlign="center" fontSize={24}>
-              {getFormattedAmount(6717.61)} $
+              {getFormattedAmount(currentCard.amount)} $
             </WhiteText>
           </Fade>
         </View>
@@ -72,7 +75,7 @@ const Amount: FC<TAmount> = ({ renderPaginaton, moveToNextScreen }) => {
     }
 
     return <HeaderDoubleCards />;
-  }, [bottomSheetIndex]);
+  }, [bottomSheetIndex, currentCard.amount]);
 
   const setSearchMode = useCallback(() => setIsSearchMode(!isSearchMode), [isSearchMode]);
 
@@ -150,7 +153,7 @@ const Amount: FC<TAmount> = ({ renderPaginaton, moveToNextScreen }) => {
         <View mt="100px" mb="100px">
           <View flexDirection="row" justifyContent="space-between">
             <WhiteText fontSize={40} fontWeight={600} ml={34}>
-              {getFormattedAmount(6717.61)} $
+              {getFormattedAmount(currentCard.amount)} $
             </WhiteText>
 
             <MoveToCard moveToNextScreen={moveToNextScreen} />

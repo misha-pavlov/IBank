@@ -11,6 +11,11 @@ export class CardResolver {
     return this.cardService.getUserCards(owner);
   }
 
+  @Query(() => Card)
+  async getUserFirstCard(@Args('owner') owner: string) {
+    return this.cardService.getUserFirstCard(owner);
+  }
+
   @Mutation(() => Card)
   async createCard(
     @Args('pin') pin: string,

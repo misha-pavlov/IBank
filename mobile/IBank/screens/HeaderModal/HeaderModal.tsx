@@ -16,7 +16,7 @@ import { cardEnum } from '../../config/screens';
 // helpers
 import { getCardByType } from '../../helpers/cardHelpers';
 // hooks
-import { useCurrentUser, useScrollHandler } from '../../hooks';
+import { useCurrentCard, useCurrentUser, useScrollHandler } from '../../hooks';
 // types
 import { NCardNavigatorNavigationProp } from '../../navigation/types/CardNavigator.types';
 import { TCard } from '../../types/card';
@@ -27,6 +27,7 @@ const HeaderModal = () => {
   const { goBack, canGoBack, navigate } = useNavigation<NCardNavigatorNavigationProp<'EditProfile'>>();
   const scrollHandler = useScrollHandler({ onScrollTop: () => canGoBack() && goBack() });
   const { user } = useCurrentUser();
+  const { currentCard, setCurrentCard } = useCurrentCard();
 
   const { data: cards, loading } = useQuery(GET_USER_CARDS, { variables: { owner: user?._id } });
 
@@ -38,8 +39,8 @@ const HeaderModal = () => {
     return (
       <Flex flexDirection="row" justifyContent="space-between" mt={15}>
         {cards?.getUserCards.map((card: TCard) => (
-          <TouchableOpacity key={card._id}>
-            <CardCube isSelectedCard>{getCardByType(card.type)}</CardCube>
+          <TouchableOpacity key={card._id} onPress={() => setCurrentCard(card)}>
+            <CardCube isSelectedCard={currentCard._id === card._id}>{getCardByType(card.type)}</CardCube>
             <WhiteText mt="5px" textAlign="center">
               {card.amount} $
             </WhiteText>
@@ -47,7 +48,7 @@ const HeaderModal = () => {
         ))}
       </Flex>
     );
-  }, [cards, loading]);
+  }, [cards.getUserCards, currentCard._id, loading, setCurrentCard]);
 
   return (
     <GradientCententWrapper

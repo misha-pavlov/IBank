@@ -3,15 +3,15 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { View } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { useNavigation } from '@react-navigation/native';
-import { useLazyQuery } from '@apollo/client';
+import { useLazyQuery, useQuery } from '@apollo/client';
 import { BlackContentWrapper, WhiteText } from '../../common/common.styles';
 import { colors } from '../../config/colors';
 import Keyboard from './components/Keyboard/Keyboard';
 import PinString from './components/PinString/PinString';
 import { cardEnum } from '../../config/screens';
 import { NCardNavigatorNavigationProp } from '../../navigation/types/CardNavigator.types';
-import { useCurrentUser } from '../../hooks';
-import { CHECK_USER_PIN } from './gql/Pin.queries';
+import { useCurrentCard, useCurrentUser } from '../../hooks';
+import { CHECK_USER_PIN, GET_USER_FIRST_CARD } from './gql/Pin.queries';
 import { getInitial } from '../../helpers/userHelpers';
 
 const Pin = () => {
@@ -20,7 +20,15 @@ const Pin = () => {
   const { replace } = useNavigation<NCardNavigatorNavigationProp<'Card'>>();
 
   const { user } = useCurrentUser();
+  const { setCurrentCard } = useCurrentCard();
   const [checkUserPin] = useLazyQuery(CHECK_USER_PIN);
+  const { data: userFirstCard } = useQuery(GET_USER_FIRST_CARD, { variables: { owner: user?._id } });
+
+  useEffect(() => {
+    if (userFirstCard?.getUserFirstCard) {
+      setCurrentCard(userFirstCard?.getUserFirstCard);
+    }
+  }, [setCurrentCard, userFirstCard?.getUserFirstCard]);
 
   // check on correcting pin code
   useEffect(() => {
