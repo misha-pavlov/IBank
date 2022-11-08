@@ -1,17 +1,17 @@
 import { Divider, Flex, Text, View } from 'native-base';
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { WhiteText } from '../../common/common.styles';
 import { colors } from '../../config/colors';
 
-type TCardListtem = {
+type TCardListItem = {
   type: string;
   amount: number;
   card: JSX.Element;
   onPress: () => void;
 };
 
-const CardListtem: FC<TCardListtem> = ({ card, type, amount, onPress }) => {
+const CardListItem: FC<TCardListItem> = ({ card, type, amount, onPress }) => {
   return (
     <>
       <TouchableOpacity onPress={onPress}>
@@ -34,4 +34,4 @@ const CardListtem: FC<TCardListtem> = ({ card, type, amount, onPress }) => {
   );
 };
 
-export default CardListtem;
+export default memo(CardListItem);

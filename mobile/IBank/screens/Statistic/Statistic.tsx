@@ -28,7 +28,6 @@ const Statistic = () => {
             Statistic
           </WhiteText>
 
-          {/* TODO: fix position bottom sheets */}
           <CalendarPiker />
           <CardPicker />
 

@@ -21,7 +21,7 @@ type TDates = {
 };
 
 const CalendarPiker = () => {
-  const { width } = useWindowDimensions();
+  const { width, height } = useWindowDimensions();
   const [endDate, setEndDate] = useState(moment());
   const [displayedDate, setDisplayedDate] = useState(moment());
 
@@ -59,7 +59,7 @@ const CalendarPiker = () => {
   const bottomSheetRef = useRef<BottomSheet>(null);
 
   // variables
-  const snapPoints = useMemo(() => ['25%', '50%', '90%'], []);
+  const snapPoints = useMemo(() => ['75%', '85%', '90%'], []);
 
   const renderBackdrop = useCallback(
     (props: BottomSheetDefaultBackdropProps) => (
@@ -79,8 +79,10 @@ const CalendarPiker = () => {
     [],
   );
 
+  const containerStyle = { marginLeft: -16, marginRight: -16, height };
+
   return (
-    <>
+    <View zIndex={101}>
       <DateTouchable onPress={() => bottomSheetRef.current?.expand()}>
         <WhiteText>{startDate.format(startDateFormat)} - </WhiteText>
         <WhiteText>{endDate.format(constants.dateFormats.D_MMMM_YYYY_WithSpaces)}</WhiteText>
@@ -98,6 +100,7 @@ const CalendarPiker = () => {
         footerComponent={renderFooter}
         backgroundStyle={commonStyles.blackBackground}
         backdropComponent={renderBackdrop}
+        containerStyle={containerStyle}
         handleIndicatorStyle={commonStyles.gray100Backround}>
         <DateRangePicker
           open
@@ -117,7 +120,7 @@ const CalendarPiker = () => {
           monthNextButton={<ChevronRightIcon color={colors.gray100} />}
         />
       </BottomSheet>
-    </>
+    </View>
   );
 };
 

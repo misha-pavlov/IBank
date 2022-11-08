@@ -21,7 +21,7 @@ import { useCurrentCard, useCurrentUser, useScrollHandler } from '../../hooks';
 import { NCardNavigatorNavigationProp } from '../../navigation/types/CardNavigator.types';
 import { TCard } from '../../types/card';
 // gql
-import { GET_USER_CARDS } from './gql/HeaderModal.queries';
+import { GET_USER_CARDS } from '../../gql/card.queries';
 
 const HeaderModal = () => {
   const { goBack, canGoBack, navigate } = useNavigation<NCardNavigatorNavigationProp<'EditProfile'>>();
@@ -32,7 +32,7 @@ const HeaderModal = () => {
   const { data: cards, loading } = useQuery(GET_USER_CARDS, { variables: { owner: user?._id } });
 
   const renderCards = useMemo(() => {
-    if (loading || !cards.getUserCards) {
+    if (loading || !cards?.getUserCards) {
       return <ActivityIndicator color={colors.black} />;
     }
 
@@ -48,7 +48,7 @@ const HeaderModal = () => {
         ))}
       </Flex>
     );
-  }, [cards.getUserCards, currentCard._id, loading, setCurrentCard]);
+  }, [cards?.getUserCards, currentCard._id, loading, setCurrentCard]);
 
   return (
     <GradientCententWrapper

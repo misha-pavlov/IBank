@@ -3,16 +3,23 @@ import { useNavigation } from '@react-navigation/native';
 import { Checkbox, Flex, View } from 'native-base';
 import React, { useCallback, useMemo, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
+// styles
 import { BlackContentWrapper, CardCube, WhiteText } from '../../common/common.styles';
+// components
 import { IBankBlackButton, PinInput } from '../../components';
+// constants
 import { cardEnum } from '../../config/screens';
+// gql
 import { CREATE_CARD } from '../../gql/card.mutations';
+import { GET_USER_CARDS } from '../../gql/card.queries';
+// helpers
 import { getCardByType } from '../../helpers/cardHelpers';
 import { capitalizeFirstLetter } from '../../helpers/generalHelpers';
+// hooks
 import { useCurrentUser } from '../../hooks';
+// types
 import { NCardNavigatorNavigationProp } from '../../navigation/types/CardNavigator.types';
 import { CardType, TCard } from '../../types/card';
-import { GET_USER_CARDS } from '../HeaderModal/gql/HeaderModal.queries';
 
 const IBANK_CARDS = [CardType.BLACK, CardType.IRON, CardType.PLATINUM];
 const IS_MASTER_CARD = 'isMasterCard';
