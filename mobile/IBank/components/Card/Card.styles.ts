@@ -12,14 +12,14 @@ export const CardBlock = styled.View<{ withFullWidth?: boolean; type: CardType }
   padding: 18px;
 `;
 
-export const BankName = styled.Text`
-  color: ${colors.black};
+export const BankName = styled.Text<{ useWhiteColor?: boolean }>`
+  color: ${({ useWhiteColor }) => (useWhiteColor ? colors.gray100 : colors.black)};
   font-weight: 600;
   font-size: 18px;
 `;
 
-export const CardNumber = styled.Text<{ withFullWidth?: boolean }>`
-  color: ${colors.black};
+export const CardNumber = styled.Text<{ withFullWidth?: boolean; isBlackCard: boolean }>`
+  color: ${({ isBlackCard }) => (isBlackCard ? colors.gray100 : colors.black)};
   margin-top: ${({ withFullWidth }) => (withFullWidth ? 50 : 20)}px;
   font-size: 25px;
   font-weight: 700;
@@ -34,8 +34,8 @@ export const BottomBlock = styled.View`
   margin-top: 20px;
 `;
 
-export const ExpiredDate = styled.Text`
-  color: ${colors.black};
+export const ExpiredDate = styled.Text<{ isBlackCard: boolean }>`
+  color: ${({ isBlackCard }) => (isBlackCard ? colors.gray100 : colors.black)};
   font-size: 18px;
   margin-right: 15px;
   margin-bottom: 25px;

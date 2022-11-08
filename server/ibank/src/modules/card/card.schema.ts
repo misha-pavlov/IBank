@@ -48,6 +48,10 @@ export class Card extends CommonSchema {
   @Field(() => Number)
   @Prop({ type: Number, required: true })
   internetLimit: number;
+
+  @Field(() => Number)
+  @Prop({ type: Number, required: true })
+  usedInternetLimit: number;
 }
 
 registerEnumType(CARD_TYPE_ENUM, { name: 'CARD_TYPE_ENUM' });

@@ -12,5 +12,6 @@ export const CARD_FRAGMENT = gql`
     isBlocked
     isMasterCard
     internetLimit
+    usedInternetLimit
   }
 `;

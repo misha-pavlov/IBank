@@ -6,7 +6,8 @@ import { CalendarIcon } from '../../../../assets/svg';
 import { commonStyles, SectionGradient, WhiteText } from '../../../../common/common.styles';
 import { Card, RoundTouchable, TransactionItem } from '../../../../components';
 import { colors } from '../../../../config/colors';
-import { CardType } from '../../../../types/card';
+import { getFormattedAmount } from '../../../../helpers/generalHelpers';
+import { useCurrentCard } from '../../../../hooks';
 import { cardSettings } from './constants';
 import { TCardSettings } from './types';
 
@@ -14,9 +15,9 @@ type TCardOperation = {
   renderPaginaton: JSX.Element;
 };
 
-const cardNumber = '1234 1234 1234 1234';
-
 const CardOperations: FC<TCardOperation> = ({ renderPaginaton }) => {
+  const { currentCard } = useCurrentCard();
+  const { type, number, expired, isMasterCard, internetLimit, usedInternetLimit } = currentCard;
   // ref
   const bottomSheetRef = useRef<BottomSheet>(null);
 
@@ -63,7 +64,7 @@ const CardOperations: FC<TCardOperation> = ({ renderPaginaton }) => {
         locations={[1, 0.5, 0]}
         withoutBorderRadius>
         <View mt="45px">
-          <Card cardNumber={cardNumber} expiredDate="10/29" isMasterCard type={CardType.PLATINUM} withFullWidth />
+          <Card withFullWidth type={type} cardNumber={number} expiredDate={expired} isMasterCard={isMasterCard} />
         </View>
         <Center>{renderPaginaton}</Center>
 
@@ -73,14 +74,16 @@ const CardOperations: FC<TCardOperation> = ({ renderPaginaton }) => {
           <View ml="24px" w="80%">
             <WhiteText mb="5px">Internet operations limit</WhiteText>
             <Progress
-              value={75}
+              value={((internetLimit - usedInternetLimit) * 100) / internetLimit}
               w="100%"
               bg={colors.black1}
               _filledTrack={{
                 bg: colors.lightGreenA400,
               }}
             />
-            <WhiteText mt="5px">Left n $ of n $</WhiteText>
+            <WhiteText mt="5px">
+              Left {getFormattedAmount(internetLimit - usedInternetLimit)} $ of {getFormattedAmount(internetLimit)} $
+            </WhiteText>
           </View>
         </Flex>
       </SectionGradient>

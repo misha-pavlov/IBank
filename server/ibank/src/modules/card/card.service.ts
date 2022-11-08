@@ -24,6 +24,7 @@ export class CardService {
       pin,
       amount: 0,
       internetLimit: 10000,
+      usedInternetLimit: 10000,
       isBlocked: false,
       isMasterCard,
       expired: moment().add(4, 'years').toDate(),

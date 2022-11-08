@@ -25,6 +25,7 @@ type Card {
   owner: String!
   pin: String!
   type: CARD_TYPE_ENUM!
+  usedInternetLimit: Float!
 }
 
 """

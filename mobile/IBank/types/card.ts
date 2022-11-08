@@ -15,4 +15,5 @@ export type TCard = {
   isBlocked: boolean;
   isMasterCard: boolean;
   internetLimit: number;
+  usedInternetLimit: number;
 };
