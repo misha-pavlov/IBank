@@ -3,16 +3,16 @@ import { BlackCard, IronCard, PinkCard } from '../common/cards';
 import { colors } from '../config/colors';
 import { CardType } from '../types/card';
 
-export const getCardByType = (type: CardType) => {
+export const getCardByType = (type: CardType, size?: number) => {
   switch (type) {
     case CardType.IRON:
-      return <IronCard />;
+      return <IronCard size={size} />;
 
     case CardType.PLATINUM:
-      return <PinkCard />;
+      return <PinkCard size={size} />;
 
     default:
-      return <BlackCard />;
+      return <BlackCard size={size} />;
   }
 };
 

@@ -1,16 +1,47 @@
+import { useQuery } from '@apollo/client';
 import { useNavigation } from '@react-navigation/native';
 import { Stack, Text, View } from 'native-base';
-import React, { useEffect } from 'react';
-import { useWindowDimensions } from 'react-native';
+import React, { useEffect, useMemo } from 'react';
+import { ActivityIndicator, useWindowDimensions } from 'react-native';
 import { BagIcon } from '../../assets/svg';
-import { BlackCard, IronCard, PinkCard } from '../../common/cards';
 import { GradientCententWrapper, SectionGradient, TransparentBox, WhiteText } from '../../common/common.styles';
 import { colors } from '../../config/colors';
+import { GET_USER_CARDS } from '../../gql/card.queries';
+import { getCardByType } from '../../helpers/cardHelpers';
+import { useCurrentUser } from '../../hooks';
+import { TCard } from '../../types/card';
+import { GET_USER_CAPITAL } from './gql/Capital.queries';
 
 const Capital = () => {
   const { width } = useWindowDimensions();
   const { setOptions } = useNavigation();
+  const { user } = useCurrentUser();
   const transparentBoxWidth = width * 0.4;
+
+  const { data, loading } = useQuery(GET_USER_CARDS, { variables: { owner: user?._id } });
+  const { data: capital, loading: loadingCapital } = useQuery(GET_USER_CAPITAL, { variables: { owner: user?._id } });
+
+  const renderCardBoxes = useMemo(() => {
+    if (loading || !data?.getUserCards) {
+      return <ActivityIndicator />;
+    }
+
+    return data?.getUserCards.map((card: TCard, index: number) => (
+      <TransparentBox
+        key={card._id}
+        w={transparentBoxWidth}
+        height={transparentBoxWidth - 20}
+        justifyContent="center"
+        p={24}
+        {...((index + 1) % 2 !== 0 && { mr: '12%', mb: '12%' })}>
+        {getCardByType(card.type, 45)}
+        <Text color={colors.blueGray500}>{card.type}</Text>
+        <WhiteText fontWeight={600} fontSize={20}>
+          {card.amount} $
+        </WhiteText>
+      </TransparentBox>
+    ));
+  }, [data?.getUserCards, loading, transparentBoxWidth]);
 
   useEffect(() => {
     setOptions({ headerStyle: { backgroundColor: colors.darkGreen, shadowColor: colors.darkGreen } });
@@ -38,48 +69,17 @@ const Capital = () => {
         </View>
 
         <WhiteText fontSize={16}>Sum</WhiteText>
-        <WhiteText fontSize={25} fontWeight={600}>
-          29.72 $
-        </WhiteText>
+        {loadingCapital ? (
+          <ActivityIndicator />
+        ) : (
+          <WhiteText fontSize={25} fontWeight={600}>
+            {capital.getUserCapital} $
+          </WhiteText>
+        )}
       </SectionGradient>
 
-      {/* use TransparentBox in map and don't add mr="12%" and mb="12%" in every second block */}
       <Stack direction="row" flexWrap="wrap" mt={25}>
-        <TransparentBox
-          w={transparentBoxWidth}
-          height={transparentBoxWidth - 20}
-          justifyContent="center"
-          p={24}
-          mr="12%"
-          mb="12%">
-          <BlackCard size={45} />
-          <Text color={colors.blueGray500}>Card type</Text>
-          <WhiteText fontWeight={600} fontSize={20}>
-            22.72 $
-          </WhiteText>
-        </TransparentBox>
-
-        <TransparentBox w={transparentBoxWidth} height={transparentBoxWidth - 20} justifyContent="center" p={24}>
-          <PinkCard size={45} />
-          <Text color={colors.blueGray500}>Card type</Text>
-          <WhiteText fontWeight={600} fontSize={20}>
-            22.72 $
-          </WhiteText>
-        </TransparentBox>
-
-        <TransparentBox
-          w={transparentBoxWidth}
-          height={transparentBoxWidth - 20}
-          justifyContent="center"
-          p={24}
-          mr="12%"
-          mb="12%">
-          <IronCard size={45} />
-          <Text color={colors.blueGray500}>Card type</Text>
-          <WhiteText fontWeight={600} fontSize={20}>
-            22.72 $
-          </WhiteText>
-        </TransparentBox>
+        {renderCardBoxes}
       </Stack>
     </GradientCententWrapper>
   );

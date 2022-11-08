@@ -35,6 +35,12 @@ export class CardService {
     return this.cardModel.find({ owner });
   }
 
+  async getUserCapital(owner: string): Promise<number> {
+    const cards = await this.cardModel.find({ owner });
+    const capital = cards.reduce((acc, card) => (acc += card.amount), 0);
+    return capital;
+  }
+
   async getUserFirstCard(owner: string): Promise<Card> {
     return this.cardModel.findOne({ owner }).sort({ createdAt: 1 }).limit(1);
   }

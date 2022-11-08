@@ -47,6 +47,7 @@ type Query {
   auth: AuthPayload!
   checkUserPin(pin: String!, userId: ObjectId!): Boolean!
   getUser: UserPayload!
+  getUserCapital(owner: String!): Float!
   getUserCards(owner: String!): [Card!]!
   getUserFirstCard(owner: String!): Card!
 }
