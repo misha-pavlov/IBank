@@ -32,8 +32,8 @@ export class CardService {
     });
   }
 
-  async getUserCards(owner: string): Promise<Card[]> {
-    return this.cardModel.find({ owner });
+  async getUserCards(owner: string, excludeIds?: string[]): Promise<Card[]> {
+    return this.cardModel.find({ owner, _id: { $ne: excludeIds } });
   }
 
   async getUserCapital(owner: string): Promise<number> {

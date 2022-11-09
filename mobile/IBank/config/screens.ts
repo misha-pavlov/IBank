@@ -12,6 +12,7 @@ export enum cardEnum {
   AddNewCard = 'AddNewCard',
   HeaderModal = 'HeaderModal',
   EditProfile = 'EditProfile',
+  TopUp = 'TopUp',
 }
 
 export enum appEnum {

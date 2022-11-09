@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
 import { useWindowDimensions } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { BlackContentWrapper } from '../../common/common.styles';
@@ -47,9 +47,9 @@ const Card = () => {
     [moveToNextScreen, renderPaginaton],
   );
 
-  const onSnapToItem = useCallback((index: number) => {
+  const onSnapToItem = (index: number) => {
     setScreenIndex(index);
-  }, []);
+  };
 
   return (
     <BlackContentWrapper withoutPadding>
@@ -71,4 +71,4 @@ const Card = () => {
   );
 };
 
-export default Card;
+export default memo(Card);

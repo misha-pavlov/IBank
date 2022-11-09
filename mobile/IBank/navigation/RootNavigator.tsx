@@ -1,13 +1,10 @@
 import React, { useContext, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { appEnum, authEnum, cardEnum } from '../config/screens';
-import SignIn from '../screens/SignIn/SignIn';
-import SignUp from '../screens/SignUp/SignUp';
 import IBankTabs from './IBankTabs';
-import LoadingScreen from '../screens/LoadingScreen/LoadingScreen';
 import { Context } from '../store/store';
-import Pin from '../screens/Pin/Pin';
 import { emptyBlackWithBackButton } from '../common/navigationOptions';
+import { LoadingScreen, Pin, SignIn, SignUp } from '../screens';
 
 const RootStack = createStackNavigator();
 

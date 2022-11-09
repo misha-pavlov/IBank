@@ -2,6 +2,7 @@ export enum CardType {
   BLACK = 'BLACK',
   IRON = 'IRON',
   PLATINUM = 'PLATINUM',
+  SPECIAL = 'SPECIAL',
 }
 
 export type TCard = {

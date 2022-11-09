@@ -7,8 +7,12 @@ export class CardResolver {
   constructor(private cardService: CardService) {}
 
   @Query(() => [Card])
-  async getUserCards(@Args('owner') owner: string) {
-    return this.cardService.getUserCards(owner);
+  async getUserCards(
+    @Args('owner') owner: string,
+    @Args({ name: 'excludeIds', type: () => [String] })
+    excludeIds?: string[],
+  ) {
+    return this.cardService.getUserCards(owner, excludeIds);
   }
 
   @Query(() => Number)

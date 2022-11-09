@@ -6,30 +6,33 @@ import { colors } from '../../config/colors';
 
 type TCardListItem = {
   type: string;
+  text?: string;
   amount: number;
   card: JSX.Element;
   onPress: () => void;
 };
 
-const CardListItem: FC<TCardListItem> = ({ card, type, amount, onPress }) => {
+const CardListItem: FC<TCardListItem> = ({ card, type, text, amount, onPress }) => {
   return (
     <>
       <TouchableOpacity onPress={onPress}>
         <Flex flexDirection="row">
-          <View backgroundColor={colors.gray400} p="5px" borderRadius={50} mr="10px">
+          <View backgroundColor={colors.green1} p="5px" borderRadius={50} mr="10px">
             {card}
           </View>
 
-          <View>
-            <WhiteText fontWeight={600}>{type}</WhiteText>
-            <Text color={colors.blueGray200} fontSize={12}>
-              {amount} $
-            </Text>
+          <View justifyContent="center">
+            <WhiteText fontWeight={600}>{text || type}</WhiteText>
+            {amount && (
+              <Text color={colors.blueGray200} fontSize={12}>
+                {amount} $
+              </Text>
+            )}
           </View>
         </Flex>
       </TouchableOpacity>
 
-      <Divider mt="15px" mb="20px" color={colors.gray100} />
+      <Divider mt="10px" mb="10px" h={0} color={colors.gray100} />
     </>
   );
 };

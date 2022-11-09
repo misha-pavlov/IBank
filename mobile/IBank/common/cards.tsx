@@ -9,9 +9,15 @@ type TCard = {
 export const BlackCard: FC<TCard> = ({ size }) => (
   <CardIcon width={size || 32} height={size || 32} fill={colors.black} />
 );
+
 export const PinkCard: FC<TCard> = ({ size }) => (
   <CardIcon width={size || 32} height={size || 32} fill={colors.pink500} />
 );
+
 export const IronCard: FC<TCard> = ({ size }) => (
   <CardIcon width={size || 32} height={size || 32} fill={colors.blueGray500} />
+);
+
+export const SpecialCard: FC<TCard> = ({ size }) => (
+  <CardIcon width={size || 32} height={size || 32} fill={colors.gray100} />
 );

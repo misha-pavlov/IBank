@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
 import { FlatList, Flex, Text, View } from 'native-base';
 import { ActivityIndicator, TouchableOpacity, useWindowDimensions } from 'react-native';
 import BottomSheet, { BottomSheetBackdrop } from '@gorhom/bottom-sheet';
@@ -11,6 +11,7 @@ import { getCardByType } from '../../helpers/cardHelpers';
 import { GET_USER_CARDS } from '../../gql/card.queries';
 import { TCard } from '../../types/card';
 import CardListItem from '../CardListItem/CardListItem';
+
 const CardPicker = () => {
   const { height } = useWindowDimensions();
   const { currentCard } = useCurrentCard();
@@ -59,7 +60,7 @@ const CardPicker = () => {
       <TouchableOpacity onPress={() => bottomSheetRef.current?.expand()}>
         <View p="12px" borderRadius={12} backgroundColor={colors.transparent}>
           <Flex flexDirection="row" alignItems="center">
-            <View backgroundColor={colors.gray400} p="5px" borderRadius={50} mr="10px">
+            <View backgroundColor={colors.green1} p="5px" borderRadius={50} mr="10px">
               {getCardByType(card.type)}
             </View>
 
@@ -90,4 +91,4 @@ const CardPicker = () => {
   );
 };
 
-export default CardPicker;
+export default memo(CardPicker);

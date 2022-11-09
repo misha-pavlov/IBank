@@ -1,15 +1,25 @@
 import BottomSheet, { BottomSheetSectionList } from '@gorhom/bottom-sheet';
+import { useNavigation } from '@react-navigation/native';
 import { Center, CloseIcon, Fade, Flex, HStack, Input, SearchIcon, View } from 'native-base';
 import React, { FC, memo, useCallback, useMemo, useRef, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
+// svg
 import { AnotherActionsIcon, SendOnCardIcon, TopUpIcon } from '../../../../assets/svg';
+// styles
 import { commonStyles, SectionGradient, WhiteText } from '../../../../common/common.styles';
+// components
 import { RoundTouchable, TransactionItem } from '../../../../components';
-import { colors } from '../../../../config/colors';
-import { getFormattedAmount } from '../../../../helpers/generalHelpers';
-import { useCurrentCard } from '../../../../hooks';
 import HeaderDoubleCards from '../../components/HeaderDoubleCards/HeaderDoubleCards';
 import MoveToCard from './components/MoveToCard/MoveToCard';
+// constants
+import { colors } from '../../../../config/colors';
+import { cardEnum } from '../../../../config/screens';
+// helpers
+import { getFormattedAmount } from '../../../../helpers/generalHelpers';
+// hooks
+import { useCurrentCard } from '../../../../hooks';
+// types
+import { NCardNavigatorNavigationProp } from '../../../../navigation/types/CardNavigator.types';
 
 type TAmount = {
   renderPaginaton: JSX.Element;
@@ -20,6 +30,8 @@ const Amount: FC<TAmount> = ({ renderPaginaton, moveToNextScreen }) => {
   const [bottomSheetIndex, setBottomSheetIndex] = useState(0);
   const [isSearchMode, setIsSearchMode] = useState(false);
   const [searchText, setSearchText] = useState('');
+
+  const { navigate } = useNavigation<NCardNavigatorNavigationProp<'TopUp'>>();
 
   const { currentCard } = useCurrentCard();
 
@@ -164,7 +176,7 @@ const Amount: FC<TAmount> = ({ renderPaginaton, moveToNextScreen }) => {
               {renderPaginaton}
             </Center>
             <HStack justifyContent="space-between" mx={34}>
-              <RoundTouchable text="Top up your card" icon={<TopUpIcon />} onPress={() => console.log('123gg')} />
+              <RoundTouchable text="Top up your card" icon={<TopUpIcon />} onPress={() => navigate(cardEnum.TopUp)} />
               <RoundTouchable text="Send on card" icon={<SendOnCardIcon />} onPress={() => console.log('123gg')} />
               <RoundTouchable
                 text="Another actions"

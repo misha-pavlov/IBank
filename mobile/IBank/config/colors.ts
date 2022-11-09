@@ -29,6 +29,7 @@ export const colors = {
 
   yellow700: '#FBC02D',
 
+  green1: '#72C29A',
   green600: '#43A047',
 
   orange1: '#C4775B',
