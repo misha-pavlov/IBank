@@ -1,9 +1,19 @@
 import React from 'react';
 import { createStackNavigator, StackCardInterpolationProps, StackNavigationOptions } from '@react-navigation/stack';
-import { cardEnum } from '../config/screens';
+import { appEnum, cardEnum } from '../config/screens';
 import { empty, emptyBlackWithBackButton } from '../common/navigationOptions';
 import { NCardStackParamList } from './types/CardNavigator.types';
-import { AddNewCard, Capital, Card, EditProfile, HeaderModal, NewCard, Statistic, TopUp } from '../screens';
+import {
+  AddNewCard,
+  Capital,
+  Card,
+  EditProfile,
+  HeaderModal,
+  MoneyOperation,
+  NewCard,
+  Statistic,
+  TopUp,
+} from '../screens';
 
 const CardStack = createStackNavigator<NCardStackParamList>();
 
@@ -34,6 +44,7 @@ const CardNavigator = () => {
         name={cardEnum.HeaderModal}
         options={{ headerShown: false, ...verticalAnimation }}
       />
+      <CardStack.Screen name={appEnum.MoneyOperation} options={emptyBlackWithBackButton} component={MoneyOperation} />
       <CardStack.Screen name={cardEnum.EditProfile} options={emptyBlackWithBackButton} component={EditProfile} />
       <CardStack.Screen name={cardEnum.AddNewCard} options={emptyBlackWithBackButton} component={AddNewCard} />
       <CardStack.Screen name={cardEnum.Statistic} options={emptyBlackWithBackButton} component={Statistic} />

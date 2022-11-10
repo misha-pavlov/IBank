@@ -1,5 +1,6 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { MoneyOperationParams } from '../../screens/MoneyOperation/MoneyOperation.types';
 import { TCard } from '../../types/card';
 
 export type NCardStackParamList = {
@@ -11,6 +12,7 @@ export type NCardStackParamList = {
   AddNewCard: undefined;
   EditProfile: undefined;
   HeaderModal: undefined;
+  MoneyOperation: MoneyOperationParams;
 };
 
 export type NCardNavigatorRouteProp<ScreenName extends keyof NCardStackParamList> = RouteProp<

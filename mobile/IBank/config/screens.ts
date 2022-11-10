@@ -19,4 +19,5 @@ export enum appEnum {
   Pin = 'Pin',
   Loading = 'Loading',
   CardNavigator = 'CardNavigator',
+  MoneyOperation = 'MoneyOperation',
 }

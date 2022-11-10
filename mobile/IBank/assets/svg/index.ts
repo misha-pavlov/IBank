@@ -22,6 +22,7 @@ export { default as SavingIcon } from './SavingIcon';
 export { default as SendOnCardIcon } from './SendOnCardIcon';
 export { default as Settings } from './Settings';
 export { default as TopUpIcon } from './TopUpIcon';
+export { default as TransferIcon } from './TransferIcon';
 export { default as UpdateCardIcon } from './UpdateCardIcon';
 export { default as Visa } from './Visa';
 export { default as Visibility } from './Visibility';

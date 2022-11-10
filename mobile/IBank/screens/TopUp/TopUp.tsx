@@ -6,13 +6,16 @@ import { ActivityIndicator } from 'react-native';
 import { BlackContentWrapper, WhiteText } from '../../common/common.styles';
 import { CardListItem } from '../../components';
 import { colors } from '../../config/colors';
+import { constants } from '../../config/constants';
+import { appEnum } from '../../config/screens';
 import { GET_USER_CARDS } from '../../gql/card.queries';
 import { getCardByType } from '../../helpers/cardHelpers';
 import { useCurrentCard, useCurrentUser } from '../../hooks';
+import { NCardNavigatorNavigationProp } from '../../navigation/types/CardNavigator.types';
 import { CardType, TCard } from '../../types/card';
 
 const TopUp = () => {
-  const { setOptions } = useNavigation();
+  const { setOptions, navigate } = useNavigation<NCardNavigatorNavigationProp<'MoneyOperation'>>();
   const { user } = useCurrentUser();
   const { currentCard } = useCurrentCard();
 
@@ -30,16 +33,29 @@ const TopUp = () => {
   ];
 
   const renderItem = useCallback(
-    ({ item }: { item: TCard }) => (
-      <CardListItem
-        type={item.type}
-        amount={item.amount}
-        onPress={() => console.log(1)}
-        card={getCardByType(item.type)}
-        {...(item.type === CardType.SPECIAL && { text: 'Magic top up' })}
-      />
-    ),
-    [],
+    ({ item }: { item: TCard }) => {
+      const { type, amount } = item;
+      const isMagicCard = type === CardType.SPECIAL;
+
+      return (
+        <CardListItem
+          type={type}
+          amount={amount}
+          onPress={() =>
+            navigate(appEnum.MoneyOperation, {
+              headerTitle: `From ${isMagicCard ? constants.card.magicCard : `${type} card`}`,
+              isFromMagicCard: isMagicCard,
+              to: currentCard,
+              buttonText: 'Send',
+              ...(!isMagicCard && { from: item }),
+            })
+          }
+          card={getCardByType(type)}
+          {...(isMagicCard && { text: 'Magic card' })}
+        />
+      );
+    },
+    [currentCard, navigate],
   );
 
   const renderSectionHeader = useCallback(

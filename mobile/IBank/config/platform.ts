@@ -8,3 +8,10 @@ export const isIOS = (): boolean => {
 };
 
 export const isIphoneX = (): boolean => isIOS() && SCREEN_HEIGHT >= IPHONEX_HEIGHT;
+
+export const getKeyboardVerticalOffset = (): number => {
+  return Platform.select({
+    ios: isIphoneX() ? 100 : 80,
+    default: 0,
+  });
+};

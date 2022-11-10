@@ -4,6 +4,7 @@ export { default as Card } from './Card/Card';
 export { default as EditProfile } from './EditProfile/EditProfile';
 export { default as HeaderModal } from './HeaderModal/HeaderModal';
 export { default as LoadingScreen } from './LoadingScreen/LoadingScreen';
+export { default as MoneyOperation } from './MoneyOperation/MoneyOperation';
 export { default as NewCard } from './NewCard/NewCard';
 export { default as Pin } from './Pin/Pin';
 export { default as SignIn } from './SignIn/SignIn';

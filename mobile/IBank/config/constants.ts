@@ -15,4 +15,8 @@ export const constants = {
     D_MMMM_WithSpaces: 'D MMMM',
     D_MMMM_YYYY_WithSpaces: 'D MMMM YYYY',
   },
+
+  card: {
+    magicCard: 'Magic Card',
+  },
 };
