@@ -1,6 +1,7 @@
 import { Args, Mutation, Resolver, Query } from '@nestjs/graphql';
 import { CardService } from './card.service';
 import { Card, CARD_TYPE_ENUM } from './card.schema';
+import { Types } from 'mongoose';
 
 @Resolver()
 export class CardResolver {
@@ -9,7 +10,7 @@ export class CardResolver {
   @Query(() => [Card])
   async getUserCards(
     @Args('owner') owner: string,
-    @Args({ name: 'excludeIds', type: () => [String] })
+    @Args({ name: 'excludeIds', type: () => [String], nullable: true })
     excludeIds?: string[],
   ) {
     return this.cardService.getUserCards(owner, excludeIds);
@@ -25,6 +26,11 @@ export class CardResolver {
     return this.cardService.getUserFirstCard(owner);
   }
 
+  @Query(() => Card)
+  async getCardById(@Args('_id') _id: Types.ObjectId) {
+    return this.cardService.getCardById(_id);
+  }
+
   @Mutation(() => Card)
   async createCard(
     @Args('pin') pin: string,
@@ -33,5 +39,14 @@ export class CardResolver {
     @Args('type') type: CARD_TYPE_ENUM,
   ) {
     return this.cardService.createCard(owner, pin, isMasterCard, type);
+  }
+
+  @Mutation(() => Boolean)
+  async moneySend(
+    @Args('to') to: Types.ObjectId,
+    @Args('amount') amount: number,
+    @Args('from', { nullable: true }) from?: Types.ObjectId,
+  ) {
+    return this.cardService.moneySend(to, amount, from);
   }
 }

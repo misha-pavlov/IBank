@@ -36,6 +36,7 @@ scalar DateTime
 type Mutation {
   createCard(isMasterCard: Boolean!, owner: String!, pin: String!, type: String!): Card!
   editProfile(birthday: DateTime!, fullName: String!, phone: String!, userId: ObjectId!): User!
+  moneySend(amount: Float!, from: ObjectId, to: ObjectId!): Boolean!
   signIn(phone: String!, pin: String!): AuthPayload!
   signUp(birthday: DateTime!, fullName: String!, phone: String!, pin: String!, sex: String!): SignUpPayload!
 }
@@ -47,9 +48,10 @@ type Query {
   Hello: String!
   auth: AuthPayload!
   checkUserPin(pin: String!, userId: ObjectId!): Boolean!
+  getCardById(_id: ObjectId!): Card!
   getUser: UserPayload!
   getUserCapital(owner: String!): Float!
-  getUserCards(excludeIds: [String!]!, owner: String!): [Card!]!
+  getUserCards(excludeIds: [String!], owner: String!): [Card!]!
   getUserFirstCard(owner: String!): Card!
 }
 

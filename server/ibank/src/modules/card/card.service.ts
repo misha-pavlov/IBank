@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import * as moment from 'moment';
+import { Types } from 'mongoose';
 
 import { Card, CardrModel, CARD_TYPE_ENUM } from './card.schema';
 
@@ -44,5 +45,32 @@ export class CardService {
 
   async getUserFirstCard(owner: string): Promise<Card> {
     return this.cardModel.findOne({ owner }).sort({ createdAt: 1 }).limit(1);
+  }
+
+  async moneySend(
+    to: Types.ObjectId,
+    amount: number,
+    // not required for magic card logic
+    from?: Types.ObjectId,
+  ): Promise<boolean> {
+    if (from) {
+      const cardFrom = await this.cardModel.findOne({ _id: from }, { amount });
+      await this.cardModel.findByIdAndUpdate(
+        { _id: from },
+        { amount: cardFrom.amount - amount },
+      );
+    }
+
+    const cardTo = await this.cardModel.findOne({ _id: to }, { amount });
+    await this.cardModel.findByIdAndUpdate(
+      { _id: to },
+      { amount: cardTo.amount + amount },
+    );
+
+    return false;
+  }
+
+  async getCardById(_id: Types.ObjectId): Promise<Card> {
+    return this.cardModel.findOne({ _id });
   }
 }
