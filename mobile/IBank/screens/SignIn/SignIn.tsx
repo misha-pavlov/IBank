@@ -28,7 +28,7 @@ const SignIn = () => {
           </HeaderBlock>
 
           <Center>
-            <Card cardNumber={cardNumber} expiredDate="10/29" isMasterCard type={CardType.PLATINUM} withFlip />
+            <Card cardNumber={cardNumber} expiredDate="10/10/29" isMasterCard type={CardType.PLATINUM} withFlip />
           </Center>
 
           <BestCardText withMargin>Best card only with</BestCardText>

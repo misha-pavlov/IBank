@@ -6,7 +6,7 @@ import { CardType } from './../../types/card';
 
 export const CardBlock = styled.View<{ withFullWidth?: boolean; type: CardType }>`
   width: ${({ withFullWidth }) => (withFullWidth ? '100%' : '300px')};
-  height: ${({ withFullWidth }) => (withFullWidth ? 220 : 175)}px;
+  height: ${({ withFullWidth }) => (withFullWidth ? 220 : 185)}px;
   border-radius: 20px;
   background-color: ${({ type }) => getCardColorByType(type)};
   padding: 18px;
@@ -24,7 +24,7 @@ export const CardNumber = styled.Text<{ withFullWidth?: boolean; isBlackCard: bo
   font-size: 25px;
   font-weight: 700;
   padding-left: 3px;
-  letter-spacing: ${({ withFullWidth }) => (withFullWidth ? 1.5 : 0)}px;
+  letter-spacing: ${({ withFullWidth }) => (withFullWidth ? 1.5 : -0.8)}px;
 `;
 
 export const BottomBlock = styled.View`
