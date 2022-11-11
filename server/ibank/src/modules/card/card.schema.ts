@@ -57,6 +57,6 @@ export class Card extends CommonSchema {
 registerEnumType(CARD_TYPE_ENUM, { name: 'CARD_TYPE_ENUM' });
 
 export type CardDocument = Card & Document;
-export type CardrModel = Model<CardDocument>;
+export type CardModel = Model<CardDocument>;
 
 export const CardSchema = SchemaFactory.createForClass(Card);

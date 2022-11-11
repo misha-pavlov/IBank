@@ -3,11 +3,11 @@ import { InjectModel } from '@nestjs/mongoose';
 import * as moment from 'moment';
 import { Types } from 'mongoose';
 
-import { Card, CardrModel, CARD_TYPE_ENUM } from './card.schema';
+import { Card, CardModel, CARD_TYPE_ENUM } from './card.schema';
 
 @Injectable()
 export class CardService {
-  constructor(@InjectModel(Card.name) private cardModel: CardrModel) {}
+  constructor(@InjectModel(Card.name) private cardModel: CardModel) {}
 
   async createCard(
     owner: string,

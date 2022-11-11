@@ -1,7 +1,8 @@
 import { Args, Mutation, Resolver, Query } from '@nestjs/graphql';
+import { Types } from 'mongoose';
+
 import { CardService } from './card.service';
 import { Card, CARD_TYPE_ENUM } from './card.schema';
-import { Types } from 'mongoose';
 
 @Resolver()
 export class CardResolver {

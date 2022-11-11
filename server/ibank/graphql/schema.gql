@@ -34,7 +34,7 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 scalar DateTime
 
 type Mutation {
-  createCard(isMasterCard: Boolean!, owner: String!, pin: String!, type: String!): Card!
+  createCard(amount: Float!, amountOnCardAfter: Float!, isCanceled: Boolean, title: String!, type: String!): Transaction!
   editProfile(birthday: DateTime!, fullName: String!, phone: String!, userId: ObjectId!): User!
   moneySend(amount: Float!, from: ObjectId, to: ObjectId!): Boolean!
   signIn(phone: String!, pin: String!): AuthPayload!
@@ -58,6 +58,46 @@ type Query {
 type SignUpPayload {
   newUserId: ObjectId!
   token: String!
+}
+
+enum TRANSACTION_TYPE_ENUM {
+  ADV
+  ANIMALS
+  BOOKS
+  CAFE
+  CAR
+  CASH
+  CINEMA
+  CLOTHES
+  CREDIT
+  DUTY_FREE
+  FINES
+  FLOVERS
+  INSURE
+  INTERNET
+  MEDIC
+  MOBILE
+  MONEY_SEND
+  MORE
+  PLAY
+  PRODUCTS
+  REPAIRE
+  SEND_ON_CARD
+  TAXES
+  TAXI
+  TECHNOLOGIES
+  TRAVELS
+}
+
+type Transaction {
+  _id: ObjectId!
+  amount: Float!
+  amountOnCardAfter: Float!
+  createdAt: DateTime!
+  deleted: Boolean!
+  isCanceled: Boolean!
+  title: String!
+  type: TRANSACTION_TYPE_ENUM!
 }
 
 enum USER_SEX_ENUM {
