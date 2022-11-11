@@ -2,6 +2,7 @@ import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
 import { useWindowDimensions } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { BlackContentWrapper } from '../../common/common.styles';
+import { useCurrentCard } from '../../hooks';
 import { s } from './Card.styles';
 import Amount from './screens/Amount/Amount';
 import CardOperations from './screens/CardOperations/CardOperations';
@@ -10,6 +11,7 @@ const Card = () => {
   const carouselRef = useRef<Carousel<{ id: number }>>(null);
   const [screenIndex, setScreenIndex] = useState(0);
   const { width } = useWindowDimensions();
+  const { currentCard } = useCurrentCard();
 
   const moveToNextScreen = useCallback(() => {
     setScreenIndex(1);
@@ -39,12 +41,14 @@ const Card = () => {
   const renderItem = useCallback(
     ({ item }: { item: { id: number } }) => {
       if (item.id === 1) {
-        return <Amount renderPaginaton={renderPaginaton} moveToNextScreen={moveToNextScreen} />;
+        return (
+          <Amount currentCard={currentCard} renderPaginaton={renderPaginaton} moveToNextScreen={moveToNextScreen} />
+        );
       }
 
-      return <CardOperations renderPaginaton={renderPaginaton} />;
+      return <CardOperations renderPaginaton={renderPaginaton} currentCard={currentCard} />;
     },
-    [moveToNextScreen, renderPaginaton],
+    [currentCard, moveToNextScreen, renderPaginaton],
   );
 
   const onSnapToItem = (index: number) => {

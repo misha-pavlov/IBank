@@ -47,12 +47,20 @@ export class Transaction extends CommonSchema {
   @Prop({ type: String, required: true })
   title: string;
 
+  @Field(() => String)
+  @Prop({ type: String, required: true })
+  userId: string;
+
+  @Field(() => String)
+  @Prop({ type: String, required: true })
+  cardId: string;
+
   @Field(() => Number)
   @Prop({ type: Number, required: true })
   amountOnCardAfter: number;
 
   @Field(() => Boolean)
-  @Prop({ type: Boolean, required: false })
+  @Prop({ type: Boolean, required: false, default: false })
   isCanceled: boolean;
 }
 

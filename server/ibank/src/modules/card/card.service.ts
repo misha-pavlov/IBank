@@ -3,11 +3,21 @@ import { InjectModel } from '@nestjs/mongoose';
 import * as moment from 'moment';
 import { Types } from 'mongoose';
 
+import {
+  Transaction,
+  TransactionModel,
+  TRANSACTION_TYPE_ENUM,
+} from '../transaction/transaction.schema';
+import { User, UserModel } from '../user/user.schema';
 import { Card, CardModel, CARD_TYPE_ENUM } from './card.schema';
 
 @Injectable()
 export class CardService {
-  constructor(@InjectModel(Card.name) private cardModel: CardModel) {}
+  constructor(
+    @InjectModel(Card.name) private cardModel: CardModel,
+    @InjectModel(User.name) private userModel: UserModel,
+    @InjectModel(Transaction.name) private transactionModel: TransactionModel,
+  ) {}
 
   async createCard(
     owner: string,
@@ -54,18 +64,37 @@ export class CardService {
     from?: Types.ObjectId,
   ): Promise<boolean> {
     if (from) {
-      const cardFrom = await this.cardModel.findOne({ _id: from }, { amount });
+      const cardFrom = await this.cardModel.findOne({ _id: from });
+      const cardHolder = await this.userModel.findOne({ _id: cardFrom.owner });
+      const newAmount = cardFrom.amount - amount;
+
       await this.cardModel.findByIdAndUpdate(
         { _id: from },
-        { amount: cardFrom.amount - amount },
+        { amount: newAmount },
       );
+      await this.transactionModel.create({
+        type: TRANSACTION_TYPE_ENUM.SEND_ON_CARD,
+        amount: -amount,
+        cardId: cardFrom._id,
+        userId: cardHolder._id,
+        title: cardHolder.fullName,
+        amountOnCardAfter: newAmount,
+      });
     }
 
-    const cardTo = await this.cardModel.findOne({ _id: to }, { amount });
-    await this.cardModel.findByIdAndUpdate(
-      { _id: to },
-      { amount: cardTo.amount + amount },
-    );
+    const cardTo = await this.cardModel.findOne({ _id: to });
+    const cardHolder = await this.userModel.findOne({ _id: cardTo.owner });
+    const newAmount = cardTo.amount + amount;
+
+    await this.cardModel.findByIdAndUpdate({ _id: to }, { amount: newAmount });
+    await this.transactionModel.create({
+      type: TRANSACTION_TYPE_ENUM.SEND_ON_CARD,
+      amount: amount,
+      cardId: cardTo._id,
+      userId: cardHolder._id,
+      title: cardHolder.fullName,
+      amountOnCardAfter: newAmount,
+    });
 
     return false;
   }

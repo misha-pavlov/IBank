@@ -16,7 +16,7 @@ import { getKeyboardVerticalOffset, isIOS } from '../../config/platform';
 import { getFormattedAmount } from '../../helpers/generalHelpers';
 // gql
 import { GET_CARD_BY_ID, GET_USER_CARDS } from '../../gql/card.queries';
-import { MONEY_SEND } from './MoneyOperation.queries';
+import { MONEY_SEND } from './MoneyOperation.mutations';
 // hooks
 import { useCurrentCard, useCurrentUser } from '../../hooks';
 // types

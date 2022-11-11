@@ -7,16 +7,16 @@ import { commonStyles, SectionGradient, WhiteText } from '../../../../common/com
 import { Card, RoundTouchable, TransactionItem } from '../../../../components';
 import { colors } from '../../../../config/colors';
 import { getFormattedAmount } from '../../../../helpers/generalHelpers';
-import { useCurrentCard } from '../../../../hooks';
+import { TCard } from '../../../../types/card';
 import { cardSettings } from './constants';
 import { TCardSettings } from './types';
 
 type TCardOperation = {
   renderPaginaton: JSX.Element;
+  currentCard: TCard;
 };
 
-const CardOperations: FC<TCardOperation> = ({ renderPaginaton }) => {
-  const { currentCard } = useCurrentCard();
+const CardOperations: FC<TCardOperation> = ({ renderPaginaton, currentCard }) => {
   const { type, number, expired, isMasterCard, internetLimit, usedInternetLimit } = currentCard;
   // ref
   const bottomSheetRef = useRef<BottomSheet>(null);

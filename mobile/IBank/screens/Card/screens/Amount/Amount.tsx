@@ -2,7 +2,9 @@ import BottomSheet, { BottomSheetSectionList } from '@gorhom/bottom-sheet';
 import { useNavigation } from '@react-navigation/native';
 import { Center, CloseIcon, Fade, Flex, HStack, Input, SearchIcon, View } from 'native-base';
 import React, { FC, memo, useCallback, useMemo, useRef, useState } from 'react';
-import { TouchableOpacity } from 'react-native';
+import { ActivityIndicator, TouchableOpacity } from 'react-native';
+import { useQuery } from '@apollo/client';
+import moment from 'moment';
 // svg
 import { AnotherActionsIcon, SendOnCardIcon, TopUpIcon } from '../../../../assets/svg';
 // styles
@@ -15,25 +17,26 @@ import MoveToCard from './components/MoveToCard/MoveToCard';
 import { colors } from '../../../../config/colors';
 import { cardEnum } from '../../../../config/screens';
 // helpers
-import { getFormattedAmount } from '../../../../helpers/generalHelpers';
-// hooks
-import { useCurrentCard } from '../../../../hooks';
+import { dateToFromNowDaily, getFormattedAmount } from '../../../../helpers/generalHelpers';
 // types
 import { NCardNavigatorNavigationProp } from '../../../../navigation/types/CardNavigator.types';
+import { TCard } from '../../../../types/card';
+// gql
+import { GET_CARD_TRANSACTIONS } from './Amount.queries';
 
 type TAmount = {
+  currentCard: TCard;
   renderPaginaton: JSX.Element;
   moveToNextScreen: () => void;
 };
 
-const Amount: FC<TAmount> = ({ renderPaginaton, moveToNextScreen }) => {
+const Amount: FC<TAmount> = ({ renderPaginaton, moveToNextScreen, currentCard }) => {
   const [bottomSheetIndex, setBottomSheetIndex] = useState(0);
   const [isSearchMode, setIsSearchMode] = useState(false);
   const [searchText, setSearchText] = useState('');
 
   const { navigate } = useNavigation<NCardNavigatorNavigationProp<'TopUp'>>();
-
-  const { currentCard } = useCurrentCard();
+  const { data, loading } = useQuery(GET_CARD_TRANSACTIONS, { variables: { cardId: currentCard._id } });
 
   // ref
   const bottomSheetRef = useRef<BottomSheet>(null);
@@ -46,25 +49,11 @@ const Amount: FC<TAmount> = ({ renderPaginaton, moveToNextScreen }) => {
     setBottomSheetIndex(index);
   }, []);
 
-  // variables
-  const sections = useMemo(
-    () =>
-      Array(3)
-        .fill(0)
-        .map((_, index) => ({
-          title: `Section ${index}`,
-          data: Array(10)
-            .fill(0)
-            .map(({}, indexMap) => `Item ${indexMap}`),
-        })),
-    [],
-  );
-
   const renderSectionHeader = useCallback(
     ({ section }: { section: { title: string } }) => (
       <View>
         <WhiteText textAlign="center" fontWeight={600} fontSize={16} mb="24px">
-          {section.title}
+          {dateToFromNowDaily(moment(section.title))}
         </WhiteText>
       </View>
     ),
@@ -142,16 +131,28 @@ const Amount: FC<TAmount> = ({ renderPaginaton, moveToNextScreen }) => {
         backgroundStyle={commonStyles.blackBackground}
         handleIndicatorStyle={commonStyles.blackBackground}>
         {renderListHeader}
-        <BottomSheetSectionList
-          sections={sections}
-          keyExtractor={i => i}
-          renderItem={renderItem}
-          renderSectionHeader={renderSectionHeader}
-          contentContainerStyle={commonStyles.container16}
-        />
+        {loading ? (
+          <ActivityIndicator />
+        ) : (
+          <BottomSheetSectionList
+            sections={data?.getCardTransactions}
+            renderItem={renderItem}
+            renderSectionHeader={renderSectionHeader}
+            contentContainerStyle={commonStyles.container16}
+          />
+        )}
       </BottomSheet>
     );
-  }, [bottomSheetIndex, handleSheetChanges, renderItem, renderListHeader, renderSectionHeader, sections, snapPoints]);
+  }, [
+    loading,
+    renderItem,
+    snapPoints,
+    renderListHeader,
+    bottomSheetIndex,
+    handleSheetChanges,
+    renderSectionHeader,
+    data?.getCardTransactions,
+  ]);
 
   return (
     <View flex={1}>
