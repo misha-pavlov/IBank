@@ -63,7 +63,7 @@ const Amount: FC<TAmount> = ({ renderPaginaton, moveToNextScreen, currentCard })
 
   const renderItem = useCallback(
     ({ item }: { item: TTransaction }) => (
-      <TransactionItem text={item.title} additionalText={item.type} amount={item.amount} />
+      <TransactionItem text={item.title} type={item.type} additionalText={item.type} amount={item.amount} />
     ),
     [],
   );
