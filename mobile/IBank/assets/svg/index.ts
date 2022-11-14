@@ -11,7 +11,7 @@ export { default as CheckoutIcon } from './CheckoutIcon';
 export { default as CreditIcon } from './CreditIcon';
 export { default as DocumentIcon } from './DocumentIcon';
 export { default as DoubleCards } from './DoubleCards';
-export { default as GameIcon } from './GameIcon';
+export { default as GameIcon } from '../transactionsSvg/PlayIcon';
 export { default as MasterCard } from './MasterCard';
 export { default as MoreIcon } from './MoreIcon';
 export { default as PhoneIcon } from './PhoneIcon';

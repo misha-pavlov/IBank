@@ -23,6 +23,7 @@ import { NCardNavigatorNavigationProp } from '../../../../navigation/types/CardN
 import { TCard } from '../../../../types/card';
 // gql
 import { GET_CARD_TRANSACTIONS } from './Amount.queries';
+import { TTransaction } from '../../../../types/transaction';
 
 type TAmount = {
   currentCard: TCard;
@@ -60,7 +61,12 @@ const Amount: FC<TAmount> = ({ renderPaginaton, moveToNextScreen, currentCard })
     [],
   );
 
-  const renderItem = useCallback(() => <TransactionItem type="play" additionalText="Books" amount={120} />, []);
+  const renderItem = useCallback(
+    ({ item }: { item: TTransaction }) => (
+      <TransactionItem text={item.title} additionalText={item.type} amount={item.amount} />
+    ),
+    [],
+  );
 
   const renderAmountHeader = useMemo(() => {
     if (bottomSheetIndex === 1) {

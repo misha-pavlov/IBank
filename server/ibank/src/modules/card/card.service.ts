@@ -63,9 +63,15 @@ export class CardService {
     // not required for magic card logic
     from?: Types.ObjectId,
   ): Promise<boolean> {
+    const cardFrom = await this.cardModel.findOne({ _id: from });
+    const cardFromHolder = await this.userModel.findOne({
+      _id: cardFrom.owner,
+    });
+
+    const cardTo = await this.cardModel.findOne({ _id: to });
+    const cardToHolder = await this.userModel.findOne({ _id: cardTo.owner });
+
     if (from) {
-      const cardFrom = await this.cardModel.findOne({ _id: from });
-      const cardHolder = await this.userModel.findOne({ _id: cardFrom.owner });
       const newAmount = cardFrom.amount - amount;
 
       await this.cardModel.findByIdAndUpdate(
@@ -76,14 +82,12 @@ export class CardService {
         type: TRANSACTION_TYPE_ENUM.SEND_ON_CARD,
         amount: -amount,
         cardId: cardFrom._id,
-        userId: cardHolder._id,
-        title: cardHolder.fullName,
+        userId: cardFromHolder._id,
+        title: cardToHolder.fullName,
         amountOnCardAfter: newAmount,
       });
     }
 
-    const cardTo = await this.cardModel.findOne({ _id: to });
-    const cardHolder = await this.userModel.findOne({ _id: cardTo.owner });
     const newAmount = cardTo.amount + amount;
 
     await this.cardModel.findByIdAndUpdate({ _id: to }, { amount: newAmount });
@@ -91,8 +95,8 @@ export class CardService {
       type: TRANSACTION_TYPE_ENUM.SEND_ON_CARD,
       amount: amount,
       cardId: cardTo._id,
-      userId: cardHolder._id,
-      title: cardHolder.fullName,
+      userId: cardToHolder._id,
+      title: cardFromHolder.fullName || 'Magic card',
       amountOnCardAfter: newAmount,
     });
 

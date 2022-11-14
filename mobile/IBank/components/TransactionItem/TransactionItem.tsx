@@ -23,11 +23,11 @@ const TransactionItem: FC<TTransactionItem> = ({ type, additionalText, amount, h
       <>
         <WhiteText fontWeight={600}>{text || getTransactionTitleByType(type)}</WhiteText>
         <Text color={colors.blueGray200} fontSize={12}>
-          {additionalText}
+          {additionalText.toLowerCase().replace(/_/g, ' ')}
         </Text>
       </>
     );
-  }, []);
+  }, [additionalText, text, type]);
 
   return (
     <Flex flexDirection="row" justifyContent="space-between" mb={15}>

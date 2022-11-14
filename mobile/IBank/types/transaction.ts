@@ -20,7 +20,7 @@ export enum TRANSACTION_TYPE_ENUM {
   ANIMALS = 'ANIMALS',
   BOOKS = 'BOOKS',
   CREDIT = 'CREDIT',
-  FLOVERS = 'FLOVERS',
+  FLOWERS = 'FLOWERS',
   INSURE = 'INSURE',
   ADV = 'ADV',
   MONEY_SEND = 'MONEY_SEND',
@@ -30,7 +30,7 @@ export enum TRANSACTION_TYPE_ENUM {
 export type TTransaction = {
   _id: string;
   title: string;
-  amonut: number;
+  amount: number;
   cardId: string;
   userId: string;
   createdAt: string;
