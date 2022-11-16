@@ -11,6 +11,7 @@ import {
   HeaderModal,
   MoneyOperation,
   NewCard,
+  SendOnCard,
   Statistic,
   TopUp,
 } from '../screens';
@@ -47,6 +48,7 @@ const CardNavigator = () => {
       <CardStack.Screen name={appEnum.MoneyOperation} options={emptyBlackWithBackButton} component={MoneyOperation} />
       <CardStack.Screen name={cardEnum.EditProfile} options={emptyBlackWithBackButton} component={EditProfile} />
       <CardStack.Screen name={cardEnum.AddNewCard} options={emptyBlackWithBackButton} component={AddNewCard} />
+      <CardStack.Screen name={cardEnum.SendOnCard} options={emptyBlackWithBackButton} component={SendOnCard} />
       <CardStack.Screen name={cardEnum.Statistic} options={emptyBlackWithBackButton} component={Statistic} />
       <CardStack.Screen name={cardEnum.Capital} options={emptyBlackWithBackButton} component={Capital} />
       <CardStack.Screen name={cardEnum.TopUp} options={emptyBlackWithBackButton} component={TopUp} />

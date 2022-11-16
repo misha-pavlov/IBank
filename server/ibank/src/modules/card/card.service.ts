@@ -21,6 +21,7 @@ export class CardService {
 
   async createCard(
     owner: string,
+    ownerFullName: string,
     pin: string,
     isMasterCard: boolean,
     type: CARD_TYPE_ENUM,
@@ -31,6 +32,7 @@ export class CardService {
 
     return this.cardModel.create({
       owner,
+      ownerFullName,
       number,
       pin,
       amount: 0,

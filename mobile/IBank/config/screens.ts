@@ -6,13 +6,14 @@ export enum authEnum {
 
 export enum cardEnum {
   Card = 'Card',
+  TopUp = 'TopUp',
   Capital = 'Capital',
   NewCard = 'NewCard',
   Statistic = 'Statistic',
   AddNewCard = 'AddNewCard',
+  SendOnCard = 'SendOnCard',
   HeaderModal = 'HeaderModal',
   EditProfile = 'EditProfile',
-  TopUp = 'TopUp',
 }
 
 export enum appEnum {

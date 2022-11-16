@@ -88,6 +88,11 @@ const Statistic = () => {
               keyExtractor={(item, index) => `_key${item._id}${index.toString()}`}
               data={cardTransactionsByDates?.data}
               renderItem={renderItem}
+              ListEmptyComponent={() => (
+                <View>
+                  <WhiteText textAlign="center">No transactions</WhiteText>
+                </View>
+              )}
             />
           ) : (
             <ActivityIndicator />

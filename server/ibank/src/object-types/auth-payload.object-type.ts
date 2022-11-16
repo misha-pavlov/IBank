@@ -14,4 +14,7 @@ export class SignUpPayload {
 
   @Field(() => Types.ObjectId)
   newUserId: Types.ObjectId;
+
+  @Field(() => String)
+  newUserFullName: string;
 }

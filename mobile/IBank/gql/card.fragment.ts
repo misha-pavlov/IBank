@@ -11,6 +11,7 @@ export const CARD_FRAGMENT = gql`
     expired
     isBlocked
     isMasterCard
+    ownerFullName
     internetLimit
     usedInternetLimit
   }

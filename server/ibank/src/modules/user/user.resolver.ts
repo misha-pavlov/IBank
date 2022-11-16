@@ -7,6 +7,7 @@ import { JwtAuthGuard } from '../../guards/jwt-auth.guard';
 import { ContextUser } from '../../decorators/context-user.decorator';
 import { User } from './user.schema';
 import { UserPayload } from '../../object-types/user-payload.object-type';
+import { Card } from '../card/card.schema';
 
 @Resolver()
 export class UserResolver {
@@ -24,6 +25,11 @@ export class UserResolver {
     @Args('pin') pin: string,
   ) {
     return this.userService.checkUserPin(userId, pin);
+  }
+
+  @Query(() => [Card])
+  async getUserSavedCards(@Args('userId') userId: Types.ObjectId) {
+    return this.userService.getUserSavedCards(userId);
   }
 
   @Mutation(() => User)

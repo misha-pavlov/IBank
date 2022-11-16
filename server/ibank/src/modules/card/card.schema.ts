@@ -43,6 +43,10 @@ export class Card extends CommonSchema {
 
   @Field(() => String)
   @Prop({ type: String, required: true })
+  ownerFullName: string;
+
+  @Field(() => String)
+  @Prop({ type: String, required: true })
   pin: string;
 
   @Field(() => Number)

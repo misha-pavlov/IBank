@@ -1,3 +1,4 @@
+import { isEqual } from 'lodash';
 import { Divider, Flex, Text, View } from 'native-base';
 import React, { FC, memo } from 'react';
 import { TouchableOpacity } from 'react-native';
@@ -5,14 +6,15 @@ import { WhiteText } from '../../common/common.styles';
 import { colors } from '../../config/colors';
 
 type TCardListItem = {
-  type: string;
+  type?: string;
   text?: string;
-  amount: number;
+  amount?: number;
   card: JSX.Element;
+  underText?: string;
   onPress: () => void;
 };
 
-const CardListItem: FC<TCardListItem> = ({ card, type, text, amount, onPress }) => {
+const CardListItem: FC<TCardListItem> = ({ card, type, text, amount, underText, onPress }) => {
   return (
     <>
       <TouchableOpacity onPress={onPress}>
@@ -23,11 +25,11 @@ const CardListItem: FC<TCardListItem> = ({ card, type, text, amount, onPress }) 
 
           <View justifyContent="center">
             <WhiteText fontWeight={600}>{text || type}</WhiteText>
-            {amount && (
+            {underText || amount ? (
               <Text color={colors.blueGray200} fontSize={12}>
-                {amount} $
+                {underText ? underText : `${amount} $`}
               </Text>
-            )}
+            ) : null}
           </View>
         </Flex>
       </TouchableOpacity>
@@ -37,4 +39,4 @@ const CardListItem: FC<TCardListItem> = ({ card, type, text, amount, onPress }) 
   );
 };
 
-export default memo(CardListItem);
+export default memo(CardListItem, isEqual);

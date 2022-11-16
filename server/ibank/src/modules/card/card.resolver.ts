@@ -36,10 +36,17 @@ export class CardResolver {
   async createCard(
     @Args('pin') pin: string,
     @Args('owner') owner: string,
+    @Args('ownerFullName') ownerFullName: string,
     @Args('isMasterCard') isMasterCard: boolean,
     @Args('type') type: CARD_TYPE_ENUM,
   ) {
-    return this.cardService.createCard(owner, pin, isMasterCard, type);
+    return this.cardService.createCard(
+      owner,
+      ownerFullName,
+      pin,
+      isMasterCard,
+      type,
+    );
   }
 
   @Mutation(() => Boolean)

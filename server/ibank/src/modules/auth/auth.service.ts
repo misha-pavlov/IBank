@@ -42,7 +42,12 @@ export class AuthService {
       birthday,
       sex,
       image,
+      savedCards: [],
     });
-    return { token: await this.generateToken(user), newUserId: user._id };
+    return {
+      token: await this.generateToken(user),
+      newUserId: user._id,
+      newUserFullName: user.fullName,
+    };
   }
 }

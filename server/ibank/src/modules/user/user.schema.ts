@@ -3,6 +3,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Model } from 'mongoose';
 
 import { CommonSchema } from '../../common/common.schema';
+import { Card } from '../card/card.schema';
 
 export enum USER_SEX_ENUM {
   M = 'M',
@@ -35,6 +36,10 @@ export class User extends CommonSchema {
   @Field(() => String)
   @Prop({ type: String, required: false })
   image: string;
+
+  @Field(() => [Card])
+  @Prop([Card])
+  savedCards: Card[];
 }
 
 registerEnumType(USER_SEX_ENUM, { name: 'USER_SEX_ENUM' });

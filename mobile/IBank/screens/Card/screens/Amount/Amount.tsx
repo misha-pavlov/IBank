@@ -36,7 +36,7 @@ const Amount: FC<TAmount> = ({ renderPaginaton, moveToNextScreen, currentCard })
   const [isSearchMode, setIsSearchMode] = useState(false);
   const [searchText, setSearchText] = useState('');
 
-  const { navigate } = useNavigation<NCardNavigatorNavigationProp<'TopUp'>>();
+  const { navigate } = useNavigation<NCardNavigatorNavigationProp<'TopUp' | 'SendOnCard'>>();
   const { data, loading } = useQuery(GET_CARD_TRANSACTIONS, { variables: { cardId: currentCard._id } });
 
   // ref
@@ -145,6 +145,11 @@ const Amount: FC<TAmount> = ({ renderPaginaton, moveToNextScreen, currentCard })
             renderItem={renderItem}
             renderSectionHeader={renderSectionHeader}
             contentContainerStyle={commonStyles.container16}
+            ListEmptyComponent={() => (
+              <View>
+                <WhiteText textAlign="center">No transactions</WhiteText>
+              </View>
+            )}
           />
         )}
       </BottomSheet>
@@ -184,7 +189,11 @@ const Amount: FC<TAmount> = ({ renderPaginaton, moveToNextScreen, currentCard })
             </Center>
             <HStack justifyContent="space-between" mx={34}>
               <RoundTouchable text="Top up your card" icon={<TopUpIcon />} onPress={() => navigate(cardEnum.TopUp)} />
-              <RoundTouchable text="Send on card" icon={<SendOnCardIcon />} onPress={() => console.log('123gg')} />
+              <RoundTouchable
+                text="Send on card"
+                icon={<SendOnCardIcon />}
+                onPress={() => navigate(cardEnum.SendOnCard)}
+              />
               <RoundTouchable
                 text="Another actions"
                 icon={<AnotherActionsIcon />}

@@ -38,6 +38,7 @@ const SignUp = () => {
 
   const [showPin, setShowPin] = useState(false);
   const [newUserId, setNewUserId] = useState(null);
+  const [newUserFullName, setNewUserFullName] = useState('');
   const [newUserJWT, setNewUserJWT] = useState();
 
   const { setUserAsLoggedIn } = useUserLoggedIn();
@@ -57,13 +58,14 @@ const SignUp = () => {
         variables: {
           pin,
           owner: newUserId,
+          ownerFullName: newUserFullName,
           isMasterCard: isTrueSet(isMasterCard),
           type: type,
         },
         onCompleted: () => setUserAsLoggedIn(newUserJWT),
       });
     }
-  }, [createCardMutate, fields, newUserId, newUserJWT, setUserAsLoggedIn]);
+  }, [createCardMutate, fields, newUserId, newUserJWT, setUserAsLoggedIn, newUserFullName]);
 
   const onFieldChange = useCallback(
     (value: string, field: string) => {
@@ -107,6 +109,7 @@ const SignUp = () => {
       onCompleted: ({ signUp }) => {
         setNewUserJWT(signUp.token);
         setNewUserId(signUp.newUserId);
+        setNewUserFullName(signUp.newUserFullName);
       },
     });
   }, [fields, signUpMutate]);
