@@ -4,16 +4,16 @@ import { TCard } from '../types/card';
 export type TStore = {
   state: {
     isUserLoggedIn: boolean;
-    currentCard: TCard;
+    currentCard?: TCard;
   };
 
   action: {
     type: string;
-    payload: boolean | TCard;
+    payload: any;
   };
 };
 
 export type TContext = {
   state: TStore['state'];
-  dispatch: Dispatch<{ type: string; payload: boolean | TCard }>;
+  dispatch: Dispatch<{ type: string; payload: any }>;
 };

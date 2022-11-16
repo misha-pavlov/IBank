@@ -23,6 +23,7 @@
     "graphql": "^16.6.0",
     "i": "^0.3.7",
     "libphonenumber-js": "^1.10.12",
+    "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "native-base": "^3.4.12",
     "npm": "^8.17.0",

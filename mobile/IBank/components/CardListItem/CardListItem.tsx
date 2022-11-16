@@ -17,7 +17,7 @@ const CardListItem: FC<TCardListItem> = ({ card, type, text, amount, onPress }) 
     <>
       <TouchableOpacity onPress={onPress}>
         <Flex flexDirection="row">
-          <View backgroundColor={colors.green1} p="5px" borderRadius={50} mr="10px">
+          <View backgroundColor={colors.gray400} p="5px" borderRadius={50} mr="10px">
             {card}
           </View>
 

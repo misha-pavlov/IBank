@@ -1,18 +1,30 @@
+import { useQuery } from '@apollo/client';
 import BottomSheet, { BottomSheetBackdrop, BottomSheetFooter } from '@gorhom/bottom-sheet';
 import { BottomSheetDefaultBackdropProps } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types';
 import { BottomSheetDefaultFooterProps } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetFooter/types';
 import { BlurView } from '@react-native-community/blur';
 import moment from 'moment';
 import { ChevronLeftIcon, ChevronRightIcon, View } from 'native-base';
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import React, { FC, memo, useCallback, useMemo, useRef, useState } from 'react';
 import { useWindowDimensions } from 'react-native';
 import DateRangePicker from 'react-native-daterange-picker';
+import { isEqual } from 'lodash';
+// svg
 import { CalendarIcon } from '../../../../assets/svg';
+// styles
 import { commonStyles, WhiteText } from '../../../../common/common.styles';
+import { DateTouchable, s } from './CalendarPiker.styles';
+// components
 import { IBankBlackButton } from '../../../../components';
+// constants
 import { colors } from '../../../../config/colors';
 import { constants } from '../../../../config/constants';
-import { DateTouchable, s } from './CalendarPiker.styles';
+import { ApolloFetchPolicy } from '../../../../types/apollo';
+// gql
+import { GET_CARD_TRANSACTIONS_BY_DATES } from './CalendarPiker.queries';
+// types
+import { GetCardTransactionsByDates } from '../../../../types/transaction';
+import { TCard } from '../../../../types/card';
 
 type TDates = {
   endDate?: moment.Moment;
@@ -20,8 +32,21 @@ type TDates = {
   displayedDate?: moment.Moment;
 };
 
-const CalendarPiker = () => {
+type TCalendarPiker = {
+  selectedCard: TCard;
+  isFirstRender: React.MutableRefObject<boolean>;
+  cardTransactionsByDates?: GetCardTransactionsByDates;
+  setCardTransactionsByDates: React.Dispatch<React.SetStateAction<GetCardTransactionsByDates | undefined>>;
+};
+
+const CalendarPiker: FC<TCalendarPiker> = ({
+  selectedCard,
+  isFirstRender,
+  cardTransactionsByDates,
+  setCardTransactionsByDates,
+}) => {
   const { width, height } = useWindowDimensions();
+
   const [endDate, setEndDate] = useState(moment());
   const [displayedDate, setDisplayedDate] = useState(moment());
 
@@ -53,6 +78,17 @@ const CalendarPiker = () => {
       setEndDate(dates.endDate);
     }
   };
+
+  const { data } = useQuery(GET_CARD_TRANSACTIONS_BY_DATES, {
+    fetchPolicy: ApolloFetchPolicy.CacheAndNetwork,
+    variables: { cardId: selectedCard._id, startDate: startDate.toDate(), endDate: endDate.toDate() },
+    onCompleted: ({ getCardTransactionsByDates }) => {
+      if (!cardTransactionsByDates && isFirstRender.current) {
+        isFirstRender.current = false;
+        setCardTransactionsByDates(getCardTransactionsByDates);
+      }
+    },
+  });
 
   // Bottom sheet link: https://gorhom.github.io/react-native-bottom-sheet/
   // ref
@@ -101,6 +137,10 @@ const CalendarPiker = () => {
         backgroundStyle={commonStyles.blackBackground}
         backdropComponent={renderBackdrop}
         containerStyle={containerStyle}
+        onClose={() =>
+          !isEqual(cardTransactionsByDates, data?.getCardTransactionsByDates) &&
+          setCardTransactionsByDates(data?.getCardTransactionsByDates)
+        }
         handleIndicatorStyle={commonStyles.gray100Backround}>
         <DateRangePicker
           open
@@ -124,4 +164,4 @@ const CalendarPiker = () => {
   );
 };
 
-export default CalendarPiker;
+export default memo(CalendarPiker, isEqual);

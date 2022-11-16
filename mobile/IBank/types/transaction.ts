@@ -38,3 +38,9 @@ export type TTransaction = {
   amountOnCardAfter: number;
   type: TRANSACTION_TYPE_ENUM;
 };
+
+export type GetCardTransactionsByDates = {
+  total: number;
+  categoriesCount: number;
+  data: [TTransaction];
+};

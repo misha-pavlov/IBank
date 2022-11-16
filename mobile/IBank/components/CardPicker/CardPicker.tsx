@@ -1,9 +1,10 @@
-import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
+import React, { FC, memo, useCallback, useMemo, useRef, useState } from 'react';
 import { FlatList, Flex, Text, View } from 'native-base';
 import { ActivityIndicator, TouchableOpacity, useWindowDimensions } from 'react-native';
 import BottomSheet, { BottomSheetBackdrop } from '@gorhom/bottom-sheet';
 import { useQuery } from '@apollo/client';
 import { BottomSheetDefaultBackdropProps } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types';
+import { isEqual } from 'lodash';
 import { colors } from '../../config/colors';
 import { commonStyles, WhiteText } from '../../common/common.styles';
 import { useCurrentCard, useCurrentUser } from '../../hooks';
@@ -12,12 +13,17 @@ import { GET_USER_CARDS } from '../../gql/card.queries';
 import { TCard } from '../../types/card';
 import CardListItem from '../CardListItem/CardListItem';
 
-const CardPicker = () => {
+type TCardPiker = {
+  selectedCard?: TCard;
+  setSelectedCard?: React.Dispatch<React.SetStateAction<TCard>>;
+};
+
+const CardPicker: FC<TCardPiker> = ({ selectedCard, setSelectedCard }) => {
   const { height } = useWindowDimensions();
   const { currentCard } = useCurrentCard();
   const { user } = useCurrentUser();
 
-  const [card, setCard] = useState(currentCard);
+  const [card, setCard] = useState(selectedCard || currentCard);
 
   const { data, loading } = useQuery(GET_USER_CARDS, { variables: { owner: user?._id } });
 
@@ -34,10 +40,18 @@ const CardPicker = () => {
     [],
   );
 
-  const onPress = useCallback((newCard: TCard) => {
-    setCard(newCard);
-    bottomSheetRef.current?.close();
-  }, []);
+  const onPress = useCallback(
+    (newCard: TCard) => {
+      setCard(newCard);
+
+      if (setSelectedCard && !isEqual(selectedCard, newCard)) {
+        setSelectedCard(newCard);
+      }
+
+      bottomSheetRef.current?.close();
+    },
+    [selectedCard, setSelectedCard],
+  );
 
   const containerStyle = { marginLeft: -16, marginRight: -16, height };
 
@@ -60,14 +74,14 @@ const CardPicker = () => {
       <TouchableOpacity onPress={() => bottomSheetRef.current?.expand()}>
         <View p="12px" borderRadius={12} backgroundColor={colors.transparent}>
           <Flex flexDirection="row" alignItems="center">
-            <View backgroundColor={colors.green1} p="5px" borderRadius={50} mr="10px">
+            <View backgroundColor={colors.gray400} p="5px" borderRadius={50} mr="10px">
               {getCardByType(card.type)}
             </View>
 
             <View>
               <WhiteText fontWeight={600}>{card.type}</WhiteText>
               <Text color={colors.blueGray200} fontSize={12}>
-                {card.amount}
+                {card.amount} $
               </Text>
             </View>
           </Flex>
@@ -84,6 +98,7 @@ const CardPicker = () => {
         containerStyle={containerStyle}
         handleIndicatorStyle={commonStyles.gray100Backround}>
         <View p="16px">
+          {/* TODO: CAHNGE ON FlashList */}
           {loading ? <ActivityIndicator /> : <FlatList data={data?.getUserCards} renderItem={renderItem} />}
         </View>
       </BottomSheet>
@@ -91,4 +106,4 @@ const CardPicker = () => {
   );
 };
 
-export default memo(CardPicker);
+export default memo(CardPicker, isEqual);

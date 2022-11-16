@@ -8,7 +8,10 @@ import {
   TransactionModel,
   TRANSACTION_TYPE_ENUM,
 } from './transaction.schema';
-import { TransactionPayload } from './../../object-types/transaction-payload.object-type';
+import {
+  GetCardTransactionsPayload,
+  GetCardTransactionsByDatesPayload,
+} from './../../object-types/transaction-payload.object-type';
 
 @Injectable()
 export class TransactionService {
@@ -34,7 +37,9 @@ export class TransactionService {
     });
   }
 
-  async getCardTransactions(cardId: string): Promise<TransactionPayload[]> {
+  async getCardTransactions(
+    cardId: string,
+  ): Promise<GetCardTransactionsPayload[]> {
     const transactions = await this.transactionModel
       .find({ cardId })
       .sort({ createdAt: -1 });
@@ -54,5 +59,34 @@ export class TransactionService {
     });
 
     return newData;
+  }
+
+  async getCardTransactionsByDates(
+    cardId: string,
+    startDate: Date,
+    endDate: Date,
+  ): Promise<GetCardTransactionsByDatesPayload> {
+    const transactions = await this.transactionModel
+      .find({ cardId, createdAt: { $gte: startDate, $lt: endDate } })
+      .sort({ createdAt: -1 });
+
+    const categoriesCount = [];
+
+    const total = transactions.reduce(
+      (acc: number, transaction: Transaction) => {
+        if (!categoriesCount.includes(transaction.type)) {
+          categoriesCount.push(transaction.type);
+        }
+
+        return (acc += transaction.amount);
+      },
+      0,
+    );
+
+    return {
+      total,
+      categoriesCount: categoriesCount.length,
+      data: transactions,
+    };
   }
 }

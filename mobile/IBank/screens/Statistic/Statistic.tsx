@@ -1,18 +1,35 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useEffect } from 'react';
+import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { FlatList, Flex, Text, View } from 'native-base';
+import { isEqual } from 'lodash';
+import { ActivityIndicator } from 'react-native';
 import { GradientCententWrapper, SectionGradient, TransparentBox, WhiteText } from '../../common/common.styles';
 import { colors } from '../../config/colors';
 import CalendarPiker from './components/CalendarPiker/CalendarPiker';
 import { CategoryIcon } from '../../assets/svg';
 import { CardPicker, TransactionItem } from '../../components';
+import { GetCardTransactionsByDates, TTransaction } from '../../types/transaction';
+import { useCurrentCard } from '../../hooks';
+import { TCard } from '../../types/card';
 
+// TODO: fix bug with selectedDates after closing calendarPiker
 const Statistic = () => {
+  const isFirstRender = useRef(true);
   const { setOptions } = useNavigation();
+  const { currentCard } = useCurrentCard();
+  const [selectedCard, setSelectedCard] = useState<TCard>(currentCard);
+  const [cardTransactionsByDates, setCardTransactionsByDates] = useState<GetCardTransactionsByDates | undefined>();
 
   useEffect(() => {
     setOptions({ headerStyle: { backgroundColor: colors.darkBlue, shadowColor: colors.darkBlue } });
   }, [setOptions]);
+
+  const renderItem = useCallback(
+    ({ item }: { item: TTransaction }) => (
+      <TransactionItem text={item.title} type={item.type} additionalText={item.type} amount={item.amount} />
+    ),
+    [],
+  );
 
   return (
     <FlatList
@@ -28,8 +45,13 @@ const Statistic = () => {
             Statistic
           </WhiteText>
 
-          <CalendarPiker />
-          <CardPicker />
+          <CalendarPiker
+            isFirstRender={isFirstRender}
+            selectedCard={selectedCard}
+            cardTransactionsByDates={cardTransactionsByDates}
+            setCardTransactionsByDates={setCardTransactionsByDates}
+          />
+          <CardPicker selectedCard={selectedCard} setSelectedCard={setSelectedCard} />
 
           {/* Categories */}
           <View mt={25}>
@@ -40,14 +62,14 @@ const Statistic = () => {
               locations={[1, 0.5, 0]}>
               <WhiteText fontSize={16}>Total</WhiteText>
               <WhiteText fontSize={25} fontWeight={600}>
-                -265 $
+                {cardTransactionsByDates?.total} $
               </WhiteText>
 
               <Flex alignItems="flex-start" mt="15px">
                 <TransparentBox w="50%">
                   <CategoryIcon />
                   <WhiteText fontSize={22} fontWeight={600}>
-                    1
+                    {cardTransactionsByDates?.categoriesCount}
                   </WhiteText>
                   <Text color={colors.gray400}>Categories</Text>
                 </TransparentBox>
@@ -60,16 +82,21 @@ const Statistic = () => {
             Transactions list
           </WhiteText>
 
-          <FlatList
-            listKey="transaction_key"
-            keyExtractor={(item, index) => `_key${item.texst_id}${index.toString()}`}
-            data={[{ test_id: 1 }, { texst_id: 2 }, { texst_id: 3 }, { texst_id: 4 }, { texst_id: 5 }, { texst_id: 6 }]}
-            renderItem={() => <TransactionItem type="play" additionalText="1 transaction" amount={-265} />}
-          />
+          {/* TODO: CHANGE ON FlashList */}
+          {cardTransactionsByDates?.data ? (
+            <FlatList
+              listKey="transaction_key"
+              keyExtractor={(item, index) => `_key${item._id}${index.toString()}`}
+              data={cardTransactionsByDates?.data}
+              renderItem={renderItem}
+            />
+          ) : (
+            <ActivityIndicator />
+          )}
         </GradientCententWrapper>
       )}
     />
   );
 };
 
-export default Statistic;
+export default memo(Statistic, isEqual);
