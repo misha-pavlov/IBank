@@ -1,10 +1,11 @@
 import React, { FC, memo, useCallback, useMemo, useRef, useState } from 'react';
-import { FlatList, Flex, Text, View } from 'native-base';
+import { Flex, Text, View } from 'native-base';
 import { ActivityIndicator, TouchableOpacity, useWindowDimensions } from 'react-native';
 import BottomSheet, { BottomSheetBackdrop } from '@gorhom/bottom-sheet';
 import { useQuery } from '@apollo/client';
 import { BottomSheetDefaultBackdropProps } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types';
 import { isEqual } from 'lodash';
+import { FlashList } from '@shopify/flash-list';
 import { colors } from '../../config/colors';
 import { commonStyles, WhiteText } from '../../common/common.styles';
 import { useCurrentCard, useCurrentUser } from '../../hooks';
@@ -97,9 +98,12 @@ const CardPicker: FC<TCardPiker> = ({ selectedCard, setSelectedCard }) => {
         backdropComponent={renderBackdrop}
         containerStyle={containerStyle}
         handleIndicatorStyle={commonStyles.gray100Backround}>
-        <View p="16px">
-          {/* TODO: CAHNGE ON FlashList */}
-          {loading ? <ActivityIndicator /> : <FlatList data={data?.getUserCards} renderItem={renderItem} />}
+        <View p="16px" height={(height / 100) * 90}>
+          {loading ? (
+            <ActivityIndicator />
+          ) : (
+            <FlashList data={data?.getUserCards} estimatedItemSize={69} renderItem={renderItem} />
+          )}
         </View>
       </BottomSheet>
     </View>

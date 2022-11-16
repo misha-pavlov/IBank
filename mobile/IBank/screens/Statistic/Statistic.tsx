@@ -82,7 +82,6 @@ const Statistic = () => {
             Transactions list
           </WhiteText>
 
-          {/* TODO: CHANGE ON FlashList */}
           {cardTransactionsByDates?.data ? (
             <FlatList
               listKey="transaction_key"
