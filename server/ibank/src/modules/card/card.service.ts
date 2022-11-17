@@ -45,8 +45,20 @@ export class CardService {
     });
   }
 
-  async getUserCards(owner: string, excludeIds?: string[]): Promise<Card[]> {
-    return this.cardModel.find({ owner, _id: { $ne: excludeIds } });
+  async getUserCards(
+    owner: string,
+    searchTerm?: string,
+    excludeIds?: string[],
+  ): Promise<Card[]> {
+    const regex = new RegExp(searchTerm.trim().split(/\s+/).join('|'));
+    return this.cardModel.find({
+      owner,
+      _id: { $ne: excludeIds },
+      $or: [
+        { number: { $regex: regex, $options: 'i' } },
+        { ownerFullName: { $regex: regex, $options: 'i' } },
+      ],
+    });
   }
 
   async getUserCapital(owner: string): Promise<number> {

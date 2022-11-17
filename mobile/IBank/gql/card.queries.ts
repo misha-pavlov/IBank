@@ -2,8 +2,8 @@ import { gql } from '@apollo/client';
 import { CARD_FRAGMENT } from './card.fragment';
 
 export const GET_USER_CARDS = gql`
-  query getUserCards($owner: String!, $excludeIds: [String!]) {
-    getUserCards(owner: $owner, excludeIds: $excludeIds) {
+  query getUserCards($owner: String!, $searchTerm: String, $excludeIds: [String!]) {
+    getUserCards(owner: $owner, searchTerm: $searchTerm, excludeIds: $excludeIds) {
       ...CardFragment
     }
   }

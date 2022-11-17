@@ -66,11 +66,21 @@ export class UserService {
     });
   }
 
-  async getUserSavedCards(userId: Types.ObjectId): Promise<Card[]> {
-    const { savedCards } = await this.userModel.findOne(
+  async getUserSavedCards(
+    userId: Types.ObjectId,
+    searchTerm?: string,
+  ): Promise<Card[]> {
+    let { savedCards } = await this.userModel.findOne(
       { _id: userId },
       { savedCards: 1 },
     );
+
+    if (searchTerm) {
+      const regex = new RegExp(searchTerm.trim().split(/\s+/).join('|'));
+      savedCards = savedCards.filter(
+        (card) => card.ownerFullName.match(regex) || card.number.match(regex),
+      );
+    }
 
     return savedCards;
   }

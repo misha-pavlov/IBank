@@ -3,7 +3,7 @@ import { useCallback, useContext } from 'react';
 import { GET_CARD_BY_ID } from '../gql/card.queries';
 import { actionCases } from '../store/actionCases';
 import { Context } from '../store/store';
-import { TCard } from './../types/card';
+import { TCard } from '../types/card';
 
 const useCurrentCard = (): {
   currentCard: TCard;
@@ -12,7 +12,8 @@ const useCurrentCard = (): {
 } => {
   const { dispatch, state } = useContext(Context);
 
-  const currentCard = state.currentCard;
+  // use as TCard for fix types
+  const currentCard = state.currentCard as TCard;
 
   const [lazyUpdate] = useLazyQuery(GET_CARD_BY_ID, { variables: { _id: currentCard._id } });
 

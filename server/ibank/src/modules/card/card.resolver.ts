@@ -11,10 +11,12 @@ export class CardResolver {
   @Query(() => [Card])
   async getUserCards(
     @Args('owner') owner: string,
+    @Args({ name: 'searchTerm', nullable: true })
+    searchTerm: string,
     @Args({ name: 'excludeIds', type: () => [String], nullable: true })
     excludeIds?: string[],
   ) {
-    return this.cardService.getUserCards(owner, excludeIds);
+    return this.cardService.getUserCards(owner, searchTerm, excludeIds);
   }
 
   @Query(() => Number)

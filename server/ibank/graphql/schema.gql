@@ -66,9 +66,9 @@ type Query {
   getCardTransactionsByDates(cardId: String!, endDate: DateTime!, startDate: DateTime!): GetCardTransactionsByDatesPayload!
   getUser: UserPayload!
   getUserCapital(owner: String!): Float!
-  getUserCards(excludeIds: [String!], owner: String!): [Card!]!
+  getUserCards(excludeIds: [String!], owner: String!, searchTerm: String): [Card!]!
   getUserFirstCard(owner: String!): Card!
-  getUserSavedCards(userId: ObjectId!): [Card!]!
+  getUserSavedCards(searchTerm: String, userId: ObjectId!): [Card!]!
 }
 
 type SignUpPayload {

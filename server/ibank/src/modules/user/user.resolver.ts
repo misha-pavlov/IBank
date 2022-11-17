@@ -28,8 +28,12 @@ export class UserResolver {
   }
 
   @Query(() => [Card])
-  async getUserSavedCards(@Args('userId') userId: Types.ObjectId) {
-    return this.userService.getUserSavedCards(userId);
+  async getUserSavedCards(
+    @Args('userId') userId: Types.ObjectId,
+    @Args({ name: 'searchTerm', nullable: true })
+    searchTerm: string,
+  ) {
+    return this.userService.getUserSavedCards(userId, searchTerm);
   }
 
   @Mutation(() => User)
