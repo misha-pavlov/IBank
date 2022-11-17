@@ -50,7 +50,7 @@ export class CardService {
     searchTerm?: string,
     excludeIds?: string[],
   ): Promise<Card[]> {
-    const regex = new RegExp(searchTerm.trim().split(/\s+/).join('|'));
+    const regex = new RegExp((searchTerm || '').trim().split(/\s+/).join('|'));
     return this.cardModel.find({
       owner,
       _id: { $ne: excludeIds },

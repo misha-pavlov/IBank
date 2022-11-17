@@ -7,6 +7,7 @@ import {
   AddNewCard,
   Capital,
   Card,
+  DoneTransaction,
   EditProfile,
   HeaderModal,
   MoneyOperation,
@@ -44,6 +45,11 @@ const CardNavigator = () => {
         component={HeaderModal}
         name={cardEnum.HeaderModal}
         options={{ headerShown: false, ...verticalAnimation }}
+      />
+      <CardStack.Screen
+        name={cardEnum.DoneTransaction}
+        options={emptyBlackWithBackButton}
+        component={DoneTransaction}
       />
       <CardStack.Screen name={appEnum.MoneyOperation} options={emptyBlackWithBackButton} component={MoneyOperation} />
       <CardStack.Screen name={cardEnum.EditProfile} options={emptyBlackWithBackButton} component={EditProfile} />

@@ -6,4 +6,5 @@ export type MoneyOperationParams = {
   buttonText: string;
   headerTitle?: string;
   isFromMagicCard?: boolean;
+  onComplete?: () => void;
 };

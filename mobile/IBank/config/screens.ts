@@ -14,6 +14,7 @@ export enum cardEnum {
   SendOnCard = 'SendOnCard',
   HeaderModal = 'HeaderModal',
   EditProfile = 'EditProfile',
+  DoneTransaction = 'DoneTransaction',
 }
 
 export enum appEnum {

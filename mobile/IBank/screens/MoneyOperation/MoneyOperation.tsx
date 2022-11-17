@@ -3,6 +3,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { Center, Input, KeyboardAvoidingView, Text, useToast, View } from 'native-base';
 import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { TextInput, TouchableOpacity, useWindowDimensions } from 'react-native';
+import { isFunction } from 'lodash';
 // svg
 import { TransferIcon } from '../../assets/svg';
 // styles
@@ -32,7 +33,7 @@ const MoneyOperation = () => {
   const { setOptions, goBack } = useNavigation();
   const { currentCard, updateCurrentCard } = useCurrentCard();
   const { params } = useRoute<NCardNavigatorRouteProp<'MoneyOperation'>>();
-  const { from, isFromMagicCard, buttonText, to } = params;
+  const { from, isFromMagicCard, buttonText, to, headerTitle, onComplete } = params;
 
   const [amount, setAmount] = useState(0);
 
@@ -41,8 +42,8 @@ const MoneyOperation = () => {
   });
 
   useEffect(() => {
-    setOptions({ headerTitle: params.headerTitle || '' });
-  }, [params.headerTitle, setOptions]);
+    setOptions({ headerTitle: headerTitle || '' });
+  }, [headerTitle, setOptions]);
 
   const osPress = () => {
     inputRef.current && inputRef.current.focus();
@@ -54,7 +55,12 @@ const MoneyOperation = () => {
     } catch (error) {
       console.error(error);
     }
-    goBack();
+
+    if (isFunction(onComplete)) {
+      onComplete();
+    } else {
+      goBack();
+    }
   };
 
   const onSend = () => {

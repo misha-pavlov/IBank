@@ -1,20 +1,30 @@
 import { useQuery } from '@apollo/client';
-import { useNavigation } from '@react-navigation/native';
+import { CommonActions, useNavigation } from '@react-navigation/native';
 import { Input, SectionList, View } from 'native-base';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { ActivityIndicator, SectionListData } from 'react-native';
+// styles
 import { BlackContentWrapper, WhiteText } from '../../common/common.styles';
+// components
 import { CardListItem, IBankBlackButton } from '../../components';
+// constants
 import { colors } from '../../config/colors';
-import { GET_USER_CARDS } from '../../gql/card.queries';
-import { getCardByType } from '../../helpers/cardHelpers';
-import { useCurrentCard, useCurrentUser, useDebounced } from '../../hooks';
+import { appEnum, cardEnum } from '../../config/screens';
 import { ApolloFetchPolicy } from '../../types/apollo';
-import { TCard } from '../../types/card';
+// gql
+import { GET_USER_CARDS } from '../../gql/card.queries';
 import { GET_USER_SAVED_CARDS } from './SendOnCard.queries';
+// helpers
+import { getCardByType } from '../../helpers/cardHelpers';
+// hooks
+import { useCurrentCard, useCurrentUser, useDebounced } from '../../hooks';
+// types
+import { NCardNavigatorNavigationProp } from '../../navigation/types/CardNavigator.types';
+import { TCard } from '../../types/card';
 
 const SendOnCard = () => {
-  const { setOptions } = useNavigation();
+  const { setOptions, navigate, dispatch } =
+    useNavigation<NCardNavigatorNavigationProp<'MoneyOperation' | 'DoneTransaction'>>();
   const { user } = useCurrentUser();
   const { currentCard } = useCurrentCard();
 
@@ -47,18 +57,41 @@ const SendOnCard = () => {
     [dataGetUserCards?.getUserCards, dataGetUserSavedCards?.getUserSavedCards],
   );
 
-  const renderItem = useCallback(({ item }: { item: TCard }) => {
-    const { type, number, ownerFullName } = item;
+  const onReplace = useCallback(
+    (card: TCard) => {
+      // Success, move to homepage.
+      const resetAction = CommonActions.reset({
+        index: 0,
+        routes: [{ name: cardEnum.DoneTransaction, params: { card } }],
+      });
+      dispatch(resetAction);
+    },
+    [dispatch],
+  );
 
-    return (
-      <CardListItem
-        text={ownerFullName}
-        underText={number.replace(number.substring(6, 12), '****')}
-        onPress={() => console.log('PRESSED')}
-        card={getCardByType(type)}
-      />
-    );
-  }, []);
+  const renderItem = useCallback(
+    ({ item }: { item: TCard }) => {
+      const { type, number, ownerFullName } = item;
+
+      return (
+        <CardListItem
+          text={ownerFullName}
+          underText={number.replace(number.substring(6, 12), '****')}
+          onPress={() =>
+            navigate(appEnum.MoneyOperation, {
+              buttonText: 'Send',
+              to: item,
+              from: currentCard,
+              headerTitle: 'How much?',
+              onComplete: () => onReplace(item),
+            })
+          }
+          card={getCardByType(type)}
+        />
+      );
+    },
+    [currentCard, navigate, onReplace],
+  );
 
   const renderSectionHeader = useCallback(
     ({ section }: { section: SectionListData<TCard, { title: string; data: TCard[] }> }) =>
