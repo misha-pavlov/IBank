@@ -9,3 +9,12 @@ export const GET_USER_SAVED_CARDS = gql`
   }
   ${CARD_FRAGMENT}
 `;
+
+export const IS_CARD_EXIST = gql`
+  query isCardExist($number: Float!) {
+    isCardExist(number: $number) {
+      ...CardFragment
+    }
+  }
+  ${CARD_FRAGMENT}
+`;

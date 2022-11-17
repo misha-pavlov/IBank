@@ -120,4 +120,8 @@ export class CardService {
   async getCardById(_id: Types.ObjectId): Promise<Card> {
     return this.cardModel.findOne({ _id });
   }
+
+  async isCardExist(number: number): Promise<Card | null> {
+    return this.cardModel.findOne({ number });
+  }
 }

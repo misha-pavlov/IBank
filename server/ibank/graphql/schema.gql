@@ -69,6 +69,7 @@ type Query {
   getUserCards(excludeIds: [String!], owner: String!, searchTerm: String): [Card!]!
   getUserFirstCard(owner: String!): Card!
   getUserSavedCards(searchTerm: String, userId: ObjectId!): [Card!]!
+  isCardExist(number: Float!): Card
 }
 
 type SignUpPayload {

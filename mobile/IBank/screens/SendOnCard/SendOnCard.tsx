@@ -1,6 +1,6 @@
-import { useQuery } from '@apollo/client';
+import { useLazyQuery, useQuery } from '@apollo/client';
 import { CommonActions, useNavigation } from '@react-navigation/native';
-import { Input, SectionList, View } from 'native-base';
+import { Input, SectionList, useToast, View } from 'native-base';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { ActivityIndicator, SectionListData } from 'react-native';
 // styles
@@ -13,7 +13,7 @@ import { appEnum, cardEnum } from '../../config/screens';
 import { ApolloFetchPolicy } from '../../types/apollo';
 // gql
 import { GET_USER_CARDS } from '../../gql/card.queries';
-import { GET_USER_SAVED_CARDS } from './SendOnCard.queries';
+import { GET_USER_SAVED_CARDS, IS_CARD_EXIST } from './SendOnCard.queries';
 // helpers
 import { getCardByType } from '../../helpers/cardHelpers';
 // hooks
@@ -23,6 +23,7 @@ import { NCardNavigatorNavigationProp } from '../../navigation/types/CardNavigat
 import { TCard } from '../../types/card';
 
 const SendOnCard = () => {
+  const toast = useToast();
   const { setOptions, navigate, dispatch } =
     useNavigation<NCardNavigatorNavigationProp<'MoneyOperation' | 'DoneTransaction'>>();
   const { user } = useCurrentUser();
@@ -49,6 +50,8 @@ const SendOnCard = () => {
     skip: !user?._id,
   });
 
+  const [isCardExistLazy] = useLazyQuery(IS_CARD_EXIST, { onError: err => console.error('IS_CARD_EXIST = ', err) });
+
   const sections = useMemo(
     () => [
       { title: 'My cards', data: dataGetUserCards?.getUserCards },
@@ -69,6 +72,41 @@ const SendOnCard = () => {
     [dispatch],
   );
 
+  const moveToDoneTransaction = useCallback(
+    (cardTo: TCard) => {
+      return navigate(appEnum.MoneyOperation, {
+        buttonText: 'Send',
+        to: cardTo,
+        from: currentCard,
+        headerTitle: 'How much?',
+        onComplete: () => onReplace(cardTo),
+      });
+    },
+    [currentCard, navigate, onReplace],
+  );
+
+  const onUnknownCard = useCallback(() => {
+    isCardExistLazy({
+      variables: { number: Number(debounced) },
+      onCompleted: ({ isCardExist }) => {
+        if (!isCardExist) {
+          toast.show({
+            placement: 'top',
+            render: () => {
+              return (
+                <View bg={colors.red} px="2" py="1" rounded="sm" mt={10}>
+                  <WhiteText>This card is not exist</WhiteText>
+                </View>
+              );
+            },
+          });
+        } else {
+          moveToDoneTransaction(isCardExist);
+        }
+      },
+    });
+  }, [debounced, isCardExistLazy, moveToDoneTransaction, toast]);
+
   const renderItem = useCallback(
     ({ item }: { item: TCard }) => {
       const { type, number, ownerFullName } = item;
@@ -77,20 +115,12 @@ const SendOnCard = () => {
         <CardListItem
           text={ownerFullName}
           underText={number.replace(number.substring(6, 12), '****')}
-          onPress={() =>
-            navigate(appEnum.MoneyOperation, {
-              buttonText: 'Send',
-              to: item,
-              from: currentCard,
-              headerTitle: 'How much?',
-              onComplete: () => onReplace(item),
-            })
-          }
+          onPress={() => moveToDoneTransaction(item)}
           card={getCardByType(type)}
         />
       );
     },
-    [currentCard, navigate, onReplace],
+    [moveToDoneTransaction],
   );
 
   const renderSectionHeader = useCallback(
@@ -135,7 +165,7 @@ const SendOnCard = () => {
         <View pt="16px">
           <IBankBlackButton
             text={`Send on card ${debounced.replace(debounced.substring(6, 12), '****')}`}
-            onPress={() => console.log('123')}
+            onPress={onUnknownCard}
           />
         </View>
       );
@@ -159,6 +189,7 @@ const SendOnCard = () => {
     debounced,
     loadingGetUserCards,
     loadingGetUserSavedCards,
+    onUnknownCard,
     renderItem,
     renderSectionHeader,
     sections,

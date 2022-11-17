@@ -18,6 +18,7 @@ import { getFormattedAmount } from '../../helpers/generalHelpers';
 // gql
 import { GET_CARD_BY_ID, GET_USER_CARDS } from '../../gql/card.queries';
 import { MONEY_SEND } from './MoneyOperation.mutations';
+import { GET_CARD_TRANSACTIONS } from '../Card/screens/Amount/Amount.queries';
 // hooks
 import { useCurrentCard, useCurrentUser } from '../../hooks';
 // types
@@ -69,6 +70,8 @@ const MoneyOperation = () => {
       refetchQueries: [
         { query: GET_CARD_BY_ID, variables: { _id: currentCard._id } },
         { query: GET_USER_CARDS, variables: { owner: user?._id, excludeIds: [currentCard._id] } },
+        { query: GET_CARD_TRANSACTIONS, variables: { cardId: from?._id } },
+        { query: GET_CARD_TRANSACTIONS, variables: { cardId: to?._id } },
       ],
       awaitRefetchQueries: true,
       onCompleted,

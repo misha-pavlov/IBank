@@ -34,6 +34,11 @@ export class CardResolver {
     return this.cardService.getCardById(_id);
   }
 
+  @Query(() => Card, { nullable: true })
+  async isCardExist(@Args('number') number: number) {
+    return this.cardService.isCardExist(number);
+  }
+
   @Mutation(() => Card)
   async createCard(
     @Args('pin') pin: string,
