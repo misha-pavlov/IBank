@@ -44,16 +44,31 @@ export class TransactionService {
       .find({ cardId })
       .sort({ createdAt: -1 });
 
-    const titles = uniqWith(
-      transactions.map((transaction) => moment(transaction.createdAt)),
+    const titles = [];
+    const formatedTitles = [];
+
+    uniqWith(
+      transactions
+        .map((transaction) => moment(transaction.createdAt))
+        .filter((title) => {
+          if (formatedTitles.includes(title.format('DD/MM/YYYY'))) {
+            return false;
+          } else {
+            formatedTitles.push(title.format('DD/MM/YYYY'));
+            titles.push(title);
+            return true;
+          }
+        }),
       isEqual,
     );
 
     const newData = titles.map((title) => {
-      const dataByTitle = transactions.filter(
-        (transaction) =>
-          moment(transaction.createdAt).isSame(title) && transaction,
-      );
+      const dataByTitle = transactions
+        .filter(
+          (transaction) =>
+            moment(transaction.createdAt).isSame(title, 'D') && transaction,
+        )
+        .sort(() => -1);
 
       return { title: title.toString(), data: dataByTitle };
     });
