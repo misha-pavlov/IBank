@@ -70,7 +70,11 @@ export class TransactionService {
           (transaction) =>
             moment(transaction.createdAt).isSame(title, 'D') && transaction,
         )
-        .sort(() => -1);
+        .sort((a, b) => {
+          const c = new Date(a.createdAt);
+          const d = new Date(b.createdAt);
+          return Number(d) - Number(c);
+        });
 
       return { title: title.toString(), data: dataByTitle };
     });
