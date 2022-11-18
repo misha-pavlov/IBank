@@ -27,7 +27,7 @@ const CardOperations: FC<TCardOperation> = ({ renderPaginaton, currentCard }) =>
   const renderItem = useCallback(
     ({ item }: { item: TCardSettings }) => (
       <TouchableOpacity>
-        <TransactionItem icon={item.icon} text={item.text} hideAmount />
+        <TransactionItem icon={item.icon} text={item.text} />
       </TouchableOpacity>
     ),
     [],

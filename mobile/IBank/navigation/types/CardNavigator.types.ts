@@ -13,8 +13,9 @@ export type NCardStackParamList = {
   AddNewCard: undefined;
   EditProfile: undefined;
   HeaderModal: undefined;
-  DoneTransaction: { card: TCard; showSaveCardSwitcher: boolean };
+  OtherPayments: undefined;
   MoneyOperation: MoneyOperationParams;
+  DoneTransaction: { card: TCard; showSaveCardSwitcher: boolean };
 };
 
 export type NCardNavigatorRouteProp<ScreenName extends keyof NCardStackParamList> = RouteProp<

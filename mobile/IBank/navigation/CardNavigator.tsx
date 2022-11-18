@@ -16,6 +16,7 @@ import {
   Statistic,
   TopUp,
 } from '../screens';
+import OtherPayments from '../screens/OtherPayments/OtherPayments';
 
 const CardStack = createStackNavigator<NCardStackParamList>();
 
@@ -52,6 +53,7 @@ const CardNavigator = () => {
         component={DoneTransaction}
       />
       <CardStack.Screen name={appEnum.MoneyOperation} options={emptyBlackWithBackButton} component={MoneyOperation} />
+      <CardStack.Screen name={cardEnum.OtherPayments} options={emptyBlackWithBackButton} component={OtherPayments} />
       <CardStack.Screen name={cardEnum.EditProfile} options={emptyBlackWithBackButton} component={EditProfile} />
       <CardStack.Screen name={cardEnum.AddNewCard} options={emptyBlackWithBackButton} component={AddNewCard} />
       <CardStack.Screen name={cardEnum.SendOnCard} options={emptyBlackWithBackButton} component={SendOnCard} />

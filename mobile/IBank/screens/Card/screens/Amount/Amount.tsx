@@ -39,7 +39,7 @@ const Amount: FC<TAmount> = ({ renderPaginaton, moveToNextScreen, currentCard })
   const [searchTerm, setSearchTerm] = useState('');
   const debounced = useDebounced(searchTerm);
 
-  const { navigate } = useNavigation<NCardNavigatorNavigationProp<'TopUp' | 'SendOnCard'>>();
+  const { navigate } = useNavigation<NCardNavigatorNavigationProp<'TopUp' | 'SendOnCard' | 'OtherPayments'>>();
   const { data, loading } = useQuery(GET_CARD_TRANSACTIONS, {
     variables: { cardId: currentCard._id, searchTerm: debounced },
   });
@@ -201,9 +201,9 @@ const Amount: FC<TAmount> = ({ renderPaginaton, moveToNextScreen, currentCard })
                 onPress={() => navigate(cardEnum.SendOnCard)}
               />
               <RoundTouchable
-                text="Another actions"
+                text="Another payments"
                 icon={<AnotherActionsIcon />}
-                onPress={() => console.log('123gg')}
+                onPress={() => navigate(cardEnum.OtherPayments)}
               />
             </HStack>
           </View>

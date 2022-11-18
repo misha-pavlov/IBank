@@ -9,11 +9,10 @@ type TTransactionItem = {
   text?: string;
   amount?: number;
   icon?: JSX.Element;
-  hideAmount?: boolean;
   additionalText?: string;
 };
 
-const TransactionItem: FC<TTransactionItem> = ({ type, additionalText, amount, hideAmount, icon, text }) => {
+const TransactionItem: FC<TTransactionItem> = ({ type, additionalText, amount, icon, text }) => {
   const renderText = useMemo(() => {
     if (!additionalText) {
       return <WhiteText fontWeight={600}>{text || getTransactionTitleByType(type)}</WhiteText>;
@@ -36,7 +35,7 @@ const TransactionItem: FC<TTransactionItem> = ({ type, additionalText, amount, h
         <View>{renderText}</View>
       </Flex>
 
-      <Flex justifyContent="center">{!hideAmount && <WhiteText fontSize={18}>{amount} $</WhiteText>}</Flex>
+      <Flex justifyContent="center">{amount && <WhiteText fontSize={18}>{amount} $</WhiteText>}</Flex>
     </Flex>
   );
 };
