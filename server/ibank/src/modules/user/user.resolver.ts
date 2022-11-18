@@ -7,7 +7,7 @@ import { JwtAuthGuard } from '../../guards/jwt-auth.guard';
 import { ContextUser } from '../../decorators/context-user.decorator';
 import { User } from './user.schema';
 import { UserPayload } from '../../object-types/user-payload.object-type';
-import { Card } from '../card/card.schema';
+import { Card, CardInput } from '../card/card.schema';
 
 @Resolver()
 export class UserResolver {
@@ -44,5 +44,13 @@ export class UserResolver {
     @Args('birthday') birthday: Date,
   ) {
     return this.userService.editProfile(userId, fullName, phone, birthday);
+  }
+
+  @Mutation(() => User)
+  async addToSavedCards(
+    @Args('userId') userId: Types.ObjectId,
+    @Args('card') card: CardInput,
+  ) {
+    return this.userService.addToSavedCards(userId, card);
   }
 }
