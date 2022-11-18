@@ -2,6 +2,7 @@ import BottomSheet, { BottomSheetFlatList } from '@gorhom/bottom-sheet';
 import { Center, Flex, Progress, Text, View } from 'native-base';
 import React, { FC, memo, useCallback, useMemo, useRef } from 'react';
 import { TouchableOpacity } from 'react-native';
+import Clipboard from '@react-native-clipboard/clipboard';
 import { CalendarIcon } from '../../../../assets/svg';
 import { commonStyles, SectionGradient, WhiteText } from '../../../../common/common.styles';
 import { Card, RoundTouchable, TransactionItem } from '../../../../components';
@@ -64,7 +65,14 @@ const CardOperations: FC<TCardOperation> = ({ renderPaginaton, currentCard }) =>
         locations={[1, 0.5, 0]}
         withoutBorderRadius>
         <View mt="45px">
-          <Card withFullWidth type={type} cardNumber={number} expiredDate={expired} isMasterCard={isMasterCard} />
+          <Card
+            type={type}
+            withFullWidth
+            cardNumber={number}
+            expiredDate={expired}
+            isMasterCard={isMasterCard}
+            onLongPress={() => Clipboard.setString(number)}
+          />
         </View>
         <Center>{renderPaginaton}</Center>
 

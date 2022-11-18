@@ -7,4 +7,5 @@ export type TCard = {
   expiredDate: Date | string;
   withFlip?: boolean;
   withFullWidth?: boolean;
+  onLongPress?: () => void;
 };

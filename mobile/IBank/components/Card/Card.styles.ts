@@ -4,12 +4,13 @@ import { colors } from '../../config/colors';
 import { getCardColorByType } from '../../helpers/cardHelpers';
 import { CardType } from './../../types/card';
 
-export const CardBlock = styled.View<{ withFullWidth?: boolean; type: CardType }>`
+export const CardBlock = styled.TouchableOpacity<{ withFullWidth?: boolean; type: CardType }>`
   width: ${({ withFullWidth }) => (withFullWidth ? '100%' : '300px')};
   height: ${({ withFullWidth }) => (withFullWidth ? 220 : 185)}px;
   border-radius: 20px;
   background-color: ${({ type }) => getCardColorByType(type)};
   padding: 18px;
+  position: relative;
 `;
 
 export const BankName = styled.Text<{ useWhiteColor?: boolean }>`
