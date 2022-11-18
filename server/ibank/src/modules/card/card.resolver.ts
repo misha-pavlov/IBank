@@ -3,6 +3,7 @@ import { Types } from 'mongoose';
 
 import { CardService } from './card.service';
 import { Card, CARD_TYPE_ENUM } from './card.schema';
+import { TRANSACTION_TYPE_ENUM } from '../transaction/transaction.schema';
 
 @Resolver()
 export class CardResolver {
@@ -58,10 +59,12 @@ export class CardResolver {
 
   @Mutation(() => Boolean)
   async moneySend(
-    @Args('to') to: Types.ObjectId,
     @Args('amount') amount: number,
+    @Args('to', { nullable: true }) to?: Types.ObjectId,
     @Args('from', { nullable: true }) from?: Types.ObjectId,
+    @Args('sendOnNumber', { nullable: true }) sendOnNumber?: string,
+    @Args('type', { nullable: true }) type?: TRANSACTION_TYPE_ENUM,
   ) {
-    return this.cardService.moneySend(to, amount, from);
+    return this.cardService.moneySend(amount, to, from, sendOnNumber, type);
   }
 }

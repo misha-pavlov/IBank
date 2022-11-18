@@ -34,7 +34,7 @@ const MoneyOperation = () => {
   const { setOptions, goBack } = useNavigation();
   const { currentCard, updateCurrentCard } = useCurrentCard();
   const { params } = useRoute<NCardNavigatorRouteProp<'MoneyOperation'>>();
-  const { from, isFromMagicCard, buttonText, to, headerTitle, onComplete } = params;
+  const { from, isFromMagicCard, buttonText, to, headerTitle, onComplete, sendOnNumber, type } = params;
 
   const [amount, setAmount] = useState(0);
 
@@ -46,7 +46,7 @@ const MoneyOperation = () => {
     setOptions({ headerTitle: headerTitle || '' });
   }, [headerTitle, setOptions]);
 
-  const osPress = () => {
+  const onPress = () => {
     inputRef.current && inputRef.current.focus();
   };
 
@@ -64,14 +64,27 @@ const MoneyOperation = () => {
     }
   };
 
+  const refetchGetCardTransactions = () => {
+    const array = [];
+
+    if (to) {
+      array.push({ query: GET_CARD_TRANSACTIONS, variables: { cardId: to?._id, searchTerm: '' } });
+    }
+
+    if (from) {
+      array.push({ query: GET_CARD_TRANSACTIONS, variables: { cardId: from?._id, searchTerm: '' } });
+    }
+
+    return array;
+  };
+
   const onSend = () => {
     moneySendMutate({
-      variables: { to: to?._id, amount, ...(!isFromMagicCard && { from: from?._id }) },
+      variables: { amount, to: to?._id, ...(!isFromMagicCard && { from: from?._id }), sendOnNumber, type },
       refetchQueries: [
         { query: GET_CARD_BY_ID, variables: { _id: currentCard._id } },
         { query: GET_USER_CARDS, variables: { owner: user?._id, excludeIds: [currentCard._id] } },
-        { query: GET_CARD_TRANSACTIONS, variables: { cardId: from?._id } },
-        { query: GET_CARD_TRANSACTIONS, variables: { cardId: to?._id } },
+        ...refetchGetCardTransactions(),
       ],
       awaitRefetchQueries: true,
       onCompleted,
@@ -111,7 +124,7 @@ const MoneyOperation = () => {
         keyboardVerticalOffset={keyboardVerticalOffset}>
         <Center height={height - 200} justifyContent="space-between">
           <View mt="80%">
-            <TouchableOpacity onPress={osPress}>
+            <TouchableOpacity onPress={onPress}>
               <Text color={colors.gray600} textAlign="center">
                 Amount {isFromMagicCard ? '∞' : getFormattedAmount(from?.amount || 0)} $
               </Text>

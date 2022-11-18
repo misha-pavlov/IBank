@@ -72,18 +72,30 @@ export class CardService {
   }
 
   async moneySend(
-    to: Types.ObjectId,
     amount: number,
+    // not required for number sends
+    to?: Types.ObjectId,
     // not required for magic card logic
     from?: Types.ObjectId,
+    sendOnNumber?: string,
+    type?: TRANSACTION_TYPE_ENUM,
   ): Promise<boolean> {
-    const cardFrom = await this.cardModel.findOne({ _id: from });
-    const cardFromHolder = await this.userModel.findOne({
-      _id: cardFrom.owner,
-    });
+    let cardFrom;
+    let cardFromHolder;
+    let cardTo;
+    let cardToHolder;
 
-    const cardTo = await this.cardModel.findOne({ _id: to });
-    const cardToHolder = await this.userModel.findOne({ _id: cardTo.owner });
+    if (from) {
+      cardFrom = await this.cardModel.findOne({ _id: from });
+      cardFromHolder = await this.userModel.findOne({
+        _id: cardFrom.owner,
+      });
+    }
+
+    if (to) {
+      cardTo = await this.cardModel.findOne({ _id: to });
+      cardToHolder = await this.userModel.findOne({ _id: cardTo.owner });
+    }
 
     if (from) {
       const newAmount = cardFrom.amount - amount;
@@ -92,27 +104,45 @@ export class CardService {
         { _id: from },
         { amount: newAmount },
       );
+
+      // send money on number
+      if (sendOnNumber) {
+        await this.transactionModel.create({
+          type,
+          amount: -amount,
+          cardId: cardFrom._id,
+          userId: cardFromHolder._id,
+          title: `${type.toLocaleLowerCase()} ${sendOnNumber}`,
+          amountOnCardAfter: newAmount,
+        });
+      } else {
+        await this.transactionModel.create({
+          type: TRANSACTION_TYPE_ENUM.SEND_ON_CARD,
+          amount: -amount,
+          cardId: cardFrom._id,
+          userId: cardFromHolder._id,
+          title: cardToHolder.fullName,
+          amountOnCardAfter: newAmount,
+        });
+      }
+    }
+
+    if (to) {
+      const newAmount = cardTo.amount + amount;
+
+      await this.cardModel.findByIdAndUpdate(
+        { _id: to },
+        { amount: newAmount },
+      );
       await this.transactionModel.create({
         type: TRANSACTION_TYPE_ENUM.SEND_ON_CARD,
-        amount: -amount,
-        cardId: cardFrom._id,
-        userId: cardFromHolder._id,
-        title: cardToHolder.fullName,
+        amount: amount,
+        cardId: cardTo._id,
+        userId: cardToHolder._id,
+        title: cardFromHolder?.fullName || 'Magic card',
         amountOnCardAfter: newAmount,
       });
     }
-
-    const newAmount = cardTo.amount + amount;
-
-    await this.cardModel.findByIdAndUpdate({ _id: to }, { amount: newAmount });
-    await this.transactionModel.create({
-      type: TRANSACTION_TYPE_ENUM.SEND_ON_CARD,
-      amount: amount,
-      cardId: cardTo._id,
-      userId: cardToHolder._id,
-      title: cardFromHolder.fullName || 'Magic card',
-      amountOnCardAfter: newAmount,
-    });
 
     return false;
   }
