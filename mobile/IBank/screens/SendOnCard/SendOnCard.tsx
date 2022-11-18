@@ -145,15 +145,14 @@ const SendOnCard = () => {
 
   const renderListHeader = useMemo(() => {
     return (
-      <View>
-        <Input
-          size="lg"
-          value={searchTerm}
-          color={colors.gray100}
-          onChangeText={onChangeText}
-          placeholder="Search by name, card number"
-        />
-      </View>
+      <Input
+        size="lg"
+        value={searchTerm}
+        variant="underlined"
+        color={colors.gray100}
+        onChangeText={onChangeText}
+        placeholder="Search by name, card number"
+      />
     );
   }, [onChangeText, searchTerm]);
 
