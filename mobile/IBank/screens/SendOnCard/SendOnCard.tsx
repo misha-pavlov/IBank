@@ -13,7 +13,8 @@ import { appEnum, cardEnum } from '../../config/screens';
 import { ApolloFetchPolicy } from '../../types/apollo';
 // gql
 import { GET_USER_CARDS } from '../../gql/card.queries';
-import { GET_USER_SAVED_CARDS, IS_CARD_EXIST } from './SendOnCard.queries';
+import { GET_USER_SAVED_CARDS } from '../../gql/user.queries';
+import { IS_CARD_EXIST } from './SendOnCard.queries';
 // helpers
 import { getCardByType } from '../../helpers/cardHelpers';
 // hooks
@@ -26,7 +27,7 @@ const SendOnCard = () => {
   const toast = useToast();
   const { setOptions, navigate, dispatch } =
     useNavigation<NCardNavigatorNavigationProp<'MoneyOperation' | 'DoneTransaction'>>();
-  const { user } = useCurrentUser();
+  const { user, savedCardsIds } = useCurrentUser();
   const { currentCard } = useCurrentCard();
 
   const [searchTerm, setSearchTerm] = useState('');
@@ -61,25 +62,30 @@ const SendOnCard = () => {
   );
 
   const onReplace = useCallback(
-    (card: TCard) => {
+    (card: TCard, isUserCard: boolean) => {
       // Success, move to homepage.
       const resetAction = CommonActions.reset({
         index: 0,
-        routes: [{ name: cardEnum.DoneTransaction, params: { card } }],
+        routes: [
+          {
+            name: cardEnum.DoneTransaction,
+            params: { card, showSaveCardSwitcher: !savedCardsIds.includes(card._id) && !isUserCard },
+          },
+        ],
       });
       dispatch(resetAction);
     },
-    [dispatch],
+    [dispatch, savedCardsIds],
   );
 
   const moveToDoneTransaction = useCallback(
-    (cardTo: TCard) => {
+    (cardTo: TCard, isUserCard: boolean) => {
       return navigate(appEnum.MoneyOperation, {
         buttonText: 'Send',
         to: cardTo,
         from: currentCard,
         headerTitle: 'How much?',
-        onComplete: () => onReplace(cardTo),
+        onComplete: () => onReplace(cardTo, isUserCard),
       });
     },
     [currentCard, navigate, onReplace],
@@ -101,7 +107,7 @@ const SendOnCard = () => {
             },
           });
         } else {
-          moveToDoneTransaction(isCardExist);
+          moveToDoneTransaction(isCardExist, false);
         }
       },
     });
@@ -115,7 +121,7 @@ const SendOnCard = () => {
         <CardListItem
           text={ownerFullName}
           underText={number.replace(number.substring(6, 12), '****')}
-          onPress={() => moveToDoneTransaction(item)}
+          onPress={() => moveToDoneTransaction(item, true)}
           card={getCardByType(type)}
         />
       );

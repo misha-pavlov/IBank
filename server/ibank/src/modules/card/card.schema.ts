@@ -1,6 +1,11 @@
-import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
+import {
+  Field,
+  InputType,
+  ObjectType,
+  registerEnumType,
+} from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Model } from 'mongoose';
+import { Document, Model, Types } from 'mongoose';
 
 import { CommonSchema } from '../../common/common.schema';
 
@@ -55,6 +60,45 @@ export class Card extends CommonSchema {
 
   @Field(() => Number)
   @Prop({ type: Number, required: true })
+  usedInternetLimit: number;
+}
+
+@InputType()
+export class CardInput {
+  @Field(() => Types.ObjectId)
+  _id: Types.ObjectId;
+
+  @Field(() => String)
+  number: string;
+
+  @Field(() => Date)
+  expired: Date;
+
+  @Field(() => Boolean)
+  isMasterCard: boolean;
+
+  @Field(() => CARD_TYPE_ENUM)
+  type: CARD_TYPE_ENUM;
+
+  @Field(() => Boolean)
+  isBlocked: boolean;
+
+  @Field(() => Number)
+  amount: number;
+
+  @Field(() => String)
+  owner: string;
+
+  @Field(() => String)
+  ownerFullName: string;
+
+  @Field(() => String)
+  pin: string;
+
+  @Field(() => Number)
+  internetLimit: number;
+
+  @Field(() => Number)
   usedInternetLimit: number;
 }
 

@@ -4,7 +4,7 @@ import { hash, compare } from 'bcrypt';
 import { Types } from 'mongoose';
 
 import { CommonFields } from '../../common/common.schema';
-import { Card } from '../card/card.schema';
+import { Card, CardInput } from '../card/card.schema';
 import { User, UserModel } from './user.schema';
 @Injectable()
 export class UserService {
@@ -83,5 +83,21 @@ export class UserService {
     }
 
     return savedCards;
+  }
+
+  async addToSavedCards(
+    userId: Types.ObjectId,
+    newCard: CardInput,
+  ): Promise<User> {
+    const { savedCards = [] } = await this.userModel.findOne(
+      { _id: userId },
+      { savedCards: 1 },
+    );
+
+    const newSavedCards = [...savedCards, newCard];
+
+    return this.userModel.findByIdAndUpdate(userId, {
+      savedCards: newSavedCards,
+    });
   }
 }

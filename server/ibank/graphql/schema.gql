@@ -29,6 +29,21 @@ type Card {
   usedInternetLimit: Float!
 }
 
+input CardInput {
+  _id: ObjectId!
+  amount: Float!
+  expired: DateTime!
+  internetLimit: Float!
+  isBlocked: Boolean!
+  isMasterCard: Boolean!
+  number: String!
+  owner: String!
+  ownerFullName: String!
+  pin: String!
+  type: CARD_TYPE_ENUM!
+  usedInternetLimit: Float!
+}
+
 """
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
@@ -46,6 +61,7 @@ type GetCardTransactionsPayload {
 }
 
 type Mutation {
+  addToSavedCards(card: CardInput!, userId: ObjectId!): User!
   createCard(isMasterCard: Boolean!, owner: String!, ownerFullName: String!, pin: String!, type: String!): Card!
   createTransaction(amount: Float!, amountOnCardAfter: Float!, isCanceled: Boolean, title: String!, type: String!, userId: String!): Transaction!
   editProfile(birthday: DateTime!, fullName: String!, phone: String!, userId: ObjectId!): User!
@@ -145,5 +161,6 @@ type UserPayload {
   image: String!
   phone: String!
   pin: String!
+  savedCards: [Card!]!
   sex: String!
 }

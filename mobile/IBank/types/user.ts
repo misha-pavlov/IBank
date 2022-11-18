@@ -1,3 +1,5 @@
+import { TCard } from './card';
+
 export enum UserSex {
   M = 'M',
   F = 'F',
@@ -11,4 +13,5 @@ export type TUser = {
   phone: string;
   pin: string;
   sex: string;
+  savedCards: TCard[];
 };

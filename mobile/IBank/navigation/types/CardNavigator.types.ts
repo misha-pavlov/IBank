@@ -13,7 +13,7 @@ export type NCardStackParamList = {
   AddNewCard: undefined;
   EditProfile: undefined;
   HeaderModal: undefined;
-  DoneTransaction: { card: TCard };
+  DoneTransaction: { card: TCard; showSaveCardSwitcher: boolean };
   MoneyOperation: MoneyOperationParams;
 };
 

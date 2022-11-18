@@ -1,5 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { Types } from 'mongoose';
+import { Card } from 'src/modules/card/card.schema';
 import { USER_SEX_ENUM } from 'src/modules/user/user.schema';
 
 @ObjectType()
@@ -24,4 +25,7 @@ export class UserPayload {
 
   @Field(() => String)
   image: string;
+
+  @Field(() => [Card])
+  savedCards: Card[];
 }
