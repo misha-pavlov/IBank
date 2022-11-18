@@ -12,7 +12,16 @@ import { CardType } from '../../types/card';
 import { colors } from '../../config/colors';
 import { WhiteText } from '../../common/common.styles';
 
-const Card: FC<TCard> = ({ cardNumber, withFlip, expiredDate, withFullWidth, isMasterCard, type, onLongPress }) => {
+const Card: FC<TCard> = ({
+  cvv,
+  type,
+  withFlip,
+  cardNumber,
+  expiredDate,
+  onLongPress,
+  isMasterCard,
+  withFullWidth,
+}) => {
   const [showBanner, setShowBanner] = useState(false);
   const isBlackCard = type === CardType.BLACK;
 
@@ -82,7 +91,7 @@ const Card: FC<TCard> = ({ cardNumber, withFlip, expiredDate, withFullWidth, isM
         style={withFlip ? cardStyles.flip : cardStyles.empty}
         onPress={() => cardFlipRef?.current && cardFlipRef?.current.flip()}>
         <View w="100%" height="100%" alignItems="flex-end" justifyContent="center">
-          <WhiteText fontSize={18}>123</WhiteText>
+          <WhiteText fontSize={18}>{cvv}</WhiteText>
         </View>
       </CardBlock>
     </CardFlip>

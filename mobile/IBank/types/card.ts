@@ -8,6 +8,7 @@ export enum CardType {
 export type TCard = {
   _id: string;
   pin: string;
+  cvv: string;
   type: CardType;
   owner: string;
   amount: number;

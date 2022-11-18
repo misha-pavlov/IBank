@@ -16,6 +16,7 @@ type Card {
   _id: ObjectId!
   amount: Float!
   createdAt: DateTime!
+  cvv: String!
   deleted: Boolean!
   expired: DateTime!
   internetLimit: Float!
@@ -32,6 +33,7 @@ type Card {
 input CardInput {
   _id: ObjectId!
   amount: Float!
+  cvv: String!
   expired: DateTime!
   internetLimit: Float!
   isBlocked: Boolean!

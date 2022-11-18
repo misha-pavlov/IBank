@@ -18,7 +18,7 @@ type TCardOperation = {
 };
 
 const CardOperations: FC<TCardOperation> = ({ renderPaginaton, currentCard }) => {
-  const { type, number, expired, isMasterCard, internetLimit, usedInternetLimit } = currentCard;
+  const { type, number, expired, isMasterCard, internetLimit, usedInternetLimit, cvv } = currentCard;
   // ref
   const bottomSheetRef = useRef<BottomSheet>(null);
 
@@ -66,6 +66,7 @@ const CardOperations: FC<TCardOperation> = ({ renderPaginaton, currentCard }) =>
         withoutBorderRadius>
         <View mt="45px">
           <Card
+            cvv={cvv}
             type={type}
             withFullWidth
             cardNumber={number}

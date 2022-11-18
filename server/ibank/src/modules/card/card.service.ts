@@ -30,11 +30,14 @@ export class CardService {
       (Math.random() + ' ').substring(2, 10) +
       (Math.random() + ' ').substring(2, 10);
 
+    const cvv = Math.floor(Math.random() * (999 - 100 + 1) + 100);
+
     return this.cardModel.create({
       owner,
       ownerFullName,
       number,
       pin,
+      cvv,
       amount: 0,
       internetLimit: 10000,
       usedInternetLimit: 10000,
