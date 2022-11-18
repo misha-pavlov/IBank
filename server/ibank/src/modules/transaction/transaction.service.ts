@@ -39,9 +39,11 @@ export class TransactionService {
 
   async getCardTransactions(
     cardId: string,
+    searchTerm?: string,
   ): Promise<GetCardTransactionsPayload[]> {
+    const regex = new RegExp((searchTerm || '').trim().split(/\s+/).join('|'));
     const transactions = await this.transactionModel
-      .find({ cardId })
+      .find({ cardId, title: { $regex: regex, $options: 'i' } })
       .sort({ createdAt: -1 });
 
     const titles = [];

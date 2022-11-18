@@ -21,9 +21,11 @@ import { dateToFromNowDaily, getFormattedAmount } from '../../../../helpers/gene
 // types
 import { NCardNavigatorNavigationProp } from '../../../../navigation/types/CardNavigator.types';
 import { TCard } from '../../../../types/card';
+import { TTransaction } from '../../../../types/transaction';
 // gql
 import { GET_CARD_TRANSACTIONS } from './Amount.queries';
-import { TTransaction } from '../../../../types/transaction';
+// hooks
+import { useDebounced } from '../../../../hooks';
 
 type TAmount = {
   currentCard: TCard;
@@ -34,10 +36,13 @@ type TAmount = {
 const Amount: FC<TAmount> = ({ renderPaginaton, moveToNextScreen, currentCard }) => {
   const [bottomSheetIndex, setBottomSheetIndex] = useState(0);
   const [isSearchMode, setIsSearchMode] = useState(false);
-  const [searchText, setSearchText] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
+  const debounced = useDebounced(searchTerm);
 
   const { navigate } = useNavigation<NCardNavigatorNavigationProp<'TopUp' | 'SendOnCard'>>();
-  const { data, loading } = useQuery(GET_CARD_TRANSACTIONS, { variables: { cardId: currentCard._id } });
+  const { data, loading } = useQuery(GET_CARD_TRANSACTIONS, {
+    variables: { cardId: currentCard._id, searchTerm: debounced },
+  });
 
   // ref
   const bottomSheetRef = useRef<BottomSheet>(null);
@@ -91,7 +96,7 @@ const Amount: FC<TAmount> = ({ renderPaginaton, moveToNextScreen, currentCard })
     [isSearchMode],
   );
 
-  const onChangeText = useCallback((text: string) => setSearchText(text), []);
+  const onChangeText = useCallback((text: string) => setSearchTerm(text), []);
 
   const renderSearchInput = useMemo(() => {
     if (isSearchMode) {
@@ -99,8 +104,9 @@ const Amount: FC<TAmount> = ({ renderPaginaton, moveToNextScreen, currentCard })
         <Input
           w="85%"
           variant="filled"
-          value={searchText}
+          value={searchTerm}
           placeholder="Search"
+          color={colors.gray100}
           onChangeText={onChangeText}
           borderColor={colors.black1}
           backgroundColor={colors.black1}
@@ -111,11 +117,11 @@ const Amount: FC<TAmount> = ({ renderPaginaton, moveToNextScreen, currentCard })
     }
 
     return <View />;
-  }, [isSearchMode, onChangeText, searchText]);
+  }, [isSearchMode, onChangeText, searchTerm]);
 
   const renderListHeader = useMemo(() => {
     return (
-      <Flex flexDirection="row" justifyContent="space-between" alignItems="center" px="16px">
+      <Flex flexDirection="row" justifyContent="space-between" alignItems="center" px="16px" pb="8px">
         {renderSearchInput}
 
         <TouchableOpacity onPress={setSearchMode}>

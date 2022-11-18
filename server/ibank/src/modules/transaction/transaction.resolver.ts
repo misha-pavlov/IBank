@@ -12,8 +12,12 @@ export class TransactionResolver {
   constructor(private transactionService: TransactionService) {}
 
   @Query(() => [GetCardTransactionsPayload])
-  async getCardTransactions(@Args('cardId') cardId: string) {
-    return this.transactionService.getCardTransactions(cardId);
+  async getCardTransactions(
+    @Args('cardId') cardId: string,
+    @Args({ name: 'searchTerm', nullable: true })
+    searchTerm: string,
+  ) {
+    return this.transactionService.getCardTransactions(cardId, searchTerm);
   }
 
   @Query(() => GetCardTransactionsByDatesPayload)

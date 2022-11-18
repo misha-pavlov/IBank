@@ -78,7 +78,7 @@ type Query {
   auth: AuthPayload!
   checkUserPin(pin: String!, userId: ObjectId!): Boolean!
   getCardById(_id: ObjectId!): Card!
-  getCardTransactions(cardId: String!): [GetCardTransactionsPayload!]!
+  getCardTransactions(cardId: String!, searchTerm: String): [GetCardTransactionsPayload!]!
   getCardTransactionsByDates(cardId: String!, endDate: DateTime!, startDate: DateTime!): GetCardTransactionsByDatesPayload!
   getUser: UserPayload!
   getUserCapital(owner: String!): Float!
