@@ -3,14 +3,26 @@ import { Center, Flex, Progress, Text, View } from 'native-base';
 import React, { FC, memo, useCallback, useMemo, useRef } from 'react';
 import { TouchableOpacity } from 'react-native';
 import Clipboard from '@react-native-clipboard/clipboard';
+import { useNavigation } from '@react-navigation/native';
+import { useMutation } from '@apollo/client';
+// svg
 import { CalendarIcon } from '../../../../assets/svg';
+// styles
 import { commonStyles, SectionGradient, WhiteText } from '../../../../common/common.styles';
+// components
 import { Card, RoundTouchable, TransactionItem } from '../../../../components';
+// constants
 import { colors } from '../../../../config/colors';
-import { getFormattedAmount } from '../../../../helpers/generalHelpers';
-import { TCard } from '../../../../types/card';
 import { cardSettings } from './constants';
+import { appEnum } from '../../../../config/screens';
+// helpers
+import { getFormattedAmount } from '../../../../helpers/generalHelpers';
+// types
+import { TCard } from '../../../../types/card';
 import { TCardSettings } from './types';
+import { NCardNavigatorNavigationProp } from '../../../../navigation/types/CardNavigator.types';
+// gql
+import { UPDATE_INTERNET_LIMIT } from './CardOperations.mutations';
 
 type TCardOperation = {
   renderPaginaton: JSX.Element;
@@ -19,11 +31,16 @@ type TCardOperation = {
 
 const CardOperations: FC<TCardOperation> = ({ renderPaginaton, currentCard }) => {
   const { type, number, expired, isMasterCard, internetLimit, usedInternetLimit, cvv } = currentCard;
+  const { navigate } = useNavigation<NCardNavigatorNavigationProp<'MoneyOperation'>>();
   // ref
   const bottomSheetRef = useRef<BottomSheet>(null);
 
   // variables
   const snapPoints = useMemo(() => ['45%', '85%'], []);
+
+  const [updateInternetLimitMutate] = useMutation(UPDATE_INTERNET_LIMIT, {
+    onError: err => console.error('UPDATE_INTERNET_LIMIT = ', err),
+  });
 
   const renderItem = useCallback(
     ({ item }: { item: TCardSettings }) => (
@@ -78,7 +95,17 @@ const CardOperations: FC<TCardOperation> = ({ renderPaginaton, currentCard }) =>
         <Center>{renderPaginaton}</Center>
 
         <Flex flexDirection="row" alignItems="center" mb="50px">
-          <RoundTouchable icon={<CalendarIcon width={25} height={25} />} disabled />
+          <RoundTouchable
+            icon={<CalendarIcon width={25} height={25} />}
+            onPress={() =>
+              navigate(appEnum.MoneyOperation, {
+                buttonText: 'Update',
+                onUpdate: updateInternetLimitMutate,
+                startValue: currentCard.internetLimit,
+                getVariables: newValue => ({ cardId: currentCard._id, newInternetLimit: newValue }),
+              })
+            }
+          />
 
           <View ml="24px" w="80%">
             <WhiteText mb="5px">Internet operations limit</WhiteText>

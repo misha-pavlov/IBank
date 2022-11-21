@@ -157,4 +157,13 @@ export class CardService {
   async isCardExist(number: number): Promise<Card | null> {
     return this.cardModel.findOne({ number });
   }
+
+  async updateInternetLimit(
+    cardId: Types.ObjectId,
+    newInternetLimit: number,
+  ): Promise<Card> {
+    return this.cardModel.findByIdAndUpdate(cardId, {
+      internetLimit: newInternetLimit,
+    });
+  }
 }

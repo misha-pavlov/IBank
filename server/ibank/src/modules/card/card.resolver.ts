@@ -67,4 +67,12 @@ export class CardResolver {
   ) {
     return this.cardService.moneySend(amount, to, from, sendOnNumber, type);
   }
+
+  @Mutation(() => Card)
+  async updateInternetLimit(
+    @Args('cardId') cardId: Types.ObjectId,
+    @Args('newInternetLimit') newInternetLimit: number,
+  ) {
+    return this.cardService.updateInternetLimit(cardId, newInternetLimit);
+  }
 }

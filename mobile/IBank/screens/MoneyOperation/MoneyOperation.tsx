@@ -34,9 +34,24 @@ const MoneyOperation = () => {
   const { setOptions, goBack } = useNavigation();
   const { currentCard, updateCurrentCard } = useCurrentCard();
   const { params } = useRoute<NCardNavigatorRouteProp<'MoneyOperation'>>();
-  const { from, isFromMagicCard, buttonText, to, headerTitle, onComplete, sendOnNumber, type } = params;
+  const {
+    to,
+    from,
+    type,
+    onUpdate,
+    onComplete,
+    buttonText,
+    startValue,
+    headerTitle,
+    sendOnNumber,
+    getVariables,
+    isFromMagicCard,
+  } = params;
 
-  const [amount, setAmount] = useState(0);
+  // when true we use another mutation
+  const isOnUpdateFunc = isFunction(onUpdate);
+
+  const [amount, setAmount] = useState(startValue || 0);
 
   const [moneySendMutate] = useMutation(MONEY_SEND, {
     onError: err => console.error('MONEY_SEND = ', err),
@@ -79,16 +94,20 @@ const MoneyOperation = () => {
   };
 
   const onSend = () => {
-    moneySendMutate({
-      variables: { amount, to: to?._id, ...(!isFromMagicCard && { from: from?._id }), sendOnNumber, type },
-      refetchQueries: [
-        { query: GET_CARD_BY_ID, variables: { _id: currentCard._id } },
-        { query: GET_USER_CARDS, variables: { owner: user?._id, excludeIds: [currentCard._id] } },
-        ...refetchGetCardTransactions(),
-      ],
-      awaitRefetchQueries: true,
-      onCompleted,
-    });
+    if (isOnUpdateFunc && getVariables) {
+      onUpdate({ variables: getVariables(amount), onCompleted });
+    } else {
+      moneySendMutate({
+        variables: { amount, to: to?._id, ...(!isFromMagicCard && { from: from?._id }), sendOnNumber, type },
+        refetchQueries: [
+          { query: GET_CARD_BY_ID, variables: { _id: currentCard._id } },
+          { query: GET_USER_CARDS, variables: { owner: user?._id, excludeIds: [currentCard._id] } },
+          ...refetchGetCardTransactions(),
+        ],
+        awaitRefetchQueries: true,
+        onCompleted,
+      });
+    }
   };
 
   const onChangeText = useCallback(
@@ -125,12 +144,14 @@ const MoneyOperation = () => {
         <Center height={height - 200} justifyContent="space-between">
           <View mt="80%">
             <TouchableOpacity onPress={onPress}>
-              <Text color={colors.gray600} textAlign="center">
-                Amount {isFromMagicCard ? '∞' : getFormattedAmount(from?.amount || 0)} $
-              </Text>
+              {!isOnUpdateFunc && (
+                <Text color={colors.gray600} textAlign="center">
+                  Amount {isFromMagicCard ? '∞' : getFormattedAmount(from?.amount || 0)} $
+                </Text>
+              )}
 
               <View mt="10px" flexDirection="row" alignItems="flex-end" justifyContent="center" position="relative">
-                <WhiteText textAlign="center" fontSize={35} mr="10px">
+                <WhiteText textAlign="center" fontSize={isOnUpdateFunc ? 38 : 35} mr="10px">
                   {getFormattedAmount(amount)} $
                 </WhiteText>
                 <View position="absolute" right={0} bottom="20%">
