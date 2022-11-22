@@ -3,6 +3,7 @@ import { isEqual } from 'lodash';
 import { Button, Modal, Select } from 'native-base';
 import React, { FC, memo, useMemo, useState } from 'react';
 import { WhiteText } from '../../../../../../common/common.styles';
+import { PinInput } from '../../../../../../components';
 import { colors } from '../../../../../../config/colors';
 import { CardType } from '../../../../../../types/card';
 import { getPossibleToUpdateCards } from '../../CardOperations.helpers';
@@ -14,6 +15,7 @@ type TCardOperationsModal = {
   onSubmit: (
     id: string,
     newType: CardType,
+    newPin: string,
   ) => Promise<FetchResult<any, Record<string, any>, Record<string, any>>> | null;
   updateCurrentCard: () => Promise<void>;
 };
@@ -26,6 +28,8 @@ const CardOperationsModal: FC<TCardOperationsModal> = ({
   updateCurrentCard,
 }) => {
   const [selectedValue, setSelectedValue] = useState(type);
+  const [pin, setPin] = useState('');
+  const [showPin, setShowPin] = useState(false);
 
   const updateCard = useMemo(() => {
     const possibleToUpdateCards = getPossibleToUpdateCards(type);
@@ -54,10 +58,13 @@ const CardOperationsModal: FC<TCardOperationsModal> = ({
       case '1':
         return updateCard;
 
+      case '3':
+        return <PinInput pin={pin} showPin={showPin} setPin={setPin} setShowPin={setShowPin} />;
+
       default:
-        return <WhiteText>Nothing</WhiteText>;
+        return null;
     }
-  }, [showModal, updateCard]);
+  }, [pin, showModal, showPin, updateCard]);
 
   return (
     <Modal isOpen={!!showModal} onClose={() => setShowModal(undefined)}>
@@ -71,7 +78,7 @@ const CardOperationsModal: FC<TCardOperationsModal> = ({
             <Button
               onPress={() => {
                 showModal &&
-                  onSubmit(showModal, selectedValue)?.then(() =>
+                  onSubmit(showModal, selectedValue, pin)?.then(() =>
                     updateCurrentCard().then(() => setShowModal(undefined)),
                   );
               }}>

@@ -51,6 +51,7 @@ const CardOperations: FC<TCardOperation> = ({ renderPaginaton, currentCard, upda
     (id: string) => {
       switch (id) {
         case '1':
+        case '3':
           return setShowModal(id);
 
         case '2':
@@ -82,10 +83,13 @@ const CardOperations: FC<TCardOperation> = ({ renderPaginaton, currentCard, upda
   );
 
   const onSubmit = useCallback(
-    (id: string, newType: CardType) => {
+    (id: string, newType: CardType, newPin: string) => {
       switch (id) {
         case '1':
           return updateCardMutate({ variables: { cardId: _id, newType } });
+
+        case '3':
+          return updateCardMutate({ variables: { cardId: _id, newPin } });
 
         default:
           return null;
@@ -185,9 +189,9 @@ const CardOperations: FC<TCardOperation> = ({ renderPaginaton, currentCard, upda
       {renderBottomSheet}
 
       <CardOperationsModal
+        type={type}
         onSubmit={onSubmit}
         showModal={showModal}
-        type={type}
         setShowModal={setShowModal}
         updateCurrentCard={updateCurrentCard}
       />
