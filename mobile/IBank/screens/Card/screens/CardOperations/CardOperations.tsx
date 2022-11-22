@@ -1,6 +1,6 @@
 import BottomSheet, { BottomSheetFlatList } from '@gorhom/bottom-sheet';
 import { Center, Flex, Progress, Text, View } from 'native-base';
-import React, { FC, memo, useCallback, useMemo, useRef } from 'react';
+import React, { FC, memo, useCallback, useMemo, useRef, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import Clipboard from '@react-native-clipboard/clipboard';
 import { useNavigation } from '@react-navigation/native';
@@ -11,6 +11,7 @@ import { CalendarIcon } from '../../../../assets/svg';
 import { commonStyles, SectionGradient, WhiteText } from '../../../../common/common.styles';
 // components
 import { Card, RoundTouchable, TransactionItem } from '../../../../components';
+import CardOperationsModal from './components/CardOperationsModal/CardOperationsModal';
 // constants
 import { colors } from '../../../../config/colors';
 import { cardSettings } from './constants';
@@ -18,20 +19,23 @@ import { appEnum } from '../../../../config/screens';
 // helpers
 import { getFormattedAmount } from '../../../../helpers/generalHelpers';
 // types
-import { TCard } from '../../../../types/card';
+import { CardType, TCard } from '../../../../types/card';
 import { TCardSettings } from './types';
 import { NCardNavigatorNavigationProp } from '../../../../navigation/types/CardNavigator.types';
 // gql
-import { UPDATE_INTERNET_LIMIT } from './CardOperations.mutations';
+import { UPDATE_CARD_TYPE, UPDATE_INTERNET_LIMIT } from './CardOperations.mutations';
 
 type TCardOperation = {
   renderPaginaton: JSX.Element;
   currentCard: TCard;
+  updateCurrentCard: () => Promise<void>;
 };
 
-const CardOperations: FC<TCardOperation> = ({ renderPaginaton, currentCard }) => {
+const CardOperations: FC<TCardOperation> = ({ renderPaginaton, currentCard, updateCurrentCard }) => {
   const { type, number, expired, isMasterCard, internetLimit, usedInternetLimit, cvv } = currentCard;
   const { navigate } = useNavigation<NCardNavigatorNavigationProp<'MoneyOperation'>>();
+  const [showModal, setShowModal] = useState<string | undefined>();
+
   // ref
   const bottomSheetRef = useRef<BottomSheet>(null);
 
@@ -41,14 +45,40 @@ const CardOperations: FC<TCardOperation> = ({ renderPaginaton, currentCard }) =>
   const [updateInternetLimitMutate] = useMutation(UPDATE_INTERNET_LIMIT, {
     onError: err => console.error('UPDATE_INTERNET_LIMIT = ', err),
   });
+  const [updateCardTypeMutate] = useMutation(UPDATE_CARD_TYPE, {
+    onError: err => console.error('UPDATE_CARD_TYPE = ', err),
+  });
+
+  const onPress = useCallback((id: string) => {
+    switch (id) {
+      case '1':
+        return setShowModal(id);
+
+      default:
+        return null;
+    }
+  }, []);
+
+  const onSubmit = useCallback(
+    (id: string, newType: CardType) => {
+      switch (id) {
+        case '1':
+          return updateCardTypeMutate({ variables: { cardId: currentCard._id, newType } });
+
+        default:
+          return null;
+      }
+    },
+    [currentCard._id, updateCardTypeMutate],
+  );
 
   const renderItem = useCallback(
     ({ item }: { item: TCardSettings }) => (
       <TouchableOpacity>
-        <TransactionItem icon={item.icon} text={item.text} />
+        <TransactionItem icon={item.icon} text={item.text} onPress={() => onPress(item.id)} />
       </TouchableOpacity>
     ),
-    [],
+    [onPress],
   );
 
   const renderBottomSheet = useMemo(() => {
@@ -124,6 +154,14 @@ const CardOperations: FC<TCardOperation> = ({ renderPaginaton, currentCard }) =>
         </Flex>
       </SectionGradient>
       {renderBottomSheet}
+
+      <CardOperationsModal
+        onSubmit={onSubmit}
+        showModal={showModal}
+        type={currentCard.type}
+        setShowModal={setShowModal}
+        updateCurrentCard={updateCurrentCard}
+      />
     </View>
   );
 };

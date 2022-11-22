@@ -1,3 +1,5 @@
+import { CardType } from '../types/card';
+
 export const constants = {
   appName: 'IBank',
 
@@ -18,5 +20,10 @@ export const constants = {
 
   card: {
     magicCard: 'Magic Card',
+    typesRanks: [
+      { type: CardType.BLACK, rank: 1 },
+      { type: CardType.IRON, rank: 2 },
+      { type: CardType.PLATINUM, rank: 3 },
+    ],
   },
 };

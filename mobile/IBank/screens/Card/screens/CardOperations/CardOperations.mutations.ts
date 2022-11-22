@@ -9,3 +9,12 @@ export const UPDATE_INTERNET_LIMIT = gql`
   }
   ${CARD_FRAGMENT}
 `;
+
+export const UPDATE_CARD_TYPE = gql`
+  mutation updateCardType($cardId: ObjectId!, $newType: String!) {
+    updateCardType(cardId: $cardId, newType: $newType) {
+      ...CardFragment
+    }
+  }
+  ${CARD_FRAGMENT}
+`;

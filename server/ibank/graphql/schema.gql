@@ -70,6 +70,7 @@ type Mutation {
   moneySend(amount: Float!, from: ObjectId, sendOnNumber: String, to: ObjectId, type: String): Boolean!
   signIn(phone: String!, pin: String!): AuthPayload!
   signUp(birthday: DateTime!, fullName: String!, phone: String!, pin: String!, sex: String!): SignUpPayload!
+  updateCardType(cardId: ObjectId!, newType: String!): Card!
   updateInternetLimit(cardId: ObjectId!, newInternetLimit: Float!): Card!
 }
 

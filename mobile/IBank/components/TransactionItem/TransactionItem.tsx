@@ -1,5 +1,7 @@
+import { isFunction } from 'lodash';
 import { Flex, Text, View } from 'native-base';
 import React, { FC, memo, useMemo } from 'react';
+import { TouchableOpacity } from 'react-native';
 import { WhiteText } from '../../common/common.styles';
 import { colors } from '../../config/colors';
 import { getTransactionIconByType, getTransactionTitleByType } from '../../helpers/transactionHelpers';
@@ -10,9 +12,10 @@ type TTransactionItem = {
   amount?: number;
   icon?: JSX.Element;
   additionalText?: string;
+  onPress?: () => void;
 };
 
-const TransactionItem: FC<TTransactionItem> = ({ type, additionalText, amount, icon, text }) => {
+const TransactionItem: FC<TTransactionItem> = ({ type, additionalText, amount, icon, text, onPress }) => {
   const renderText = useMemo(() => {
     if (!additionalText) {
       return <WhiteText fontWeight={600}>{text || getTransactionTitleByType(type)}</WhiteText>;
@@ -29,14 +32,16 @@ const TransactionItem: FC<TTransactionItem> = ({ type, additionalText, amount, i
   }, [additionalText, text, type]);
 
   return (
-    <Flex flexDirection="row" justifyContent="space-between" mb={15}>
-      <Flex flexDirection="row" alignItems="center">
-        <View mr={5}>{icon || getTransactionIconByType(type)}</View>
-        <View>{renderText}</View>
-      </Flex>
+    <TouchableOpacity onPress={onPress} disabled={!isFunction(onPress)}>
+      <Flex flexDirection="row" justifyContent="space-between" mb={15}>
+        <Flex flexDirection="row" alignItems="center">
+          <View mr={5}>{icon || getTransactionIconByType(type)}</View>
+          <View>{renderText}</View>
+        </Flex>
 
-      <Flex justifyContent="center">{amount && <WhiteText fontSize={18}>{amount} $</WhiteText>}</Flex>
-    </Flex>
+        <Flex justifyContent="center">{amount && <WhiteText fontSize={18}>{amount} $</WhiteText>}</Flex>
+      </Flex>
+    </TouchableOpacity>
   );
 };
 

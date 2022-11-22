@@ -11,7 +11,7 @@ const Card = () => {
   const carouselRef = useRef<Carousel<{ id: number }>>(null);
   const [screenIndex, setScreenIndex] = useState(0);
   const { width } = useWindowDimensions();
-  const { currentCard } = useCurrentCard();
+  const { currentCard, updateCurrentCard } = useCurrentCard();
 
   const moveToNextScreen = useCallback(() => {
     setScreenIndex(1);
@@ -46,9 +46,15 @@ const Card = () => {
         );
       }
 
-      return <CardOperations renderPaginaton={renderPaginaton} currentCard={currentCard} />;
+      return (
+        <CardOperations
+          currentCard={currentCard}
+          renderPaginaton={renderPaginaton}
+          updateCurrentCard={updateCurrentCard}
+        />
+      );
     },
-    [currentCard, moveToNextScreen, renderPaginaton],
+    [currentCard, moveToNextScreen, renderPaginaton, updateCurrentCard],
   );
 
   const onSnapToItem = (index: number) => {

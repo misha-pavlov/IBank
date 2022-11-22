@@ -75,4 +75,12 @@ export class CardResolver {
   ) {
     return this.cardService.updateInternetLimit(cardId, newInternetLimit);
   }
+
+  @Mutation(() => Card)
+  async updateCardType(
+    @Args('cardId') cardId: Types.ObjectId,
+    @Args('newType') newType: CARD_TYPE_ENUM,
+  ) {
+    return this.cardService.updateCardType(cardId, newType);
+  }
 }

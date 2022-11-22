@@ -12,33 +12,33 @@ import { TCardSettingsArray } from './types';
 export const cardSettings: TCardSettingsArray = [
   {
     id: '1',
-    icon: <UpdateCardIcon />,
+    icon: <UpdateCardIcon height={28} width={28} />,
     text: 'Update card',
   },
   {
     id: '2',
-    icon: <BlockCardIcon />,
+    icon: <BlockCardIcon height={28} width={28} />,
     text: 'Block card',
     underText: 'You can always ublock this card',
   },
   {
     id: '3',
-    icon: <PinIcon />,
+    icon: <PinIcon height={28} width={28} />,
     text: 'Change pin',
   },
   {
     id: '4',
-    icon: <RepublishIcon />,
+    icon: <RepublishIcon height={28} width={28} />,
     text: 'Republish card',
   },
   {
     id: '5',
-    icon: <ReceiptIcon />,
+    icon: <ReceiptIcon height={28} width={28} />,
     text: 'Get a receipt of card',
   },
   {
     id: '6',
-    icon: <CheckoutIcon />,
+    icon: <CheckoutIcon height={28} width={28} />,
     text: 'Send on card outside app',
   },
 ];

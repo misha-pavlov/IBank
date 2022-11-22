@@ -166,4 +166,10 @@ export class CardService {
       internetLimit: newInternetLimit,
     });
   }
+
+  async updateCardType(cardId: Types.ObjectId, newType: CARD_TYPE_ENUM) {
+    return this.cardModel.findByIdAndUpdate(cardId, {
+      type: newType,
+    });
+  }
 }
