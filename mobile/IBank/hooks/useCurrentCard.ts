@@ -3,11 +3,12 @@ import { useCallback, useContext } from 'react';
 import { GET_CARD_BY_ID } from '../gql/card.queries';
 import { actionCases } from '../store/actionCases';
 import { Context } from '../store/store';
+import { ApolloFetchPolicy } from '../types/apollo';
 import { TCard } from '../types/card';
 
 const useCurrentCard = (): {
   currentCard: TCard;
-  setCurrentCard: (newCurrentCard?: TCard | undefined) => Promise<void>;
+  setCurrentCard: (newCurrentCard?: TCard | undefined) => void;
   updateCurrentCard: () => Promise<void>;
 } => {
   const { dispatch, state } = useContext(Context);
@@ -15,7 +16,10 @@ const useCurrentCard = (): {
   // use as TCard for fix types
   const currentCard = state.currentCard as TCard;
 
-  const [lazyUpdate] = useLazyQuery(GET_CARD_BY_ID, { variables: { _id: currentCard._id } });
+  const [lazyUpdate] = useLazyQuery(GET_CARD_BY_ID, {
+    variables: { _id: currentCard._id },
+    fetchPolicy: ApolloFetchPolicy.NetworkOnly,
+  });
 
   const setCurrentCard = useCallback(
     async (newCurrentCard?: TCard) => {

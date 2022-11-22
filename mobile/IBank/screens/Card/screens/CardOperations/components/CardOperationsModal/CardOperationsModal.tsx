@@ -1,4 +1,5 @@
 import { FetchResult } from '@apollo/client';
+import { isEqual } from 'lodash';
 import { Button, Modal, Select } from 'native-base';
 import React, { FC, memo, useMemo, useState } from 'react';
 import { WhiteText } from '../../../../../../common/common.styles';
@@ -83,4 +84,4 @@ const CardOperationsModal: FC<TCardOperationsModal> = ({
   );
 };
 
-export default memo(CardOperationsModal);
+export default memo(CardOperationsModal, isEqual);

@@ -79,7 +79,7 @@ const Amount: FC<TAmount> = ({ renderPaginaton, moveToNextScreen, currentCard })
         <View position="absolute" right={0} left={0} top="60px" zIndex={150} w="100%">
           <Fade in>
             <WhiteText fontWeight={600} textAlign="center" fontSize={24}>
-              {getFormattedAmount(currentCard.amount)} $
+              {currentCard.isBlocked ? 'Your card is blocked!' : `${getFormattedAmount(currentCard.amount)} $`}
             </WhiteText>
           </Fade>
         </View>
@@ -87,7 +87,7 @@ const Amount: FC<TAmount> = ({ renderPaginaton, moveToNextScreen, currentCard })
     }
 
     return <HeaderDoubleCards />;
-  }, [bottomSheetIndex, currentCard.amount]);
+  }, [bottomSheetIndex, currentCard.amount, currentCard.isBlocked]);
 
   const setSearchMode = useCallback(() => setIsSearchMode(!isSearchMode), [isSearchMode]);
 
@@ -182,8 +182,8 @@ const Amount: FC<TAmount> = ({ renderPaginaton, moveToNextScreen, currentCard })
         withoutBorderRadius>
         <View mt="100px" mb="100px">
           <View flexDirection="row" justifyContent="space-between">
-            <WhiteText fontSize={40} fontWeight={600} ml={34}>
-              {getFormattedAmount(currentCard.amount)} $
+            <WhiteText fontSize={currentCard.isBlocked ? 24 : 40} fontWeight={600} ml={34}>
+              {currentCard.isBlocked ? 'Your card is blocked!' : `${getFormattedAmount(currentCard.amount)} $`}
             </WhiteText>
 
             <MoveToCard moveToNextScreen={moveToNextScreen} />

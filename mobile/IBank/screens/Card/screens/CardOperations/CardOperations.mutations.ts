@@ -7,6 +7,7 @@ export const UPDATE_CARD = gql`
     $newPin: String
     $newType: String
     $newExpired: DateTime
+    $newIsBlocked: Boolean
     $newInternetLimit: Float
   ) {
     updateCard(
@@ -14,6 +15,7 @@ export const UPDATE_CARD = gql`
       newPin: $newPin
       newType: $newType
       newExpired: $newExpired
+      newIsBlocked: $newIsBlocked
       newInternetLimit: $newInternetLimit
     ) {
       ...CardFragment

@@ -1,12 +1,13 @@
 import BottomSheet, { BottomSheetFlatList } from '@gorhom/bottom-sheet';
 import { Center, Flex, Progress, Text, View } from 'native-base';
 import React, { FC, memo, useCallback, useMemo, useRef, useState } from 'react';
-import { TouchableOpacity } from 'react-native';
+import { Alert, TouchableOpacity } from 'react-native';
 import Clipboard from '@react-native-clipboard/clipboard';
 import { useNavigation } from '@react-navigation/native';
 import { useMutation } from '@apollo/client';
+import { isEqual } from 'lodash';
 // svg
-import { CalendarIcon } from '../../../../assets/svg';
+import { BlockedCardIcon, CalendarIcon } from '../../../../assets/svg';
 // styles
 import { commonStyles, SectionGradient, WhiteText } from '../../../../common/common.styles';
 // components
@@ -32,7 +33,7 @@ type TCardOperation = {
 };
 
 const CardOperations: FC<TCardOperation> = ({ renderPaginaton, currentCard, updateCurrentCard }) => {
-  const { type, number, expired, isMasterCard, internetLimit, usedInternetLimit, cvv } = currentCard;
+  const { _id, isBlocked, type, number, expired, isMasterCard, internetLimit, usedInternetLimit, cvv } = currentCard;
   const { navigate } = useNavigation<NCardNavigatorNavigationProp<'MoneyOperation'>>();
   const [showModal, setShowModal] = useState<string | undefined>();
 
@@ -46,27 +47,51 @@ const CardOperations: FC<TCardOperation> = ({ renderPaginaton, currentCard, upda
     onError: err => console.error('UPDATE_CARD = ', err),
   });
 
-  const onPress = useCallback((id: string) => {
-    switch (id) {
-      case '1':
-        return setShowModal(id);
-
-      default:
-        return null;
-    }
-  }, []);
-
-  const onSubmit = useCallback(
-    (id: string, newType: CardType) => {
+  const onPress = useCallback(
+    (id: string) => {
       switch (id) {
         case '1':
-          return updateCardMutate({ variables: { cardId: currentCard._id, newType } });
+          return setShowModal(id);
+
+        case '2':
+          return Alert.alert(
+            isBlocked ? 'Do you want to unblock this card?' : 'Do you want to block this card?',
+            isBlocked ? '' : 'You can unblock card in any time',
+            [
+              {
+                text: 'No',
+                style: 'cancel',
+              },
+              {
+                text: 'Yes',
+                onPress: () =>
+                  updateCardMutate({
+                    variables: { cardId: _id, newIsBlocked: !isBlocked },
+                    onCompleted: () => updateCurrentCard(),
+                  }),
+                style: isBlocked ? 'default' : 'destructive',
+              },
+            ],
+          );
 
         default:
           return null;
       }
     },
-    [currentCard._id, updateCardMutate],
+    [_id, isBlocked, updateCardMutate, updateCurrentCard],
+  );
+
+  const onSubmit = useCallback(
+    (id: string, newType: CardType) => {
+      switch (id) {
+        case '1':
+          return updateCardMutate({ variables: { cardId: _id, newType } });
+
+        default:
+          return null;
+      }
+    },
+    [_id, updateCardMutate],
   );
 
   const renderItem = useCallback(
@@ -109,15 +134,21 @@ const CardOperations: FC<TCardOperation> = ({ renderPaginaton, currentCard, upda
         locations={[1, 0.5, 0]}
         withoutBorderRadius>
         <View mt="45px">
-          <Card
-            cvv={cvv}
-            type={type}
-            withFullWidth
-            cardNumber={number}
-            expiredDate={expired}
-            isMasterCard={isMasterCard}
-            onLongPress={() => Clipboard.setString(number)}
-          />
+          {isBlocked ? (
+            <Center>
+              <BlockedCardIcon width={220} height={220} fill={colors.black} />
+            </Center>
+          ) : (
+            <Card
+              cvv={cvv}
+              type={type}
+              withFullWidth
+              cardNumber={number}
+              expiredDate={expired}
+              isMasterCard={isMasterCard}
+              onLongPress={() => Clipboard.setString(number)}
+            />
+          )}
         </View>
         <Center>{renderPaginaton}</Center>
 
@@ -128,8 +159,8 @@ const CardOperations: FC<TCardOperation> = ({ renderPaginaton, currentCard, upda
               navigate(appEnum.MoneyOperation, {
                 buttonText: 'Update',
                 onUpdate: updateCardMutate,
-                startValue: currentCard.internetLimit,
-                getVariables: newValue => ({ cardId: currentCard._id, newInternetLimit: newValue }),
+                startValue: internetLimit,
+                getVariables: newValue => ({ cardId: _id, newInternetLimit: newValue }),
               })
             }
           />
@@ -156,7 +187,7 @@ const CardOperations: FC<TCardOperation> = ({ renderPaginaton, currentCard, upda
       <CardOperationsModal
         onSubmit={onSubmit}
         showModal={showModal}
-        type={currentCard.type}
+        type={type}
         setShowModal={setShowModal}
         updateCurrentCard={updateCurrentCard}
       />
@@ -164,4 +195,4 @@ const CardOperations: FC<TCardOperation> = ({ renderPaginaton, currentCard, upda
   );
 };
 
-export default memo(CardOperations);
+export default memo(CardOperations, isEqual);

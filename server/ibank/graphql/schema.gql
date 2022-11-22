@@ -70,7 +70,7 @@ type Mutation {
   moneySend(amount: Float!, from: ObjectId, sendOnNumber: String, to: ObjectId, type: String): Boolean!
   signIn(phone: String!, pin: String!): AuthPayload!
   signUp(birthday: DateTime!, fullName: String!, phone: String!, pin: String!, sex: String!): SignUpPayload!
-  updateCard(cardId: ObjectId, newExpired: DateTime, newInternetLimit: Float, newPin: String, newType: String): Card!
+  updateCard(cardId: ObjectId, newExpired: DateTime, newInternetLimit: Float, newIsBlocked: Boolean, newPin: String, newType: String): Card!
 }
 
 """Mongo object id scalar type"""

@@ -162,6 +162,7 @@ export class CardService {
     cardId: Types.ObjectId,
     newPin?: string,
     newExpired?: Date,
+    newIsBlocked?: boolean,
     newType?: CARD_TYPE_ENUM,
     newInternetLimit?: number,
   ) {
@@ -169,6 +170,7 @@ export class CardService {
       pin: newPin,
       type: newType,
       expired: newExpired,
+      isBlocked: newIsBlocked,
       internetLimit: newInternetLimit,
     });
   }
