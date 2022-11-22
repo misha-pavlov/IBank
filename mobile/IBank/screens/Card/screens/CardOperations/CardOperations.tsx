@@ -25,6 +25,7 @@ import { TCardSettings } from './types';
 import { NCardNavigatorNavigationProp } from '../../../../navigation/types/CardNavigator.types';
 // gql
 import { UPDATE_CARD } from './CardOperations.mutations';
+import moment from 'moment';
 
 type TCardOperation = {
   renderPaginaton: JSX.Element;
@@ -75,11 +76,26 @@ const CardOperations: FC<TCardOperation> = ({ renderPaginaton, currentCard, upda
             ],
           );
 
+        case '4':
+          return Alert.alert('Do you want to republish this card?', '', [
+            {
+              text: 'No',
+            },
+            {
+              text: 'Yes',
+              onPress: () =>
+                updateCardMutate({
+                  variables: { cardId: _id, newExpired: moment(expired).add(1, 'years').toDate() },
+                  onCompleted: () => updateCurrentCard(),
+                }),
+            },
+          ]);
+
         default:
           return null;
       }
     },
-    [_id, isBlocked, updateCardMutate, updateCurrentCard],
+    [_id, expired, isBlocked, updateCardMutate, updateCurrentCard],
   );
 
   const onSubmit = useCallback(
