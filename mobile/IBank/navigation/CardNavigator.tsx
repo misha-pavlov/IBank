@@ -40,11 +40,11 @@ export const verticalAnimation: StackNavigationOptions = {
 
 const CardNavigator = () => (
   <CardStack.Navigator>
-    <CardStack.Screen name={cardEnum.Card} options={{ headerShown: false }} component={Card} />
+    <CardStack.Screen name={cardEnum.Card} options={empty} component={Card} />
     <CardStack.Screen
       component={HeaderModal}
       name={cardEnum.HeaderModal}
-      options={{ headerShown: false, ...verticalAnimation }}
+      options={{ ...empty, ...verticalAnimation }}
     />
     <CardStack.Screen name={cardEnum.DoneTransaction} options={emptyBlackWithBackButton} component={DoneTransaction} />
     <CardStack.Screen name={appEnum.MoneyOperation} options={emptyBlackWithBackButton} component={MoneyOperation} />
