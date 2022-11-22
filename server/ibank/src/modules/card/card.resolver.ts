@@ -69,18 +69,19 @@ export class CardResolver {
   }
 
   @Mutation(() => Card)
-  async updateInternetLimit(
-    @Args('cardId') cardId: Types.ObjectId,
-    @Args('newInternetLimit') newInternetLimit: number,
+  async updateCard(
+    @Args('cardId', { nullable: true }) cardId: Types.ObjectId,
+    @Args('newPin', { nullable: true }) newPin: string,
+    @Args('newExpired', { nullable: true }) newExpired: Date,
+    @Args('newType', { nullable: true }) newType: CARD_TYPE_ENUM,
+    @Args('newInternetLimit', { nullable: true }) newInternetLimit: number,
   ) {
-    return this.cardService.updateInternetLimit(cardId, newInternetLimit);
-  }
-
-  @Mutation(() => Card)
-  async updateCardType(
-    @Args('cardId') cardId: Types.ObjectId,
-    @Args('newType') newType: CARD_TYPE_ENUM,
-  ) {
-    return this.cardService.updateCardType(cardId, newType);
+    return this.cardService.updateCard(
+      cardId,
+      newPin,
+      newExpired,
+      newType,
+      newInternetLimit,
+    );
   }
 }

@@ -158,18 +158,18 @@ export class CardService {
     return this.cardModel.findOne({ number });
   }
 
-  async updateInternetLimit(
+  async updateCard(
     cardId: Types.ObjectId,
-    newInternetLimit: number,
-  ): Promise<Card> {
+    newPin?: string,
+    newExpired?: Date,
+    newType?: CARD_TYPE_ENUM,
+    newInternetLimit?: number,
+  ) {
     return this.cardModel.findByIdAndUpdate(cardId, {
-      internetLimit: newInternetLimit,
-    });
-  }
-
-  async updateCardType(cardId: Types.ObjectId, newType: CARD_TYPE_ENUM) {
-    return this.cardModel.findByIdAndUpdate(cardId, {
+      pin: newPin,
       type: newType,
+      expired: newExpired,
+      internetLimit: newInternetLimit,
     });
   }
 }

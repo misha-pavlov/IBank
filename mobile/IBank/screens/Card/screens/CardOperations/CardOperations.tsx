@@ -23,7 +23,7 @@ import { CardType, TCard } from '../../../../types/card';
 import { TCardSettings } from './types';
 import { NCardNavigatorNavigationProp } from '../../../../navigation/types/CardNavigator.types';
 // gql
-import { UPDATE_CARD_TYPE, UPDATE_INTERNET_LIMIT } from './CardOperations.mutations';
+import { UPDATE_CARD } from './CardOperations.mutations';
 
 type TCardOperation = {
   renderPaginaton: JSX.Element;
@@ -42,11 +42,8 @@ const CardOperations: FC<TCardOperation> = ({ renderPaginaton, currentCard, upda
   // variables
   const snapPoints = useMemo(() => ['45%', '85%'], []);
 
-  const [updateInternetLimitMutate] = useMutation(UPDATE_INTERNET_LIMIT, {
-    onError: err => console.error('UPDATE_INTERNET_LIMIT = ', err),
-  });
-  const [updateCardTypeMutate] = useMutation(UPDATE_CARD_TYPE, {
-    onError: err => console.error('UPDATE_CARD_TYPE = ', err),
+  const [updateCardMutate] = useMutation(UPDATE_CARD, {
+    onError: err => console.error('UPDATE_CARD = ', err),
   });
 
   const onPress = useCallback((id: string) => {
@@ -63,13 +60,13 @@ const CardOperations: FC<TCardOperation> = ({ renderPaginaton, currentCard, upda
     (id: string, newType: CardType) => {
       switch (id) {
         case '1':
-          return updateCardTypeMutate({ variables: { cardId: currentCard._id, newType } });
+          return updateCardMutate({ variables: { cardId: currentCard._id, newType } });
 
         default:
           return null;
       }
     },
-    [currentCard._id, updateCardTypeMutate],
+    [currentCard._id, updateCardMutate],
   );
 
   const renderItem = useCallback(
@@ -130,7 +127,7 @@ const CardOperations: FC<TCardOperation> = ({ renderPaginaton, currentCard, upda
             onPress={() =>
               navigate(appEnum.MoneyOperation, {
                 buttonText: 'Update',
-                onUpdate: updateInternetLimitMutate,
+                onUpdate: updateCardMutate,
                 startValue: currentCard.internetLimit,
                 getVariables: newValue => ({ cardId: currentCard._id, newInternetLimit: newValue }),
               })
@@ -153,6 +150,7 @@ const CardOperations: FC<TCardOperation> = ({ renderPaginaton, currentCard, upda
           </View>
         </Flex>
       </SectionGradient>
+
       {renderBottomSheet}
 
       <CardOperationsModal
