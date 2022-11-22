@@ -1,6 +1,7 @@
 import { Center, ChevronDownIcon, Fade } from 'native-base';
 import React, { memo } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { isEqual } from 'lodash';
 import { colors } from '../../../../config/colors';
 import { IconRoundBlock, ScrollBlock } from './HeaderDoubleCards.styles';
 import { cardEnum } from '../../../../config/screens';
@@ -26,4 +27,4 @@ const HeaderDoubleCards = () => {
   );
 };
 
-export default memo(HeaderDoubleCards);
+export default memo(HeaderDoubleCards, isEqual);

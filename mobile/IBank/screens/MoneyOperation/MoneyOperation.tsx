@@ -3,7 +3,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { Center, Input, KeyboardAvoidingView, Text, useToast, View } from 'native-base';
 import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { TextInput, TouchableOpacity, useWindowDimensions } from 'react-native';
-import { isFunction } from 'lodash';
+import { isEqual, isFunction } from 'lodash';
 // svg
 import { TransferIcon } from '../../assets/svg';
 // styles
@@ -175,4 +175,4 @@ const MoneyOperation = () => {
   );
 };
 
-export default memo(MoneyOperation);
+export default memo(MoneyOperation, isEqual);

@@ -1,3 +1,4 @@
+import { isEqual } from 'lodash';
 import { Stack } from 'native-base';
 import React, { FC, memo } from 'react';
 import RoundButton from './components/RoundButton/RoundButton';
@@ -37,4 +38,4 @@ const Keyboard: FC<TKeyboard> = ({ setNumber, removeLastNumber }) => {
   );
 };
 
-export default memo(Keyboard);
+export default memo(Keyboard, isEqual);

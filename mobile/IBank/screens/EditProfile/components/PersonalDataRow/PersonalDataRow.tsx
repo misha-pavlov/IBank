@@ -3,6 +3,7 @@ import React, { FC, memo, useMemo, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment';
+import { isEqual } from 'lodash';
 import { WhiteText } from '../../../../common/common.styles';
 import { colors } from '../../../../config/colors';
 import { IconWrapper } from './PersonalDataRow.styles';
@@ -83,4 +84,4 @@ const PersonalDataRow: FC<TPersonalDataRow> = ({
   );
 };
 
-export default memo(PersonalDataRow);
+export default memo(PersonalDataRow, isEqual);

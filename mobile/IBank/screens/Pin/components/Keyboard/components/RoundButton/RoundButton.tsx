@@ -1,3 +1,4 @@
+import { isEqual } from 'lodash';
 import React, { FC, memo, useMemo } from 'react';
 import { Backspace } from '../../../../../../assets/svg';
 import { WhiteText } from '../../../../../../common/common.styles';
@@ -30,4 +31,4 @@ const RoundButton: FC<TRoundButton> = ({ text, isEmptyButton, isRemoveButton, on
   );
 };
 
-export default memo(RoundButton);
+export default memo(RoundButton, isEqual);

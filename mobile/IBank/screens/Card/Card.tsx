@@ -1,3 +1,4 @@
+import { isEqual } from 'lodash';
 import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
 import { useWindowDimensions } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
@@ -81,4 +82,4 @@ const Card = () => {
   );
 };
 
-export default memo(Card);
+export default memo(Card, isEqual);

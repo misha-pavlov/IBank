@@ -1,6 +1,6 @@
 import React, { FC, memo, RefObject, useEffect, useRef, useState } from 'react';
 import moment from 'moment';
-import { isFunction } from 'lodash';
+import { isEqual, isFunction } from 'lodash';
 import { View } from 'native-base';
 import CardFlip from 'react-native-card-flip';
 import FlipCard from 'react-native-card-flip';
@@ -98,4 +98,4 @@ const Card: FC<TCard> = ({
   );
 };
 
-export default memo(Card);
+export default memo(Card, isEqual);

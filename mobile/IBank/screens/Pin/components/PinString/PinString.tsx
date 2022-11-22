@@ -1,3 +1,4 @@
+import { isEqual } from 'lodash';
 import { Center } from 'native-base';
 import React, { memo } from 'react';
 import { PinPoint } from './PinString.styles';
@@ -13,4 +14,4 @@ const PinString = ({ enteredLength }: { enteredLength: number }) => {
   );
 };
 
-export default memo(PinString);
+export default memo(PinString, isEqual);

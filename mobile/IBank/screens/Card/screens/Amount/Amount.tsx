@@ -5,6 +5,7 @@ import React, { FC, memo, useCallback, useMemo, useRef, useState } from 'react';
 import { ActivityIndicator, TouchableOpacity } from 'react-native';
 import { useQuery } from '@apollo/client';
 import moment from 'moment';
+import { isEqual } from 'lodash';
 // svg
 import { AnotherActionsIcon, SendOnCardIcon, TopUpIcon } from '../../../../assets/svg';
 // styles
@@ -214,4 +215,4 @@ const Amount: FC<TAmount> = ({ renderPaginaton, moveToNextScreen, currentCard })
   );
 };
 
-export default memo(Amount);
+export default memo(Amount, isEqual);

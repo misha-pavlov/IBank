@@ -1,4 +1,4 @@
-import { isFunction } from 'lodash';
+import { isEqual, isFunction } from 'lodash';
 import { Flex, Text, View } from 'native-base';
 import React, { FC, memo, useMemo } from 'react';
 import { TouchableOpacity } from 'react-native';
@@ -45,4 +45,4 @@ const TransactionItem: FC<TTransactionItem> = ({ type, additionalText, amount, i
   );
 };
 
-export default memo(TransactionItem);
+export default memo(TransactionItem, isEqual);
