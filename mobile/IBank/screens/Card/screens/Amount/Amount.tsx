@@ -199,7 +199,7 @@ const Amount: FC<TAmount> = ({ renderPaginaton, moveToNextScreen, currentCard })
               <RoundTouchable
                 text="Send on card"
                 icon={<SendOnCardIcon />}
-                onPress={() => navigate(cardEnum.SendOnCard)}
+                onPress={() => navigate(cardEnum.SendOnCard, { isFromCardOperations: false })}
               />
               <RoundTouchable
                 text="Another payments"

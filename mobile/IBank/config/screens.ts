@@ -24,3 +24,7 @@ export enum appEnum {
   CardNavigator = 'CardNavigator',
   MoneyOperation = 'MoneyOperation',
 }
+
+export enum creditsEnum {
+  Credits = 'Credits',
+}

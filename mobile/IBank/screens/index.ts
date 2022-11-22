@@ -1,6 +1,7 @@
 export { default as AddNewCard } from './AddNewCard/AddNewCard';
 export { default as Capital } from './Capital/Capital';
 export { default as Card } from './Card/Card';
+export { default as Credits } from './Credits/Credits';
 export { default as DoneTransaction } from './DoneTransaction/DoneTransaction';
 export { default as EditProfile } from './EditProfile/EditProfile';
 export { default as HeaderModal } from './HeaderModal/HeaderModal';

@@ -5,6 +5,7 @@ import { appEnum, cardEnum } from '../config/screens';
 import { colors } from '../config/colors';
 import CardNavigator from './CardNavigator';
 import { CardIcon, CashbackIcon, CreditIcon, MoreIcon, SavingIcon } from '../assets/svg';
+import CreditsNavigator from './CreditsNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -33,7 +34,7 @@ const IBankTabs = () => {
       <Tab.Screen
         name="Credits"
         options={{ headerShown: false, tabBarIcon: ({ color }) => <CreditIcon fill={color} /> }}
-        component={Screen}
+        component={CreditsNavigator}
       />
       <Tab.Screen
         name="Saving"
