@@ -17,7 +17,7 @@ import CardOperationsModal from './components/CardOperationsModal/CardOperations
 // constants
 import { colors } from '../../../../config/colors';
 import { cardSettings } from './constants';
-import { appEnum } from '../../../../config/screens';
+import { appEnum, cardEnum } from '../../../../config/screens';
 // helpers
 import { getFormattedAmount } from '../../../../helpers/generalHelpers';
 // types
@@ -35,7 +35,7 @@ type TCardOperation = {
 
 const CardOperations: FC<TCardOperation> = ({ renderPaginaton, currentCard, updateCurrentCard }) => {
   const { _id, isBlocked, type, number, expired, isMasterCard, internetLimit, usedInternetLimit, cvv } = currentCard;
-  const { navigate } = useNavigation<NCardNavigatorNavigationProp<'MoneyOperation'>>();
+  const { navigate } = useNavigation<NCardNavigatorNavigationProp<'MoneyOperation' | 'SendOnCard'>>();
   const [showModal, setShowModal] = useState<string | undefined>();
 
   // ref
@@ -91,11 +91,14 @@ const CardOperations: FC<TCardOperation> = ({ renderPaginaton, currentCard, upda
             },
           ]);
 
+        case '6':
+          return navigate(cardEnum.SendOnCard, { isFromCardOperations: true });
+
         default:
           return null;
       }
     },
-    [_id, expired, isBlocked, updateCardMutate, updateCurrentCard],
+    [_id, expired, isBlocked, navigate, updateCardMutate, updateCurrentCard],
   );
 
   const onSubmit = useCallback(

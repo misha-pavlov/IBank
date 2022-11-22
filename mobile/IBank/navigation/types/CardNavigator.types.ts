@@ -9,7 +9,7 @@ export type NCardStackParamList = {
   Capital: undefined;
   NewCard: { card: TCard };
   Statistic: undefined;
-  SendOnCard: undefined;
+  SendOnCard: { isFromCardOperations?: boolean };
   AddNewCard: undefined;
   EditProfile: undefined;
   HeaderModal: undefined;

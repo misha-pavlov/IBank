@@ -1,5 +1,5 @@
 import { useLazyQuery, useQuery } from '@apollo/client';
-import { CommonActions, useNavigation } from '@react-navigation/native';
+import { CommonActions, useNavigation, useRoute } from '@react-navigation/native';
 import { Input, SectionList, useToast, View } from 'native-base';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { ActivityIndicator, SectionListData } from 'react-native';
@@ -20,15 +20,18 @@ import { getCardByType } from '../../helpers/cardHelpers';
 // hooks
 import { useCurrentCard, useCurrentUser, useDebounced } from '../../hooks';
 // types
-import { NCardNavigatorNavigationProp } from '../../navigation/types/CardNavigator.types';
+import { NCardNavigatorNavigationProp, NCardNavigatorRouteProp } from '../../navigation/types/CardNavigator.types';
 import { TCard } from '../../types/card';
 
 const SendOnCard = () => {
   const toast = useToast();
   const { setOptions, navigate, dispatch } =
     useNavigation<NCardNavigatorNavigationProp<'MoneyOperation' | 'DoneTransaction'>>();
+  const { params } = useRoute<NCardNavigatorRouteProp<'SendOnCard'>>();
   const { user, savedCardsIds } = useCurrentUser();
   const { currentCard } = useCurrentCard();
+
+  const { isFromCardOperations } = params;
 
   const [searchTerm, setSearchTerm] = useState('');
   const debounced = useDebounced(searchTerm);
@@ -41,21 +44,21 @@ const SendOnCard = () => {
     variables: { owner: user?._id, searchTerm: debounced, excludeIds: [currentCard._id] },
     fetchPolicy: ApolloFetchPolicy.CacheAndNetwork,
     nextFetchPolicy: ApolloFetchPolicy.CacheFirst,
-    skip: !user?._id,
+    skip: !user?._id || isFromCardOperations,
   });
 
   const { data: dataGetUserSavedCards, loading: loadingGetUserSavedCards } = useQuery(GET_USER_SAVED_CARDS, {
     variables: { userId: user?._id, searchTerm: debounced },
     fetchPolicy: ApolloFetchPolicy.CacheAndNetwork,
     nextFetchPolicy: ApolloFetchPolicy.CacheFirst,
-    skip: !user?._id,
+    skip: !user?._id || isFromCardOperations,
   });
 
   const [isCardExistLazy] = useLazyQuery(IS_CARD_EXIST, { onError: err => console.error('IS_CARD_EXIST = ', err) });
 
   const sections = useMemo(
     () => [
-      { title: 'My cards', data: dataGetUserCards?.getUserCards },
+      { title: 'My cards', data: dataGetUserCards?.getUserCards || [] },
       { title: 'Saved cards', data: dataGetUserSavedCards?.getUserSavedCards || [] },
     ],
     [dataGetUserCards?.getUserCards, dataGetUserSavedCards?.getUserSavedCards],
@@ -147,14 +150,15 @@ const SendOnCard = () => {
     return (
       <Input
         size="lg"
+        maxLength={16}
         value={searchTerm}
         variant="underlined"
         color={colors.gray100}
         onChangeText={onChangeText}
-        placeholder="Search by name, card number"
+        placeholder={isFromCardOperations ? 'Enter card number' : 'Search by name, card number'}
       />
     );
-  }, [onChangeText, searchTerm]);
+  }, [isFromCardOperations, onChangeText, searchTerm]);
 
   const renderSectionList = useMemo(() => {
     if (loadingGetUserCards || loadingGetUserSavedCards) {
@@ -163,8 +167,8 @@ const SendOnCard = () => {
 
     if (
       debounced.length === 16 &&
-      dataGetUserCards?.getUserCards.length === 0 &&
-      dataGetUserSavedCards?.getUserSavedCards.length === 0
+      (isFromCardOperations ||
+        (dataGetUserCards?.getUserCards.length === 0 && dataGetUserSavedCards?.getUserSavedCards.length === 0))
     ) {
       return (
         <View pt="16px">
@@ -192,6 +196,7 @@ const SendOnCard = () => {
     dataGetUserCards?.getUserCards.length,
     dataGetUserSavedCards?.getUserSavedCards.length,
     debounced,
+    isFromCardOperations,
     loadingGetUserCards,
     loadingGetUserSavedCards,
     onUnknownCard,
