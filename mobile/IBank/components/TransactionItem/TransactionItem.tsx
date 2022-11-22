@@ -10,12 +10,13 @@ type TTransactionItem = {
   type?: string;
   text?: string;
   amount?: number;
+  disabled?: boolean;
   icon?: JSX.Element;
   additionalText?: string;
   onPress?: () => void;
 };
 
-const TransactionItem: FC<TTransactionItem> = ({ type, additionalText, amount, icon, text, onPress }) => {
+const TransactionItem: FC<TTransactionItem> = ({ type, additionalText, amount, disabled, icon, text, onPress }) => {
   const renderText = useMemo(() => {
     if (!additionalText) {
       return <WhiteText fontWeight={600}>{text || getTransactionTitleByType(type)}</WhiteText>;
@@ -32,7 +33,7 @@ const TransactionItem: FC<TTransactionItem> = ({ type, additionalText, amount, i
   }, [additionalText, text, type]);
 
   return (
-    <TouchableOpacity onPress={onPress} disabled={!isFunction(onPress)}>
+    <TouchableOpacity onPress={onPress} disabled={disabled || !isFunction(onPress)}>
       <Flex flexDirection="row" justifyContent="space-between" mb={15}>
         <Flex flexDirection="row" alignItems="center">
           <View mr={5}>{icon || getTransactionIconByType(type)}</View>

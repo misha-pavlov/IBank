@@ -1,11 +1,12 @@
 import BottomSheet, { BottomSheetFlatList } from '@gorhom/bottom-sheet';
 import { Center, Flex, Progress, Text, View } from 'native-base';
 import React, { FC, memo, useCallback, useMemo, useRef, useState } from 'react';
-import { Alert, TouchableOpacity } from 'react-native';
+import { Alert } from 'react-native';
 import Clipboard from '@react-native-clipboard/clipboard';
 import { useNavigation } from '@react-navigation/native';
 import { useMutation } from '@apollo/client';
 import { isEqual } from 'lodash';
+import moment from 'moment';
 // svg
 import { BlockedCardIcon, CalendarIcon } from '../../../../assets/svg';
 // styles
@@ -25,7 +26,6 @@ import { TCardSettings } from './types';
 import { NCardNavigatorNavigationProp } from '../../../../navigation/types/CardNavigator.types';
 // gql
 import { UPDATE_CARD } from './CardOperations.mutations';
-import moment from 'moment';
 
 type TCardOperation = {
   renderPaginaton: JSX.Element;
@@ -116,9 +116,7 @@ const CardOperations: FC<TCardOperation> = ({ renderPaginaton, currentCard, upda
 
   const renderItem = useCallback(
     ({ item }: { item: TCardSettings }) => (
-      <TouchableOpacity>
-        <TransactionItem icon={item.icon} text={item.text} onPress={() => onPress(item.id)} />
-      </TouchableOpacity>
+      <TransactionItem icon={item.icon} text={item.text} disabled={item.id === '5'} onPress={() => onPress(item.id)} />
     ),
     [onPress],
   );
