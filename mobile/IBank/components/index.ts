@@ -3,6 +3,7 @@ export { default as CardListItem } from './CardListItem/CardListItem';
 export { default as CardPicker } from './CardPicker/CardPicker';
 export { default as DefaultInput } from './DefaultInput/DefaultInput';
 export { default as IBankBlackButton } from './IBankBlackButton/IBankBlackButton';
+export { default as IBankButtonWithIcon } from './IBankButtonWithIcon/IBankButtonWithIcon';
 export { default as IBankGrayButton } from './IBankGrayButton/IBankGrayButton';
 export { default as PhoneInput } from './PhoneInput/PhoneInput';
 export { default as PinInput } from './PinInput/PinInput';

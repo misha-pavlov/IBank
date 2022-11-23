@@ -3,6 +3,7 @@ export { default as Backspace } from './Backspace';
 export { default as BagIcon } from './BagIcon';
 export { default as BlockCardIcon } from './BlockCardIcon';
 export { default as BlockedCardIcon } from './BlockedCardIcon';
+export { default as BottleIcon } from './BottleIcon';
 export { default as CalendarIcon } from './CalendarIcon';
 export { default as CardIcon } from './CardIcon';
 export { default as CashbackIcon } from './CashbackIcon';

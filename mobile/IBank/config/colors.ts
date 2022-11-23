@@ -14,6 +14,7 @@ export const colors = {
   gray600: '#757575',
   gray900: '#212121',
 
+  pink: '#E45F96',
   // use this color for platinum card
   pink500: '#EC407A',
   pinkA100: '#FF80AB',
