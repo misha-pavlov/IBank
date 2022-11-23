@@ -62,4 +62,6 @@ export const colors = {
 
   whiteBlue: '#7C7095',
   whiteBlue1: '#5D61A1',
+
+  blue: '#2C72BA',
 };

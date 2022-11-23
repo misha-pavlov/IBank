@@ -23,9 +23,15 @@ export enum appEnum {
   Loading = 'Loading',
   CardNavigator = 'CardNavigator',
   MoneyOperation = 'MoneyOperation',
+  CreditsNavigator = 'CreditsNavigator',
+  SavingsNavigator = 'SavingsNavigator',
 }
 
 export enum creditsEnum {
   Credits = 'Credits',
   CreditSettings = 'CreditSettings',
+}
+
+export enum savingsEnum {
+  Savings = 'Savings',
 }

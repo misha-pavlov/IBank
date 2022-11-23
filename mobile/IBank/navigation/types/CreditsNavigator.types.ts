@@ -18,7 +18,7 @@ export type NCreditsNavigatorNavigationProp<ScreenName extends keyof NCreditsSta
   ScreenName
 >;
 
-export interface NCardNavigatorScreenProps<ScreenName extends keyof NCreditsStackParamList> {
+export interface NCreditsNavigatorScreenProps<ScreenName extends keyof NCreditsStackParamList> {
   route: NCreditsNavigatorRouteProp<ScreenName>;
   navigation: NCreditsNavigatorNavigationProp<ScreenName>;
 }
