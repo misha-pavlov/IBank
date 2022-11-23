@@ -34,4 +34,5 @@ export enum creditsEnum {
 
 export enum savingsEnum {
   Savings = 'Savings',
+  CreateSaving = 'CreateSaving',
 }

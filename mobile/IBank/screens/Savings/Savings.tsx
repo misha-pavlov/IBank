@@ -6,9 +6,11 @@ import { BottleIcon } from '../../assets/svg';
 import { BlackContentWrapper, WhiteText } from '../../common/common.styles';
 import { IBankButtonWithIcon } from '../../components';
 import { colors } from '../../config/colors';
+import { savingsEnum } from '../../config/screens';
+import { NSavingsNavigatorNavigationProp } from '../../navigation/types/SavingsNavigator.types';
 
 const Savings = () => {
-  const { setOptions } = useNavigation();
+  const { setOptions, navigate } = useNavigation<NSavingsNavigatorNavigationProp<'CreateSaving'>>();
   const { width } = useWindowDimensions();
 
   useEffect(() => {
@@ -28,7 +30,7 @@ const Savings = () => {
             text="Create saving"
             icon={<BottleIcon />}
             backgroundColor={colors.pink}
-            onPress={() => console.log('123')}
+            onPress={() => navigate(savingsEnum.CreateSaving)}
           />
         </View>
       </Center>

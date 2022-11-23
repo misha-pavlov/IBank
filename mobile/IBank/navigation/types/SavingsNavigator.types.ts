@@ -4,6 +4,7 @@ import { MoneyOperationParams } from '../../screens/MoneyOperation/MoneyOperatio
 
 export type NSavingsStackParamList = {
   Savings: undefined;
+  CreateSaving: undefined;
   MoneyOperation: MoneyOperationParams;
 };
 
