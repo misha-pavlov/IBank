@@ -15,6 +15,7 @@ export type TCard = {
   number: string;
   expired: Date;
   isBlocked: boolean;
+  creditLimit: number;
   ownerFullName: string;
   isMasterCard: boolean;
   internetLimit: number;

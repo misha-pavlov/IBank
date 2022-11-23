@@ -39,6 +39,7 @@ export class CardService {
       pin,
       cvv,
       amount: 0,
+      creditLimit: 10000,
       internetLimit: 10000,
       usedInternetLimit: 10000,
       isBlocked: false,
@@ -163,6 +164,7 @@ export class CardService {
     newPin?: string,
     newExpired?: Date,
     newIsBlocked?: boolean,
+    newCreditLimit?: number,
     newType?: CARD_TYPE_ENUM,
     newInternetLimit?: number,
   ) {
@@ -171,6 +173,7 @@ export class CardService {
       type: newType,
       expired: newExpired,
       isBlocked: newIsBlocked,
+      creditLimit: newCreditLimit,
       internetLimit: newInternetLimit,
     });
   }

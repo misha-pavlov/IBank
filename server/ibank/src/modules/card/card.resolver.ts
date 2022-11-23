@@ -75,6 +75,7 @@ export class CardResolver {
     @Args('newExpired', { nullable: true }) newExpired: Date,
     @Args('newType', { nullable: true }) newType: CARD_TYPE_ENUM,
     @Args('newIsBlocked', { nullable: true }) newIsBlocked: boolean,
+    @Args('newCreditLimit', { nullable: true }) newCreditLimit: number,
     @Args('newInternetLimit', { nullable: true }) newInternetLimit: number,
   ) {
     return this.cardService.updateCard(
@@ -82,6 +83,7 @@ export class CardResolver {
       newPin,
       newExpired,
       newIsBlocked,
+      newCreditLimit,
       newType,
       newInternetLimit,
     );

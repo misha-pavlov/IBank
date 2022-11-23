@@ -5,6 +5,7 @@ export type MoneyOperationParams = {
   buttonText: string;
   to?: TCard;
   from?: TCard;
+  maxAmount?: number;
   startValue?: number;
   sendOnNumber?: string;
   headerTitle?: string;

@@ -1,8 +1,11 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { MoneyOperationParams } from '../../screens/MoneyOperation/MoneyOperation.types';
 
 export type NCreditsStackParamList = {
   Credits: undefined;
+  CreditSettings: undefined;
+  MoneyOperation: MoneyOperationParams;
 };
 
 export type NCreditsNavigatorRouteProp<ScreenName extends keyof NCreditsStackParamList> = RouteProp<

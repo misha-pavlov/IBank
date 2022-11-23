@@ -25,7 +25,7 @@ import { CardType, TCard } from '../../../../types/card';
 import { TCardSettings } from './types';
 import { NCardNavigatorNavigationProp } from '../../../../navigation/types/CardNavigator.types';
 // gql
-import { UPDATE_CARD } from './CardOperations.mutations';
+import { UPDATE_CARD } from '../../../../gql/card.mutations';
 
 type TCardOperation = {
   renderPaginaton: JSX.Element;

@@ -15,3 +15,28 @@ export const CREATE_CARD = gql`
   }
   ${CARD_FRAGMENT}
 `;
+
+export const UPDATE_CARD = gql`
+  mutation updateCard(
+    $cardId: ObjectId!
+    $newPin: String
+    $newType: String
+    $newExpired: DateTime
+    $newIsBlocked: Boolean
+    $newCreditLimit: Float
+    $newInternetLimit: Float
+  ) {
+    updateCard(
+      cardId: $cardId
+      newPin: $newPin
+      newType: $newType
+      newExpired: $newExpired
+      newIsBlocked: $newIsBlocked
+      newCreditLimit: $newCreditLimit
+      newInternetLimit: $newInternetLimit
+    ) {
+      ...CardFragment
+    }
+  }
+  ${CARD_FRAGMENT}
+`;

@@ -27,4 +27,5 @@ export enum appEnum {
 
 export enum creditsEnum {
   Credits = 'Credits',
+  CreditSettings = 'CreditSettings',
 }

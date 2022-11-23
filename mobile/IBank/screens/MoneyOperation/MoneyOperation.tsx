@@ -39,6 +39,7 @@ const MoneyOperation = () => {
     from,
     type,
     onUpdate,
+    maxAmount,
     onComplete,
     buttonText,
     startValue,
@@ -114,7 +115,7 @@ const MoneyOperation = () => {
     (number: string) => {
       setAmount(Number(number));
 
-      if (from && amount > from?.amount) {
+      if ((maxAmount && amount > maxAmount) || (from && amount > from?.amount)) {
         toast.show({
           placement: 'top',
           render: () => {
@@ -127,7 +128,7 @@ const MoneyOperation = () => {
         });
       }
     },
-    [amount, from, toast],
+    [amount, from, maxAmount, toast],
   );
 
   return (

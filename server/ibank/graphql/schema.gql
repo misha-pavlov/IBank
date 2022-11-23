@@ -16,6 +16,7 @@ type Card {
   _id: ObjectId!
   amount: Float!
   createdAt: DateTime!
+  creditLimit: Float!
   cvv: String!
   deleted: Boolean!
   expired: DateTime!
@@ -33,6 +34,7 @@ type Card {
 input CardInput {
   _id: ObjectId!
   amount: Float!
+  creditLimit: Float!
   cvv: String!
   expired: DateTime!
   internetLimit: Float!
@@ -70,7 +72,7 @@ type Mutation {
   moneySend(amount: Float!, from: ObjectId, sendOnNumber: String, to: ObjectId, type: String): Boolean!
   signIn(phone: String!, pin: String!): AuthPayload!
   signUp(birthday: DateTime!, fullName: String!, phone: String!, pin: String!, sex: String!): SignUpPayload!
-  updateCard(cardId: ObjectId, newExpired: DateTime, newInternetLimit: Float, newIsBlocked: Boolean, newPin: String, newType: String): Card!
+  updateCard(cardId: ObjectId, newCreditLimit: Float, newExpired: DateTime, newInternetLimit: Float, newIsBlocked: Boolean, newPin: String, newType: String): Card!
 }
 
 """Mongo object id scalar type"""
