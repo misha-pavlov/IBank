@@ -167,6 +167,7 @@ export class CardService {
     newCreditLimit?: number,
     newType?: CARD_TYPE_ENUM,
     newInternetLimit?: number,
+    newPayByPartsLimit?: number,
   ) {
     return this.cardModel.findByIdAndUpdate(cardId, {
       pin: newPin,
@@ -175,6 +176,7 @@ export class CardService {
       isBlocked: newIsBlocked,
       creditLimit: newCreditLimit,
       internetLimit: newInternetLimit,
+      payByPartsLimit: newPayByPartsLimit,
     });
   }
 }

@@ -19,5 +19,6 @@ export type TCard = {
   ownerFullName: string;
   isMasterCard: boolean;
   internetLimit: number;
+  payByPartsLimit: number;
   usedInternetLimit: number;
 };

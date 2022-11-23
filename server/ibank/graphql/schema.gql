@@ -26,6 +26,7 @@ type Card {
   number: String!
   owner: String!
   ownerFullName: String!
+  payByPartsLimit: Float!
   pin: String!
   type: CARD_TYPE_ENUM!
   usedInternetLimit: Float!
@@ -43,6 +44,7 @@ input CardInput {
   number: String!
   owner: String!
   ownerFullName: String!
+  payByPartsLimit: Float!
   pin: String!
   type: CARD_TYPE_ENUM!
   usedInternetLimit: Float!
@@ -72,7 +74,7 @@ type Mutation {
   moneySend(amount: Float!, from: ObjectId, sendOnNumber: String, to: ObjectId, type: String): Boolean!
   signIn(phone: String!, pin: String!): AuthPayload!
   signUp(birthday: DateTime!, fullName: String!, phone: String!, pin: String!, sex: String!): SignUpPayload!
-  updateCard(cardId: ObjectId, newCreditLimit: Float, newExpired: DateTime, newInternetLimit: Float, newIsBlocked: Boolean, newPin: String, newType: String): Card!
+  updateCard(cardId: ObjectId, newCreditLimit: Float, newExpired: DateTime, newInternetLimit: Float, newIsBlocked: Boolean, newPayByPartsLimit: Float, newPin: String, newType: String): Card!
 }
 
 """Mongo object id scalar type"""

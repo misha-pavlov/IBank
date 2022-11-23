@@ -15,6 +15,7 @@ export const CARD_FRAGMENT = gql`
     isMasterCard
     ownerFullName
     internetLimit
+    payByPartsLimit
     usedInternetLimit
   }
 `;

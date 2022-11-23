@@ -69,6 +69,10 @@ export class Card extends CommonSchema {
   @Field(() => Number)
   @Prop({ type: Number, required: true })
   creditLimit: number;
+
+  @Field(() => Number)
+  @Prop({ type: Number, required: true })
+  payByPartsLimit: number;
 }
 
 @InputType()
@@ -114,6 +118,9 @@ export class CardInput {
 
   @Field(() => Number)
   creditLimit: number;
+
+  @Field(() => Number)
+  payByPartsLimit: number;
 }
 
 registerEnumType(CARD_TYPE_ENUM, { name: 'CARD_TYPE_ENUM' });

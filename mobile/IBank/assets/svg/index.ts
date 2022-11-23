@@ -1,5 +1,4 @@
 export { default as AnotherActionsIcon } from './AnotherActionsIcon';
-export { default as ArchiveIcon } from './ArchiveIcon';
 export { default as Backspace } from './Backspace';
 export { default as BagIcon } from './BagIcon';
 export { default as BlockCardIcon } from './BlockCardIcon';

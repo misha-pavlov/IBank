@@ -25,6 +25,7 @@ export const UPDATE_CARD = gql`
     $newIsBlocked: Boolean
     $newCreditLimit: Float
     $newInternetLimit: Float
+    $newPayByPartsLimit: Float
   ) {
     updateCard(
       cardId: $cardId
@@ -34,6 +35,7 @@ export const UPDATE_CARD = gql`
       newIsBlocked: $newIsBlocked
       newCreditLimit: $newCreditLimit
       newInternetLimit: $newInternetLimit
+      newPayByPartsLimit: $newPayByPartsLimit
     ) {
       ...CardFragment
     }

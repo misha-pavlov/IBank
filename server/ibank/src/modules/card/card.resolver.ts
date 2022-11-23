@@ -77,6 +77,7 @@ export class CardResolver {
     @Args('newIsBlocked', { nullable: true }) newIsBlocked: boolean,
     @Args('newCreditLimit', { nullable: true }) newCreditLimit: number,
     @Args('newInternetLimit', { nullable: true }) newInternetLimit: number,
+    @Args('newPayByPartsLimit', { nullable: true }) newPayByPartsLimit: number,
   ) {
     return this.cardService.updateCard(
       cardId,
@@ -86,6 +87,7 @@ export class CardResolver {
       newCreditLimit,
       newType,
       newInternetLimit,
+      newPayByPartsLimit,
     );
   }
 }
