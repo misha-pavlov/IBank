@@ -23,6 +23,8 @@ export class SavingService {
   }
 
   async getSavingsForUser(owner: Types.ObjectId): Promise<Saving[]> {
-    return this.savingModel.find({ owner, deleted: false });
+    return this.savingModel
+      .find({ owner, deleted: false })
+      .sort({ createdAt: -1 });
   }
 }

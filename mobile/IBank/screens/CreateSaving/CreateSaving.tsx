@@ -7,6 +7,7 @@ import { BlackContentWrapper, commonStyles } from '../../common/common.styles';
 import { IBankBlackButton } from '../../components';
 import { colors } from '../../config/colors';
 import { getKeyboardVerticalOffset, isIOS } from '../../config/platform';
+import { GET_SAVINGS_FOR_USER } from '../../gql/saving.queries';
 import { useCurrentUser } from '../../hooks';
 import { CREATE_SAVING } from './CreateSaving.mutations';
 
@@ -40,7 +41,12 @@ const CreateSaving = () => {
     if (isFirstStep) {
       setStep(2);
     } else {
-      createSavingMutate({ variables: { name: text, savingPoint, owner: user?._id }, onCompleted: goBack });
+      createSavingMutate({
+        variables: { name: text, savingPoint, owner: user?._id },
+        onCompleted: goBack,
+        awaitRefetchQueries: true,
+        refetchQueries: [{ query: GET_SAVINGS_FOR_USER, variables: { owner: user?._id } }],
+      });
     }
   }, [createSavingMutate, goBack, isFirstStep, savingPoint, text, user?._id]);
 
