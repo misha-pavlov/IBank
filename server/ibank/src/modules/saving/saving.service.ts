@@ -27,4 +27,11 @@ export class SavingService {
       .find({ owner, deleted: false })
       .sort({ createdAt: -1 });
   }
+
+  async getUserSavingsSavedSum(owner: Types.ObjectId): Promise<number> {
+    const savings = await this.savingModel.find({ owner, deleted: false });
+    return savings.reduce((acc, saving) => {
+      return (acc += saving.saved);
+    }, 0);
+  }
 }

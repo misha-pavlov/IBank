@@ -4,15 +4,23 @@ import { FlashList } from '@shopify/flash-list';
 import { Center, HStack, Progress, Text, View, VStack } from 'native-base';
 import React, { useCallback, useEffect } from 'react';
 import { ActivityIndicator, TouchableOpacity, useWindowDimensions } from 'react-native';
+// svg
 import { BottleIcon } from '../../assets/svg';
+// styles
 import { BlackContentWrapper, WhiteText } from '../../common/common.styles';
+// components
 import { IBankButtonWithIcon } from '../../components';
+// constants
 import { colors } from '../../config/colors';
 import { savingsEnum } from '../../config/screens';
+// hooks
 import { useCurrentUser } from '../../hooks';
+// types
 import { NSavingsNavigatorNavigationProp } from '../../navigation/types/SavingsNavigator.types';
 import { TSaving } from '../../types/saving';
+// gql
 import { GET_SAVINGS_FOR_USER } from '../../gql/saving.queries';
+import { GET_USER_SAVINGS_SAVED_SUM } from './Savngs.queries';
 
 const Savings = () => {
   const { setOptions, navigate } = useNavigation<NSavingsNavigatorNavigationProp<'CreateSaving'>>();
@@ -27,6 +35,10 @@ const Savings = () => {
   }, [setOptions]);
 
   const { data, loading } = useQuery(GET_SAVINGS_FOR_USER, { variables: { owner: user?._id }, skip: !user?._id });
+  const { data: savedData, loading: savedLoading } = useQuery(GET_USER_SAVINGS_SAVED_SUM, {
+    variables: { owner: user?._id },
+    skip: !user?._id,
+  });
 
   const renderItem = useCallback(
     ({ item }: { item: TSaving }) => {
@@ -82,9 +94,13 @@ const Savings = () => {
 
       <View mt={35} px="16px">
         <WhiteText fontSize={16}>Your savings</WhiteText>
-        <Text color={colors.gray500} mb="16px">
-          Sum n $
-        </Text>
+        {savedLoading ? (
+          <ActivityIndicator />
+        ) : (
+          <Text color={colors.gray500} mb="16px">
+            Sum {savedData?.getUserSavingsSavedSum} $
+          </Text>
+        )}
 
         <View height={(height / 100) * 90}>
           {loading ? (

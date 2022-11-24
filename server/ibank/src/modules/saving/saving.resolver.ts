@@ -13,6 +13,11 @@ export class SavingResolver {
     return this.savingService.getSavingsForUser(owner);
   }
 
+  @Query(() => Number)
+  async getUserSavingsSavedSum(@Args('owner') owner: Types.ObjectId) {
+    return this.savingService.getUserSavingsSavedSum(owner);
+  }
+
   @Mutation(() => Saving)
   async createSaving(
     @Args('savingPoint') savingPoint: number,

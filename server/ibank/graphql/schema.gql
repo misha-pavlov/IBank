@@ -94,6 +94,7 @@ type Query {
   getUserCards(excludeIds: [String!], owner: String!, searchTerm: String): [Card!]!
   getUserFirstCard(owner: String!): Card!
   getUserSavedCards(searchTerm: String, userId: ObjectId!): [Card!]!
+  getUserSavingsSavedSum(owner: ObjectId!): Float!
   isCardExist(number: Float!): Card
 }
 
