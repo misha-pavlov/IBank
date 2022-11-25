@@ -55,6 +55,7 @@ const SavingSettings = () => {
               savingId,
               oneStep: 1,
               oldValue: name,
+              field: 'newName',
               onCompleted: updateSavingMutate,
             })
           }
@@ -62,8 +63,16 @@ const SavingSettings = () => {
         <SavingSettingsItem
           icon={<PointIcon />}
           text="Change saving point"
-          onPress={() => console.log('123')}
           additionalText={`${getFormattedAmount(savingPoint)} $`}
+          onPress={() =>
+            navigate(savingsEnum.CreateSaving, {
+              savingId,
+              oneStep: 2,
+              oldValue: savingPoint,
+              field: 'newSavingPoint',
+              onCompleted: updateSavingMutate,
+            })
+          }
         />
         <SavingSettingsItem text="Add image" icon={<CameraIcon />} onPress={() => console.log('123')} />
         <SavingSettingsItem text="Add description" icon={<PenIcon />} onPress={() => console.log('123')} />

@@ -6,9 +6,10 @@ export type NSavingsStackParamList = {
   TopUp: { sendOnSaving?: string };
   Savings: undefined;
   CreateSaving?: {
+    field: string;
     oneStep: number;
     savingId: string;
-    oldValue: string;
+    oldValue: string | number;
     onCompleted: () => void;
   };
   Saving: { savingId: string };

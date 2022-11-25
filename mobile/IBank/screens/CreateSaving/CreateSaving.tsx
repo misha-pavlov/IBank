@@ -1,8 +1,8 @@
 import { useMutation } from '@apollo/client';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { isFunction } from 'lodash';
+import { isEqual, isFunction } from 'lodash';
 import { Center, Input, KeyboardAvoidingView, ScrollView, Text, View, VStack } from 'native-base';
-import React, { useCallback, useState } from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import { BottleIcon } from '../../assets/svg';
 import { BlackContentWrapper, commonStyles } from '../../common/common.styles';
 import { IBankBlackButton } from '../../components';
@@ -11,6 +11,7 @@ import { getKeyboardVerticalOffset, isIOS } from '../../config/platform';
 import { GET_SAVINGS_FOR_USER, GET_SAVING_BY_ID, GET_USER_SAVINGS_SAVED_SUM } from '../../gql/saving.queries';
 import { useCurrentUser } from '../../hooks';
 import { NSavingsNavigatorRouteProp } from '../../navigation/types/SavingsNavigator.types';
+import { getUpdateAdditionalVariables } from './CreateSaving.helpers';
 import { CREATE_SAVING } from './CreateSaving.mutations';
 
 const keyboardVerticalOffset = getKeyboardVerticalOffset();
@@ -20,6 +21,8 @@ const CreateSaving = () => {
   const { user } = useCurrentUser();
   const { goBack } = useNavigation();
   const { params } = useRoute<NSavingsNavigatorRouteProp<'CreateSaving'>>();
+  // params
+  const field = params?.field;
   const oneStep = params?.oneStep;
   const oldValue = params?.oldValue;
   const savingId = params?.savingId;
@@ -27,7 +30,7 @@ const CreateSaving = () => {
 
   const [step, setStep] = useState(oneStep || 1);
   const [text, setText] = useState(typeof oldValue === 'string' ? oldValue : 'For ');
-  const [savingPoint, setSavingPoint] = useState(0);
+  const [savingPoint, setSavingPoint] = useState(typeof oldValue === 'number' ? oldValue : 0);
 
   const isFirstStep = step === 1;
 
@@ -45,9 +48,12 @@ const CreateSaving = () => {
   );
 
   const onPress = useCallback(() => {
-    if (oneStep && isFunction(onCompleted)) {
+    if (oneStep && isFunction(onCompleted) && field) {
       onCompleted({
-        variables: { savingId, newName: text },
+        variables: {
+          savingId,
+          ...getUpdateAdditionalVariables(field, typeof oldValue === 'string' ? text : savingPoint),
+        },
         onCompleted: goBack,
         awaitRefetchQueries: true,
         refetchQueries: [
@@ -68,7 +74,19 @@ const CreateSaving = () => {
         });
       }
     }
-  }, [createSavingMutate, goBack, isFirstStep, onCompleted, oneStep, savingId, savingPoint, text, user?._id]);
+  }, [
+    createSavingMutate,
+    field,
+    goBack,
+    isFirstStep,
+    oldValue,
+    onCompleted,
+    oneStep,
+    savingId,
+    savingPoint,
+    text,
+    user?._id,
+  ]);
 
   const getText = () => {
     if (oneStep) {
@@ -132,4 +150,4 @@ const CreateSaving = () => {
   );
 };
 
-export default CreateSaving;
+export default memo(CreateSaving, isEqual);
