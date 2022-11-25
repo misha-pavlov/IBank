@@ -29,7 +29,7 @@ import { TCard } from '../../types/card';
 const SavingCardSelection = () => {
   const { user } = useCurrentUser();
   const { currentCard, updateCurrentCard } = useCurrentCard();
-  const { setOptions, navigate, goBack } = useNavigation<NSavingsNavigatorNavigationProp<'MoneyOperation'>>();
+  const { setOptions, navigate, pop } = useNavigation<NSavingsNavigatorNavigationProp<'MoneyOperation'>>();
   const { params } = useRoute<NSavingsNavigatorRouteProp<'SavingCardSelection'>>();
   const { savingId } = params;
 
@@ -65,7 +65,7 @@ const SavingCardSelection = () => {
               console.error(error);
             }
 
-            goBack();
+            pop(3);
           },
         });
       }
@@ -82,9 +82,9 @@ const SavingCardSelection = () => {
     [
       breakSavingMutate,
       currentCard._id,
-      goBack,
       navigate,
       params?.isBreakSaving,
+      pop,
       savingId,
       updateCurrentCard,
       user?._id,
