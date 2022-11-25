@@ -34,4 +34,8 @@ export class SavingService {
       return (acc += saving.saved);
     }, 0);
   }
+
+  async getSavingById(savingId: Types.ObjectId): Promise<Saving> {
+    return this.savingModel.findById(savingId);
+  }
 }

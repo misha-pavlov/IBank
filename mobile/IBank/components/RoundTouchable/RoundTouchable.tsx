@@ -5,18 +5,26 @@ import { colors } from '../../config/colors';
 import { RTouchable } from './RoundTouchable.styles';
 
 type TRoundTouchable = {
-  text?: string;
-  backgroundColor?: string;
-  disabled?: boolean;
   icon: JSX.Element;
+  text?: string;
+  disabled?: boolean;
+  withBorder?: boolean;
+  backgroundColor?: string;
   onPress?: () => void;
 };
 
-const RoundTouchable: FC<TRoundTouchable> = ({ backgroundColor = colors.black, icon, onPress, text, disabled }) => {
+const RoundTouchable: FC<TRoundTouchable> = ({
+  backgroundColor = colors.black,
+  icon,
+  withBorder,
+  onPress,
+  text,
+  disabled,
+}) => {
   const renderTextContent = useMemo(() => {
     if (text) {
       return (
-        <WhiteText textAlign="center" maxW="60px" fontSize="12px">
+        <WhiteText textAlign="center" maxW="60px" fontSize="12px" pt="5px">
           {text}
         </WhiteText>
       );
@@ -27,7 +35,14 @@ const RoundTouchable: FC<TRoundTouchable> = ({ backgroundColor = colors.black, i
 
   return (
     <RTouchable onPress={onPress} disabled={disabled}>
-      <View backgroundColor={backgroundColor} borderRadius={50} p="10px" maxW="44px">
+      <View
+        p="10px"
+        maxW="44px"
+        borderRadius={50}
+        alignItems="center"
+        justifyContent="center"
+        backgroundColor={backgroundColor}
+        {...(withBorder && { borderColor: colors.gray100, borderWidth: 1 })}>
         {icon}
       </View>
       {renderTextContent}

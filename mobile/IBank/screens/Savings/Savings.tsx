@@ -23,7 +23,7 @@ import { GET_SAVINGS_FOR_USER } from '../../gql/saving.queries';
 import { GET_USER_SAVINGS_SAVED_SUM } from './Savngs.queries';
 
 const Savings = () => {
-  const { setOptions, navigate } = useNavigation<NSavingsNavigatorNavigationProp<'CreateSaving'>>();
+  const { setOptions, navigate } = useNavigation<NSavingsNavigatorNavigationProp<'CreateSaving' | 'Saving'>>();
   const { width, height } = useWindowDimensions();
   const { user } = useCurrentUser();
 
@@ -42,10 +42,10 @@ const Savings = () => {
 
   const renderItem = useCallback(
     ({ item }: { item: TSaving }) => {
-      const { name, savingPoint, saved } = item;
+      const { name, savingPoint, saved, _id } = item;
 
       return (
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigate(savingsEnum.Saving, { savingId: _id })}>
           <HStack space={4} alignItems="center" mb="10px">
             <View backgroundColor={colors.aqua} padding="8px" borderRadius={50}>
               <BottleIcon />
@@ -74,7 +74,7 @@ const Savings = () => {
         </TouchableOpacity>
       );
     },
-    [width],
+    [navigate, width],
   );
 
   return (

@@ -88,6 +88,7 @@ type Query {
   getCardById(_id: ObjectId!): Card!
   getCardTransactions(cardId: String!, searchTerm: String): [GetCardTransactionsPayload!]!
   getCardTransactionsByDates(cardId: String!, endDate: DateTime!, startDate: DateTime!): GetCardTransactionsByDatesPayload!
+  getSavingById(savingId: ObjectId!): Saving!
   getSavingsForUser(owner: ObjectId!): [Saving!]!
   getUser: UserPayload!
   getUserCapital(owner: String!): Float!
