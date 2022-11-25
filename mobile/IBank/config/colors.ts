@@ -21,6 +21,7 @@ export const colors = {
   pinkA100: '#FF80AB',
 
   red: 'rgb(239, 68, 68);',
+  red1: '#FE606E',
 
   blueGray1: '#141E30',
   blueGray2: '#243B55',

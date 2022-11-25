@@ -36,4 +36,5 @@ export enum savingsEnum {
   Saving = 'Saving',
   Savings = 'Savings',
   CreateSaving = 'CreateSaving',
+  SavingSettings = 'SavingSettings',
 }

@@ -7,7 +7,7 @@ import { BottleIcon, HammerIcon, StatisticIcon, TopUpIconV2 } from '../../assets
 import { ScrollableBlackContentWrapper, WhiteText } from '../../common/common.styles';
 import { RoundTouchable } from '../../components';
 import { colors } from '../../config/colors';
-import { cardEnum } from '../../config/screens';
+import { cardEnum, savingsEnum } from '../../config/screens';
 import { GET_SAVING_BY_ID } from '../../gql/saving.queries';
 import { getFormattedAmount } from '../../helpers/generalHelpers';
 import {
@@ -19,7 +19,7 @@ import { TSaving } from '../../types/saving';
 const rotateStyle = { transform: [{ rotate: '75deg' }] };
 
 const Saving = () => {
-  const { setOptions, navigate } = useNavigation<NSavingsNavigatorNavigationProp<'TopUp'>>();
+  const { setOptions, navigate } = useNavigation<NSavingsNavigatorNavigationProp<'TopUp' | 'SavingSettings'>>();
   const { params } = useRoute<NSavingsNavigatorRouteProp<'Saving'>>();
   const { savingId } = params;
 
@@ -101,7 +101,12 @@ const Saving = () => {
                 icon={<TopUpIconV2 />}
                 onPress={() => navigate(cardEnum.TopUp, { sendOnSaving: savingId })}
               />
-              <RoundTouchable withBorder icon={<BottleIcon />} text="Settings" onPress={() => console.log('123')} />
+              <RoundTouchable
+                withBorder
+                icon={<BottleIcon />}
+                text="Settings"
+                onPress={() => navigate(savingsEnum.SavingSettings, { savingId })}
+              />
               <RoundTouchable withBorder icon={<StatisticIcon />} text="Statistic" onPress={() => console.log('123')} />
               <RoundTouchable
                 withBorder

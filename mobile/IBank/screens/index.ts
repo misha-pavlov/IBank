@@ -13,6 +13,7 @@ export { default as NewCard } from './NewCard/NewCard';
 export { default as Pin } from './Pin/Pin';
 export { default as Saving } from './Saving/Saving';
 export { default as Savings } from './Savings/Savings';
+export { default as SavingSettings } from './SavingSettings/SavingSettings';
 export { default as SendOnCard } from './SendOnCard/SendOnCard';
 export { default as SignIn } from './SignIn/SignIn';
 export { default as SignUp } from './SignUp/SignUp';
