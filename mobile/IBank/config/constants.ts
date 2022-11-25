@@ -29,5 +29,6 @@ export const constants = {
 
   saving: {
     newImageUrl: 'newImageUrl',
+    newDescription: 'newDescription',
   },
 };

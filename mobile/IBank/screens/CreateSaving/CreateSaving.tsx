@@ -32,10 +32,12 @@ const CreateSaving = () => {
   const [step, setStep] = useState(oneStep || 1);
   const [text, setText] = useState(typeof oldValue === 'string' ? oldValue : 'For ');
   const [imageUrl, setImageUrl] = useState(typeof oldValue === 'string' ? oldValue : '');
+  const [description, setDescription] = useState(typeof oldValue === 'string' ? oldValue : '');
   const [savingPoint, setSavingPoint] = useState(typeof oldValue === 'number' ? oldValue : 0);
 
   const isFirstStep = step === 1;
   const isImageUrl = field === constants.saving.newImageUrl;
+  const isDescription = field === constants.saving.newDescription;
 
   const [createSavingMutate] = useMutation(CREATE_SAVING, { onError: err => console.error('CREATE_SAVING = ', err) });
 
@@ -43,13 +45,15 @@ const CreateSaving = () => {
     (value: string) => {
       if (isImageUrl) {
         setImageUrl(value);
+      } else if (isDescription) {
+        setDescription(value);
       } else if (isFirstStep) {
         return value.length >= 4 && setText(value);
       }
 
       return setSavingPoint(Number(value));
     },
-    [isFirstStep, isImageUrl],
+    [isDescription, isFirstStep, isImageUrl],
   );
 
   const getValueForUpdate = useMemo(() => {
@@ -57,8 +61,12 @@ const CreateSaving = () => {
       return imageUrl;
     }
 
+    if (isDescription) {
+      return description;
+    }
+
     return typeof oldValue === 'string' ? text : savingPoint;
-  }, [imageUrl, isImageUrl, oldValue, savingPoint, text]);
+  }, [description, imageUrl, isDescription, isImageUrl, oldValue, savingPoint, text]);
 
   const onPress = useCallback(() => {
     if (oneStep && isFunction(onCompleted) && field) {
@@ -114,12 +122,20 @@ const CreateSaving = () => {
       return 'Enter image url';
     }
 
+    if (isDescription) {
+      return 'Enter description';
+    }
+
     return isFirstStep ? 'For what do you want to save?' : 'What is the point amount?';
   };
 
   const getValue = () => {
     if (isImageUrl) {
       return imageUrl;
+    }
+
+    if (isDescription) {
+      return description;
     }
 
     return isFirstStep ? text : savingPoint.toString();

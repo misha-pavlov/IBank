@@ -42,7 +42,7 @@ const SavingSettings = () => {
     return <ActivityIndicator />;
   }
 
-  const { name, savingPoint, imageUrl } = data?.getSavingById as TSaving;
+  const { name, savingPoint, imageUrl, description } = data?.getSavingById as TSaving;
 
   return (
     <ScrollableBlackContentWrapper>
@@ -88,7 +88,19 @@ const SavingSettings = () => {
             })
           }
         />
-        <SavingSettingsItem text="Add description" icon={<PenIcon />} onPress={() => console.log('123')} />
+        <SavingSettingsItem
+          text="Add description"
+          icon={<PenIcon />}
+          onPress={() =>
+            navigate(savingsEnum.CreateSaving, {
+              savingId,
+              oneStep: 1,
+              oldValue: description,
+              onCompleted: updateSavingMutate,
+              field: constants.saving.newDescription,
+            })
+          }
+        />
         <SavingSettingsItem
           text="Withdraw part"
           onPress={() => console.log('123')}
