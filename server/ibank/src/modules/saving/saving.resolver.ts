@@ -57,4 +57,12 @@ export class SavingResolver {
   ) {
     return this.savingService.withdrawPart(savingId, to, amount);
   }
+
+  @Mutation(() => Boolean)
+  async breakSaving(
+    @Args('to') to: Types.ObjectId,
+    @Args('savingId') savingId: Types.ObjectId,
+  ) {
+    return this.savingService.breakSaving(savingId, to);
+  }
 }

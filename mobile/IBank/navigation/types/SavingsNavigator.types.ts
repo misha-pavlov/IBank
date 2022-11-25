@@ -15,7 +15,7 @@ export type NSavingsStackParamList = {
   Saving: { savingId: string };
   MoneyOperation: MoneyOperationParams;
   SavingSettings: { savingId: string };
-  SavingCardSelection: { savingId: string };
+  SavingCardSelection: { savingId: string; isBreakSaving?: boolean };
 };
 
 export type NSavingsNavigatorRouteProp<ScreenName extends keyof NSavingsStackParamList> = RouteProp<

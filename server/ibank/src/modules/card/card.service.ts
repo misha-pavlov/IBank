@@ -126,9 +126,9 @@ export class CardService {
         await this.transactionModel.create({
           type: TRANSACTION_TYPE_ENUM.SEND_ON_CARD,
           amount: -amount,
-          cardId: cardFrom._id,
-          userId: cardFromHolder._id,
-          title: cardToHolder.fullName,
+          cardId: cardFrom?._id,
+          userId: cardFromHolder?._id,
+          title: sendOnSaving ? 'From saving' : cardToHolder?.fullName,
           amountOnCardAfter: newAmount,
         });
       }

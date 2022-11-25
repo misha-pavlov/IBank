@@ -68,6 +68,7 @@ type GetCardTransactionsPayload {
 
 type Mutation {
   addToSavedCards(card: CardInput!, userId: ObjectId!): User!
+  breakSaving(savingId: ObjectId!, to: ObjectId!): Boolean!
   createCard(isMasterCard: Boolean!, owner: String!, ownerFullName: String!, pin: String!, type: String!): Card!
   createSaving(name: String!, owner: ObjectId!, savingPoint: Float!): Saving!
   createTransaction(amount: Float!, amountOnCardAfter: Float!, isCanceled: Boolean, title: String!, type: String!, userId: String!): Transaction!

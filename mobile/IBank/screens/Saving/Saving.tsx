@@ -3,7 +3,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { ArrowDownIcon, Avatar, Center, Divider, HStack, View, VStack } from 'native-base';
 import React, { useEffect } from 'react';
 import { ActivityIndicator } from 'react-native';
-import { BottleIcon, HammerIcon, StatisticIcon, TopUpIconV2 } from '../../assets/svg';
+import { BottleIcon, StatisticIcon, TopUpIconV2 } from '../../assets/svg';
 import { BlackContentWrapper, ScrollableBlackContentWrapper, WhiteText } from '../../common/common.styles';
 import { RoundTouchable } from '../../components';
 import { colors } from '../../config/colors';
@@ -124,7 +124,6 @@ const Saving = () => {
                 text="Withdraw part"
                 onPress={() => navigate(savingsEnum.SavingCardSelection, { savingId })}
               />
-              <RoundTouchable withBorder icon={<HammerIcon />} text="Brake saving" onPress={() => console.log('123')} />
             </HStack>
           </Center>
         </VStack>

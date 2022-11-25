@@ -92,4 +92,32 @@ export class SavingService {
 
     return false;
   }
+
+  async breakSaving(
+    savingId: Types.ObjectId,
+    to: Types.ObjectId,
+  ): Promise<boolean> {
+    const saving = await this.savingModel.findById(savingId);
+    const card = await this.cardModel.findById(to);
+
+    const newAmountCard = card.amount + saving.saved;
+
+    await Promise.all([
+      this.savingModel.findByIdAndUpdate(savingId, {
+        saved: 0,
+        deleted: true,
+      }),
+      this.cardModel.findByIdAndUpdate(to, { amount: newAmountCard }),
+      this.transactionModel.create({
+        type: TRANSACTION_TYPE_ENUM.MONEY_SEND,
+        amount: saving.saved,
+        cardId: to,
+        userId: card.owner,
+        title: `From saving: ${saving.name}`,
+        amountOnCardAfter: newAmountCard,
+      }),
+    ]);
+
+    return false;
+  }
 }

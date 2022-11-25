@@ -113,9 +113,9 @@ const SavingSettings = () => {
         />
         <SavingSettingsItem
           withRedBackground
-          text="Brake saving"
+          text="Breake saving"
           icon={<HammerIcon />}
-          onPress={() => navigate(savingsEnum.SavingCardSelection, { savingId })}
+          onPress={() => navigate(savingsEnum.SavingCardSelection, { savingId, isBreakSaving: true })}
         />
       </VStack>
     </ScrollableBlackContentWrapper>
