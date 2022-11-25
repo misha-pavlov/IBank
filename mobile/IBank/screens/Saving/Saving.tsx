@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { ArrowDownIcon, Center, Divider, HStack, View, VStack } from 'native-base';
+import { ArrowDownIcon, Avatar, Center, Divider, HStack, View, VStack } from 'native-base';
 import React, { useEffect } from 'react';
 import { ActivityIndicator } from 'react-native';
 import { BottleIcon, HammerIcon, StatisticIcon, TopUpIconV2 } from '../../assets/svg';
@@ -33,7 +33,7 @@ const Saving = () => {
     return <ActivityIndicator />;
   }
 
-  const { name, saved, savingPoint } = data?.getSavingById as TSaving;
+  const { name, saved, savingPoint, imageUrl } = data?.getSavingById as TSaving;
 
   const calculateHeightAccordingSaved = () => {
     if (saved === 0) {
@@ -52,9 +52,15 @@ const Saving = () => {
       <Center>
         <VStack space={2}>
           <Center>
-            <View backgroundColor={colors.pink1} p="16px" borderRadius={50}>
+            <Avatar
+              bg={colors.pink1}
+              w="56px"
+              h="56px"
+              source={{
+                uri: imageUrl,
+              }}>
               <BottleIcon />
-            </View>
+            </Avatar>
           </Center>
 
           <WhiteText textAlign="center" fontSize={16}>

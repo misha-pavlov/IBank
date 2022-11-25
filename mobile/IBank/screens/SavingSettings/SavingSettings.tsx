@@ -10,6 +10,7 @@ import { ScrollableBlackContentWrapper } from '../../common/common.styles';
 // constants
 import { colors } from '../../config/colors';
 import { savingsEnum } from '../../config/screens';
+import { constants } from '../../config/constants';
 // gql
 import { GET_SAVING_BY_ID } from '../../gql/saving.queries';
 import { UPDATE_SAVING } from './SavingSettings.queries';
@@ -41,7 +42,7 @@ const SavingSettings = () => {
     return <ActivityIndicator />;
   }
 
-  const { name, savingPoint } = data?.getSavingById as TSaving;
+  const { name, savingPoint, imageUrl } = data?.getSavingById as TSaving;
 
   return (
     <ScrollableBlackContentWrapper>
@@ -74,7 +75,19 @@ const SavingSettings = () => {
             })
           }
         />
-        <SavingSettingsItem text="Add image" icon={<CameraIcon />} onPress={() => console.log('123')} />
+        <SavingSettingsItem
+          text="Add image"
+          icon={<CameraIcon />}
+          onPress={() =>
+            navigate(savingsEnum.CreateSaving, {
+              savingId,
+              oneStep: 1,
+              oldValue: imageUrl,
+              onCompleted: updateSavingMutate,
+              field: constants.saving.newImageUrl,
+            })
+          }
+        />
         <SavingSettingsItem text="Add description" icon={<PenIcon />} onPress={() => console.log('123')} />
         <SavingSettingsItem
           text="Withdraw part"

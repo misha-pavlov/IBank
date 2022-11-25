@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { useNavigation } from '@react-navigation/native';
 import { FlashList } from '@shopify/flash-list';
-import { Center, HStack, Progress, Text, View, VStack } from 'native-base';
+import { Avatar, Center, HStack, Progress, Text, View, VStack } from 'native-base';
 import React, { useCallback, useEffect } from 'react';
 import { ActivityIndicator, TouchableOpacity, useWindowDimensions } from 'react-native';
 // svg
@@ -41,14 +41,20 @@ const Savings = () => {
 
   const renderItem = useCallback(
     ({ item }: { item: TSaving }) => {
-      const { name, savingPoint, saved, _id } = item;
+      const { name, savingPoint, saved, _id, imageUrl } = item;
 
       return (
         <TouchableOpacity onPress={() => navigate(savingsEnum.Saving, { savingId: _id })}>
           <HStack space={4} alignItems="center" mb="10px">
-            <View backgroundColor={colors.aqua} padding="8px" borderRadius={50}>
+            <Avatar
+              bg={colors.aqua}
+              w="40px"
+              h="40px"
+              source={{
+                uri: imageUrl,
+              }}>
               <BottleIcon />
-            </View>
+            </Avatar>
 
             {/* 32 - padding wrapper, 40 - icon size, 16 - space */}
             <VStack space={1} w={width - 32 - 40 - 16}>

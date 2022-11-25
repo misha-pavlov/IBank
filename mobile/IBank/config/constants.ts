@@ -26,4 +26,8 @@ export const constants = {
       { type: CardType.PLATINUM, rank: 3 },
     ],
   },
+
+  saving: {
+    newImageUrl: 'newImageUrl',
+  },
 };

@@ -2,11 +2,12 @@ import { useMutation } from '@apollo/client';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { isEqual, isFunction } from 'lodash';
 import { Center, Input, KeyboardAvoidingView, ScrollView, Text, View, VStack } from 'native-base';
-import React, { memo, useCallback, useState } from 'react';
+import React, { memo, useCallback, useMemo, useState } from 'react';
 import { BottleIcon } from '../../assets/svg';
 import { BlackContentWrapper, commonStyles } from '../../common/common.styles';
 import { IBankBlackButton } from '../../components';
 import { colors } from '../../config/colors';
+import { constants } from '../../config/constants';
 import { getKeyboardVerticalOffset, isIOS } from '../../config/platform';
 import { GET_SAVINGS_FOR_USER, GET_SAVING_BY_ID, GET_USER_SAVINGS_SAVED_SUM } from '../../gql/saving.queries';
 import { useCurrentUser } from '../../hooks';
@@ -30,29 +31,41 @@ const CreateSaving = () => {
 
   const [step, setStep] = useState(oneStep || 1);
   const [text, setText] = useState(typeof oldValue === 'string' ? oldValue : 'For ');
+  const [imageUrl, setImageUrl] = useState(typeof oldValue === 'string' ? oldValue : '');
   const [savingPoint, setSavingPoint] = useState(typeof oldValue === 'number' ? oldValue : 0);
 
   const isFirstStep = step === 1;
+  const isImageUrl = field === constants.saving.newImageUrl;
 
   const [createSavingMutate] = useMutation(CREATE_SAVING, { onError: err => console.error('CREATE_SAVING = ', err) });
 
   const onChangeText = useCallback(
     (value: string) => {
-      if (isFirstStep) {
+      if (isImageUrl) {
+        setImageUrl(value);
+      } else if (isFirstStep) {
         return value.length >= 4 && setText(value);
       }
 
       return setSavingPoint(Number(value));
     },
-    [isFirstStep],
+    [isFirstStep, isImageUrl],
   );
+
+  const getValueForUpdate = useMemo(() => {
+    if (isImageUrl) {
+      return imageUrl;
+    }
+
+    return typeof oldValue === 'string' ? text : savingPoint;
+  }, [imageUrl, isImageUrl, oldValue, savingPoint, text]);
 
   const onPress = useCallback(() => {
     if (oneStep && isFunction(onCompleted) && field) {
       onCompleted({
         variables: {
           savingId,
-          ...getUpdateAdditionalVariables(field, typeof oldValue === 'string' ? text : savingPoint),
+          ...getUpdateAdditionalVariables(field, getValueForUpdate),
         },
         onCompleted: goBack,
         awaitRefetchQueries: true,
@@ -77,9 +90,9 @@ const CreateSaving = () => {
   }, [
     createSavingMutate,
     field,
+    getValueForUpdate,
     goBack,
     isFirstStep,
-    oldValue,
     onCompleted,
     oneStep,
     savingId,
@@ -96,27 +109,55 @@ const CreateSaving = () => {
     return isFirstStep ? 'Next' : 'Create';
   };
 
+  const getUnderText = () => {
+    if (isImageUrl) {
+      return 'Enter image url';
+    }
+
+    return isFirstStep ? 'For what do you want to save?' : 'What is the point amount?';
+  };
+
+  const getValue = () => {
+    if (isImageUrl) {
+      return imageUrl;
+    }
+
+    return isFirstStep ? text : savingPoint.toString();
+  };
+
   return (
     <BlackContentWrapper>
       <ScrollView>
         <VStack space={6}>
-          <Center position="relative">
-            <View
-              w={200}
-              h={200}
-              borderRadius={35}
-              position="absolute"
-              style={rotateStyle}
-              backgroundColor={colors.pink1}
-            />
+          {isImageUrl ? (
+            <Center>
+              <View
+                w={150}
+                h={150}
+                borderRadius={100}
+                alignItems="center"
+                justifyContent="center"
+                backgroundColor={colors.pink1}>
+                <BottleIcon width={50} height={50} />
+              </View>
+            </Center>
+          ) : (
+            <Center position="relative">
+              <View
+                w={200}
+                h={200}
+                borderRadius={35}
+                position="absolute"
+                style={rotateStyle}
+                backgroundColor={colors.pink1}
+              />
 
-            <BottleIcon width={225} height={225} />
-          </Center>
+              <BottleIcon width={225} height={225} />
+            </Center>
+          )}
 
           <Center>
-            <Text color={colors.gray500}>
-              {isFirstStep ? 'For what do you want to save?' : 'What is the point amount?'}
-            </Text>
+            <Text color={colors.gray500}>{getUnderText()}</Text>
           </Center>
 
           <Input
@@ -129,7 +170,7 @@ const CreateSaving = () => {
             onChangeText={onChangeText}
             keyboardType={isFirstStep ? 'default' : 'numeric'}
             // TODO: add format
-            value={isFirstStep ? text : savingPoint.toString()}
+            value={getValue()}
             _focus={{ backgroundColor: colors.black, borderColor: colors.black }}
           />
         </VStack>
