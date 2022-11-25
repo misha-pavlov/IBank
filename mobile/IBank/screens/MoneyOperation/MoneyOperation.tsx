@@ -104,7 +104,12 @@ const MoneyOperation = () => {
 
   const onSend = () => {
     if (isOnUpdateFunc && getVariables) {
-      onUpdate({ variables: getVariables(amount), onCompleted });
+      onUpdate({
+        onCompleted,
+        awaitRefetchQueries: true,
+        variables: getVariables(amount),
+        refetchQueries: [...refetchGetCardTransactions()],
+      });
     } else {
       moneySendMutate({
         variables: {

@@ -77,6 +77,7 @@ type Mutation {
   signUp(birthday: DateTime!, fullName: String!, phone: String!, pin: String!, sex: String!): SignUpPayload!
   updateCard(cardId: ObjectId, newCreditLimit: Float, newExpired: DateTime, newInternetLimit: Float, newIsBlocked: Boolean, newPayByPartsLimit: Float, newPin: String, newType: String): Card!
   updateSaving(newDescription: String, newImageUrl: String, newName: String, newSavingPoint: Float, savingId: ObjectId!): Saving!
+  withdrawPart(amount: Float!, savingId: ObjectId!, to: ObjectId!): Boolean!
 }
 
 """Mongo object id scalar type"""

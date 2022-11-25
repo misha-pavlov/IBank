@@ -48,4 +48,13 @@ export class SavingResolver {
       newDescription,
     );
   }
+
+  @Mutation(() => Boolean)
+  async withdrawPart(
+    @Args('to') to: Types.ObjectId,
+    @Args('amount') amount: number,
+    @Args('savingId') savingId: Types.ObjectId,
+  ) {
+    return this.savingService.withdrawPart(savingId, to, amount);
+  }
 }

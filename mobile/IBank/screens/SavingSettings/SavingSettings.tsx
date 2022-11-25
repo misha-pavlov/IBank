@@ -6,7 +6,7 @@ import { ActivityIndicator } from 'react-native';
 // svg
 import { BottleIcon, CameraIcon, HammerIcon, PenIcon, PointIcon } from '../../assets/svg';
 // styles
-import { ScrollableBlackContentWrapper } from '../../common/common.styles';
+import { BlackContentWrapper, ScrollableBlackContentWrapper } from '../../common/common.styles';
 // constants
 import { colors } from '../../config/colors';
 import { savingsEnum } from '../../config/screens';
@@ -26,7 +26,8 @@ import { TSaving } from '../../types/saving';
 import SavingSettingsItem from './components/SavingSettingsItem';
 
 const SavingSettings = () => {
-  const { setOptions, navigate } = useNavigation<NSavingsNavigatorNavigationProp<'CreateSaving'>>();
+  const { setOptions, navigate } =
+    useNavigation<NSavingsNavigatorNavigationProp<'CreateSaving' | 'SavingCardSelection'>>();
   const { params } = useRoute<NSavingsNavigatorRouteProp<'SavingSettings'>>();
   const { savingId } = params;
 
@@ -39,7 +40,11 @@ const SavingSettings = () => {
   const { data, loading } = useQuery(GET_SAVING_BY_ID, { variables: { savingId } });
 
   if (loading || !data?.getSavingById) {
-    return <ActivityIndicator />;
+    return (
+      <BlackContentWrapper>
+        <ActivityIndicator />
+      </BlackContentWrapper>
+    );
   }
 
   const { name, savingPoint, imageUrl, description } = data?.getSavingById as TSaving;
@@ -103,14 +108,14 @@ const SavingSettings = () => {
         />
         <SavingSettingsItem
           text="Withdraw part"
-          onPress={() => console.log('123')}
+          onPress={() => navigate(savingsEnum.SavingCardSelection, { savingId })}
           icon={<ArrowDownIcon size={6} color={colors.gray100} />}
         />
         <SavingSettingsItem
           withRedBackground
           text="Brake saving"
           icon={<HammerIcon />}
-          onPress={() => console.log('123')}
+          onPress={() => navigate(savingsEnum.SavingCardSelection, { savingId })}
         />
       </VStack>
     </ScrollableBlackContentWrapper>

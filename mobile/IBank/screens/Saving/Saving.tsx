@@ -4,7 +4,7 @@ import { ArrowDownIcon, Avatar, Center, Divider, HStack, View, VStack } from 'na
 import React, { useEffect } from 'react';
 import { ActivityIndicator } from 'react-native';
 import { BottleIcon, HammerIcon, StatisticIcon, TopUpIconV2 } from '../../assets/svg';
-import { ScrollableBlackContentWrapper, WhiteText } from '../../common/common.styles';
+import { BlackContentWrapper, ScrollableBlackContentWrapper, WhiteText } from '../../common/common.styles';
 import { RoundTouchable } from '../../components';
 import { colors } from '../../config/colors';
 import { cardEnum, savingsEnum } from '../../config/screens';
@@ -30,7 +30,11 @@ const Saving = () => {
   const { data, loading } = useQuery(GET_SAVING_BY_ID, { variables: { savingId } });
 
   if (loading || !data?.getSavingById) {
-    return <ActivityIndicator />;
+    return (
+      <BlackContentWrapper>
+        <ActivityIndicator />
+      </BlackContentWrapper>
+    );
   }
 
   const { name, saved, savingPoint, imageUrl } = data?.getSavingById as TSaving;
@@ -118,7 +122,7 @@ const Saving = () => {
                 withBorder
                 icon={<ArrowDownIcon size={6} color={colors.gray100} />}
                 text="Withdraw part"
-                onPress={() => console.log('123')}
+                onPress={() => navigate(savingsEnum.SavingCardSelection, { savingId })}
               />
               <RoundTouchable withBorder icon={<HammerIcon />} text="Brake saving" onPress={() => console.log('123')} />
             </HStack>

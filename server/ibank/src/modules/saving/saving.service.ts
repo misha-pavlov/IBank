@@ -2,11 +2,21 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Types } from 'mongoose';
 
+import { Card, CardModel } from '../card/card.schema';
+import {
+  Transaction,
+  TransactionModel,
+  TRANSACTION_TYPE_ENUM,
+} from '../transaction/transaction.schema';
 import { Saving, SavingModel } from './saving.schema';
 
 @Injectable()
 export class SavingService {
-  constructor(@InjectModel(Saving.name) private savingModel: SavingModel) {}
+  constructor(
+    @InjectModel(Card.name) private cardModel: CardModel,
+    @InjectModel(Saving.name) private savingModel: SavingModel,
+    @InjectModel(Transaction.name) private transactionModel: TransactionModel,
+  ) {}
 
   async createSaving(
     name: string,
@@ -52,5 +62,34 @@ export class SavingService {
       savingPoint: newSavingPoint,
       description: newDescription,
     });
+  }
+
+  async withdrawPart(
+    savingId: Types.ObjectId,
+    to: Types.ObjectId,
+    amount: number,
+  ): Promise<boolean> {
+    const saving = await this.savingModel.findById(savingId);
+    const card = await this.cardModel.findById(to);
+
+    const newAmountCard = card.amount + amount;
+    const newAmountSaving = saving.saved - amount;
+
+    await Promise.all([
+      this.savingModel.findByIdAndUpdate(savingId, {
+        saved: newAmountSaving,
+      }),
+      this.cardModel.findByIdAndUpdate(to, { amount: newAmountCard }),
+      this.transactionModel.create({
+        type: TRANSACTION_TYPE_ENUM.MONEY_SEND,
+        amount: amount,
+        cardId: to,
+        userId: card.owner,
+        title: `From saving: ${saving.name}`,
+        amountOnCardAfter: newAmountCard,
+      }),
+    ]);
+
+    return false;
   }
 }

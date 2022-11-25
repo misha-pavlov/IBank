@@ -3,17 +3,25 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { isEqual, isFunction } from 'lodash';
 import { Center, Input, KeyboardAvoidingView, ScrollView, Text, View, VStack } from 'native-base';
 import React, { memo, useCallback, useMemo, useState } from 'react';
+// svg
 import { BottleIcon } from '../../assets/svg';
+// styles
 import { BlackContentWrapper, commonStyles } from '../../common/common.styles';
+// components
 import { IBankBlackButton } from '../../components';
+// constants
 import { colors } from '../../config/colors';
 import { constants } from '../../config/constants';
+// helpers
 import { getKeyboardVerticalOffset, isIOS } from '../../config/platform';
-import { GET_SAVINGS_FOR_USER, GET_SAVING_BY_ID, GET_USER_SAVINGS_SAVED_SUM } from '../../gql/saving.queries';
-import { useCurrentUser } from '../../hooks';
-import { NSavingsNavigatorRouteProp } from '../../navigation/types/SavingsNavigator.types';
 import { getUpdateAdditionalVariables } from './CreateSaving.helpers';
+// gql
+import { GET_SAVINGS_FOR_USER, GET_SAVING_BY_ID, GET_USER_SAVINGS_SAVED_SUM } from '../../gql/saving.queries';
 import { CREATE_SAVING } from './CreateSaving.mutations';
+// hooks
+import { useCurrentUser } from '../../hooks';
+// types
+import { NSavingsNavigatorRouteProp } from '../../navigation/types/SavingsNavigator.types';
 
 const keyboardVerticalOffset = getKeyboardVerticalOffset();
 const rotateStyle = { transform: [{ rotate: '75deg' }] };
