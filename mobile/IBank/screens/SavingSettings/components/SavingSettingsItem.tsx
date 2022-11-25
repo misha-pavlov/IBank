@@ -9,11 +9,12 @@ type TSavingSettingsItem = {
   icon: JSX.Element;
   additionalText?: string;
   withRedBackground?: boolean;
+  onPress: () => void;
 };
 
-const SavingSettingsItem: FC<TSavingSettingsItem> = ({ icon, text, additionalText, withRedBackground }) => {
+const SavingSettingsItem: FC<TSavingSettingsItem> = ({ icon, text, additionalText, withRedBackground, onPress }) => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={onPress}>
       <HStack space={4} alignItems="center">
         <View
           p="8px"

@@ -38,4 +38,19 @@ export class SavingService {
   async getSavingById(savingId: Types.ObjectId): Promise<Saving> {
     return this.savingModel.findById(savingId);
   }
+
+  async updateSaving(
+    savingId: Types.ObjectId,
+    newName?: string,
+    newImageUrl?: string,
+    newSavingPoint?: number,
+    newDescription?: string,
+  ): Promise<Saving> {
+    return this.savingModel.findByIdAndUpdate(savingId, {
+      name: newName,
+      imageUrl: newImageUrl,
+      savingPoint: newSavingPoint,
+      description: newDescription,
+    });
+  }
 }

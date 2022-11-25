@@ -5,7 +5,12 @@ import { MoneyOperationParams } from '../../screens/MoneyOperation/MoneyOperatio
 export type NSavingsStackParamList = {
   TopUp: { sendOnSaving?: string };
   Savings: undefined;
-  CreateSaving: undefined;
+  CreateSaving?: {
+    oneStep: number;
+    savingId: string;
+    oldValue: string;
+    onCompleted: () => void;
+  };
   Saving: { savingId: string };
   MoneyOperation: MoneyOperationParams;
   SavingSettings: { savingId: string };

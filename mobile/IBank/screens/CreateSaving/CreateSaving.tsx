@@ -1,5 +1,6 @@
 import { useMutation } from '@apollo/client';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { isFunction } from 'lodash';
 import { Center, Input, KeyboardAvoidingView, ScrollView, Text, View, VStack } from 'native-base';
 import React, { useCallback, useState } from 'react';
 import { BottleIcon } from '../../assets/svg';
@@ -7,8 +8,9 @@ import { BlackContentWrapper, commonStyles } from '../../common/common.styles';
 import { IBankBlackButton } from '../../components';
 import { colors } from '../../config/colors';
 import { getKeyboardVerticalOffset, isIOS } from '../../config/platform';
-import { GET_SAVINGS_FOR_USER } from '../../gql/saving.queries';
+import { GET_SAVINGS_FOR_USER, GET_SAVING_BY_ID, GET_USER_SAVINGS_SAVED_SUM } from '../../gql/saving.queries';
 import { useCurrentUser } from '../../hooks';
+import { NSavingsNavigatorRouteProp } from '../../navigation/types/SavingsNavigator.types';
 import { CREATE_SAVING } from './CreateSaving.mutations';
 
 const keyboardVerticalOffset = getKeyboardVerticalOffset();
@@ -17,9 +19,14 @@ const rotateStyle = { transform: [{ rotate: '75deg' }] };
 const CreateSaving = () => {
   const { user } = useCurrentUser();
   const { goBack } = useNavigation();
+  const { params } = useRoute<NSavingsNavigatorRouteProp<'CreateSaving'>>();
+  const oneStep = params?.oneStep;
+  const oldValue = params?.oldValue;
+  const savingId = params?.savingId;
+  const onCompleted = params?.onCompleted;
 
-  const [step, setStep] = useState(1);
-  const [text, setText] = useState('For ');
+  const [step, setStep] = useState(oneStep || 1);
+  const [text, setText] = useState(typeof oldValue === 'string' ? oldValue : 'For ');
   const [savingPoint, setSavingPoint] = useState(0);
 
   const isFirstStep = step === 1;
@@ -38,17 +45,38 @@ const CreateSaving = () => {
   );
 
   const onPress = useCallback(() => {
-    if (isFirstStep) {
-      setStep(2);
-    } else {
-      createSavingMutate({
-        variables: { name: text, savingPoint, owner: user?._id },
+    if (oneStep && isFunction(onCompleted)) {
+      onCompleted({
+        variables: { savingId, newName: text },
         onCompleted: goBack,
         awaitRefetchQueries: true,
-        refetchQueries: [{ query: GET_SAVINGS_FOR_USER, variables: { owner: user?._id } }],
+        refetchQueries: [
+          { query: GET_SAVING_BY_ID, variables: { savingId } },
+          { query: GET_SAVINGS_FOR_USER, variables: { owner: user?._id } },
+          { query: GET_USER_SAVINGS_SAVED_SUM, variables: { owner: user?._id }, skip: !user?._id },
+        ],
       });
+    } else {
+      if (isFirstStep) {
+        setStep(2);
+      } else {
+        createSavingMutate({
+          variables: { name: text, savingPoint, owner: user?._id },
+          onCompleted: goBack,
+          awaitRefetchQueries: true,
+          refetchQueries: [{ query: GET_SAVINGS_FOR_USER, variables: { owner: user?._id } }],
+        });
+      }
     }
-  }, [createSavingMutate, goBack, isFirstStep, savingPoint, text, user?._id]);
+  }, [createSavingMutate, goBack, isFirstStep, onCompleted, oneStep, savingId, savingPoint, text, user?._id]);
+
+  const getText = () => {
+    if (oneStep) {
+      return 'Update';
+    }
+
+    return isFirstStep ? 'Next' : 'Create';
+  };
 
   return (
     <BlackContentWrapper>
@@ -96,7 +124,7 @@ const CreateSaving = () => {
         <IBankBlackButton
           isRed
           onPress={onPress}
-          text={isFirstStep ? 'Next' : 'Create'}
+          text={getText()}
           disabled={isFirstStep ? text.length === 4 : savingPoint === 0}
         />
       </KeyboardAvoidingView>

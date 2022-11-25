@@ -31,4 +31,21 @@ export class SavingResolver {
   ) {
     return this.savingService.createSaving(name, savingPoint, owner);
   }
+
+  @Mutation(() => Saving)
+  async updateSaving(
+    @Args('savingId') savingId: Types.ObjectId,
+    @Args('newName', { nullable: true }) newName?: string,
+    @Args('newImageUrl', { nullable: true }) newImageUrl?: string,
+    @Args('newSavingPoint', { nullable: true }) newSavingPoint?: number,
+    @Args('newDescription', { nullable: true }) newDescription?: string,
+  ) {
+    return this.savingService.updateSaving(
+      savingId,
+      newName,
+      newImageUrl,
+      newSavingPoint,
+      newDescription,
+    );
+  }
 }

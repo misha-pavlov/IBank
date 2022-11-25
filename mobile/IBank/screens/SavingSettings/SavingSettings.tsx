@@ -1,25 +1,39 @@
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { ArrowDownIcon, VStack } from 'native-base';
 import React, { useEffect } from 'react';
 import { ActivityIndicator } from 'react-native';
+// svg
 import { BottleIcon, CameraIcon, HammerIcon, PenIcon, PointIcon } from '../../assets/svg';
+// styles
 import { ScrollableBlackContentWrapper } from '../../common/common.styles';
+// constants
 import { colors } from '../../config/colors';
+import { savingsEnum } from '../../config/screens';
+// gql
 import { GET_SAVING_BY_ID } from '../../gql/saving.queries';
+import { UPDATE_SAVING } from './SavingSettings.queries';
+// helpers
 import { getFormattedAmount } from '../../helpers/generalHelpers';
-import { NSavingsNavigatorRouteProp } from '../../navigation/types/SavingsNavigator.types';
+// types
+import {
+  NSavingsNavigatorNavigationProp,
+  NSavingsNavigatorRouteProp,
+} from '../../navigation/types/SavingsNavigator.types';
 import { TSaving } from '../../types/saving';
+// components
 import SavingSettingsItem from './components/SavingSettingsItem';
 
 const SavingSettings = () => {
-  const { setOptions } = useNavigation();
+  const { setOptions, navigate } = useNavigation<NSavingsNavigatorNavigationProp<'CreateSaving'>>();
   const { params } = useRoute<NSavingsNavigatorRouteProp<'SavingSettings'>>();
   const { savingId } = params;
 
   useEffect(() => {
     setOptions({ headerTitle: 'Saving settings' });
   }, [setOptions]);
+
+  const [updateSavingMutate] = useMutation(UPDATE_SAVING, { onError: err => console.error('UPDATE_SAVING = ', err) });
 
   const { data, loading } = useQuery(GET_SAVING_BY_ID, { variables: { savingId } });
 
@@ -32,16 +46,38 @@ const SavingSettings = () => {
   return (
     <ScrollableBlackContentWrapper>
       <VStack space={6}>
-        <SavingSettingsItem text="Change saving name" icon={<BottleIcon />} additionalText={name} />
         <SavingSettingsItem
-          text="Change saving point"
+          icon={<BottleIcon />}
+          additionalText={name}
+          text="Change saving name"
+          onPress={() =>
+            navigate(savingsEnum.CreateSaving, {
+              savingId,
+              oneStep: 1,
+              oldValue: name,
+              onCompleted: updateSavingMutate,
+            })
+          }
+        />
+        <SavingSettingsItem
           icon={<PointIcon />}
+          text="Change saving point"
+          onPress={() => console.log('123')}
           additionalText={`${getFormattedAmount(savingPoint)} $`}
         />
-        <SavingSettingsItem text="Add image" icon={<CameraIcon />} />
-        <SavingSettingsItem text="Add description" icon={<PenIcon />} />
-        <SavingSettingsItem text="Withdraw part" icon={<ArrowDownIcon size={6} color={colors.gray100} />} />
-        <SavingSettingsItem text="Brake saving" icon={<HammerIcon />} withRedBackground />
+        <SavingSettingsItem text="Add image" icon={<CameraIcon />} onPress={() => console.log('123')} />
+        <SavingSettingsItem text="Add description" icon={<PenIcon />} onPress={() => console.log('123')} />
+        <SavingSettingsItem
+          text="Withdraw part"
+          onPress={() => console.log('123')}
+          icon={<ArrowDownIcon size={6} color={colors.gray100} />}
+        />
+        <SavingSettingsItem
+          withRedBackground
+          text="Brake saving"
+          icon={<HammerIcon />}
+          onPress={() => console.log('123')}
+        />
       </VStack>
     </ScrollableBlackContentWrapper>
   );
