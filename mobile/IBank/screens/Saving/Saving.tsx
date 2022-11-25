@@ -7,15 +7,19 @@ import { BottleIcon, HammerIcon, StatisticIcon, TopUpIconV2 } from '../../assets
 import { ScrollableBlackContentWrapper, WhiteText } from '../../common/common.styles';
 import { RoundTouchable } from '../../components';
 import { colors } from '../../config/colors';
+import { cardEnum } from '../../config/screens';
+import { GET_SAVING_BY_ID } from '../../gql/saving.queries';
 import { getFormattedAmount } from '../../helpers/generalHelpers';
-import { NSavingsNavigatorRouteProp } from '../../navigation/types/SavingsNavigator.types';
+import {
+  NSavingsNavigatorNavigationProp,
+  NSavingsNavigatorRouteProp,
+} from '../../navigation/types/SavingsNavigator.types';
 import { TSaving } from '../../types/saving';
-import { GET_SAVING_BY_ID } from './Saving.queries';
 
 const rotateStyle = { transform: [{ rotate: '75deg' }] };
 
 const Saving = () => {
-  const { setOptions } = useNavigation();
+  const { setOptions, navigate } = useNavigation<NSavingsNavigatorNavigationProp<'TopUp'>>();
   const { params } = useRoute<NSavingsNavigatorRouteProp<'Saving'>>();
   const { savingId } = params;
 
@@ -91,7 +95,12 @@ const Saving = () => {
         <VStack mt={45} space={6}>
           <Center px="16px">
             <HStack justifyContent="space-around" w="100%">
-              <RoundTouchable withBorder icon={<TopUpIconV2 />} text="Top up" onPress={() => console.log('123')} />
+              <RoundTouchable
+                withBorder
+                text="Top up"
+                icon={<TopUpIconV2 />}
+                onPress={() => navigate(cardEnum.TopUp, { sendOnSaving: savingId })}
+              />
               <RoundTouchable withBorder icon={<BottleIcon />} text="Settings" onPress={() => console.log('123')} />
               <RoundTouchable withBorder icon={<StatisticIcon />} text="Statistic" onPress={() => console.log('123')} />
               <RoundTouchable

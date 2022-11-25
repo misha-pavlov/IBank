@@ -3,9 +3,10 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { MoneyOperationParams } from '../../screens/MoneyOperation/MoneyOperation.types';
 
 export type NSavingsStackParamList = {
-  Saving: { savingId: string };
+  TopUp: { sendOnSaving?: string };
   Savings: undefined;
   CreateSaving: undefined;
+  Saving: { savingId: string };
   MoneyOperation: MoneyOperationParams;
 };
 

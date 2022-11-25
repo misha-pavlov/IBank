@@ -64,8 +64,16 @@ export class CardResolver {
     @Args('from', { nullable: true }) from?: Types.ObjectId,
     @Args('sendOnNumber', { nullable: true }) sendOnNumber?: string,
     @Args('type', { nullable: true }) type?: TRANSACTION_TYPE_ENUM,
+    @Args('sendOnSaving', { nullable: true }) sendOnSaving?: Types.ObjectId,
   ) {
-    return this.cardService.moneySend(amount, to, from, sendOnNumber, type);
+    return this.cardService.moneySend(
+      amount,
+      to,
+      from,
+      sendOnNumber,
+      type,
+      sendOnSaving,
+    );
   }
 
   @Mutation(() => Card)

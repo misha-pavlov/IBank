@@ -19,6 +19,7 @@ import { getFormattedAmount } from '../../helpers/generalHelpers';
 import { GET_CARD_BY_ID, GET_USER_CARDS } from '../../gql/card.queries';
 import { MONEY_SEND } from './MoneyOperation.mutations';
 import { GET_CARD_TRANSACTIONS } from '../Card/screens/Amount/Amount.queries';
+import { GET_SAVINGS_FOR_USER, GET_SAVING_BY_ID, GET_USER_SAVINGS_SAVED_SUM } from '../../gql/saving.queries';
 // hooks
 import { useCurrentCard, useCurrentUser } from '../../hooks';
 // types
@@ -46,6 +47,7 @@ const MoneyOperation = () => {
     headerTitle,
     sendOnNumber,
     getVariables,
+    sendOnSaving,
     isFromMagicCard,
   } = params;
 
@@ -91,6 +93,12 @@ const MoneyOperation = () => {
       array.push({ query: GET_CARD_TRANSACTIONS, variables: { cardId: from?._id, searchTerm: '' } });
     }
 
+    if (sendOnSaving) {
+      array.push({ query: GET_SAVING_BY_ID, variables: { savingId: sendOnSaving } });
+      array.push({ query: GET_SAVINGS_FOR_USER, variables: { owner: user?._id }, skip: !user?._id });
+      array.push({ query: GET_USER_SAVINGS_SAVED_SUM, variables: { owner: user?._id }, skip: !user?._id });
+    }
+
     return array;
   };
 
@@ -99,7 +107,14 @@ const MoneyOperation = () => {
       onUpdate({ variables: getVariables(amount), onCompleted });
     } else {
       moneySendMutate({
-        variables: { amount, to: to?._id, ...(!isFromMagicCard && { from: from?._id }), sendOnNumber, type },
+        variables: {
+          amount,
+          type,
+          sendOnNumber,
+          sendOnSaving,
+          ...(!isFromMagicCard && { from: from?._id }),
+          ...(!sendOnSaving && { to: to?._id }),
+        },
         refetchQueries: [
           { query: GET_CARD_BY_ID, variables: { _id: currentCard._id } },
           { query: GET_USER_CARDS, variables: { owner: user?._id, excludeIds: [currentCard._id] } },

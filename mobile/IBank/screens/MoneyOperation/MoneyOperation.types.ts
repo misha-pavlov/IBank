@@ -7,8 +7,9 @@ export type MoneyOperationParams = {
   from?: TCard;
   maxAmount?: number;
   startValue?: number;
-  sendOnNumber?: string;
   headerTitle?: string;
+  sendOnNumber?: string;
+  sendOnSaving?: string;
   isFromMagicCard?: boolean;
   type?: TRANSACTION_TYPE_ENUM;
   onUpdate?: () => void;

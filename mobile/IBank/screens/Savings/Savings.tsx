@@ -19,8 +19,7 @@ import { useCurrentUser } from '../../hooks';
 import { NSavingsNavigatorNavigationProp } from '../../navigation/types/SavingsNavigator.types';
 import { TSaving } from '../../types/saving';
 // gql
-import { GET_SAVINGS_FOR_USER } from '../../gql/saving.queries';
-import { GET_USER_SAVINGS_SAVED_SUM } from './Savngs.queries';
+import { GET_SAVINGS_FOR_USER, GET_USER_SAVINGS_SAVED_SUM } from '../../gql/saving.queries';
 
 const Savings = () => {
   const { setOptions, navigate } = useNavigation<NSavingsNavigatorNavigationProp<'CreateSaving' | 'Saving'>>();

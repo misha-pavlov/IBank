@@ -9,3 +9,18 @@ export const GET_SAVINGS_FOR_USER = gql`
   }
   ${SAVING_FRAGMENT}
 `;
+
+export const GET_SAVING_BY_ID = gql`
+  query getSavingById($savingId: ObjectId!) {
+    getSavingById(savingId: $savingId) {
+      ...SavingFragment
+    }
+  }
+  ${SAVING_FRAGMENT}
+`;
+
+export const GET_USER_SAVINGS_SAVED_SUM = gql`
+  query getUserSavingsSavedSum($owner: ObjectId!) {
+    getUserSavingsSavedSum(owner: $owner)
+  }
+`;

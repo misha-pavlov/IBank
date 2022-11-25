@@ -9,6 +9,7 @@ import {
   TRANSACTION_TYPE_ENUM,
 } from '../transaction/transaction.schema';
 import { User, UserModel } from '../user/user.schema';
+import { Saving, SavingModel } from './../saving/saving.schema';
 import { Card, CardModel, CARD_TYPE_ENUM } from './card.schema';
 
 @Injectable()
@@ -16,6 +17,7 @@ export class CardService {
   constructor(
     @InjectModel(Card.name) private cardModel: CardModel,
     @InjectModel(User.name) private userModel: UserModel,
+    @InjectModel(Saving.name) private savingModel: SavingModel,
     @InjectModel(Transaction.name) private transactionModel: TransactionModel,
   ) {}
 
@@ -83,6 +85,7 @@ export class CardService {
     from?: Types.ObjectId,
     sendOnNumber?: string,
     type?: TRANSACTION_TYPE_ENUM,
+    sendOnSaving?: Types.ObjectId,
   ): Promise<boolean> {
     let cardFrom;
     let cardFromHolder;
@@ -129,6 +132,22 @@ export class CardService {
           amountOnCardAfter: newAmount,
         });
       }
+    }
+
+    if (sendOnSaving) {
+      const newAmount = cardFrom ? cardFrom.amount - amount : amount;
+      const saving = await this.savingModel.findById(sendOnSaving);
+      await this.savingModel.findByIdAndUpdate(sendOnSaving, {
+        saved: saving.saved + amount,
+      });
+      await this.transactionModel.create({
+        type: TRANSACTION_TYPE_ENUM.MONEY_SEND,
+        amount: -amount,
+        cardId: cardFrom?._id || 'Magic card',
+        userId: cardFromHolder?._id || 'Magic card',
+        title: `Sent on saving: ${saving.name}`,
+        amountOnCardAfter: newAmount,
+      });
     }
 
     if (to) {
