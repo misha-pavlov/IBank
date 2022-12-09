@@ -48,7 +48,7 @@ export const Credits = () => {
 
   return (
     <BlackContentWrapper withoutPadding position="relative">
-      <View backgroundColor={colors.green2} pb={20}>
+      <View backgroundColor={colors.green2} pb={50}>
         <WhiteText textAlign="center" fontSize={40}>
           {getFormattedAmount(payByPartsLimit)} $
         </WhiteText>

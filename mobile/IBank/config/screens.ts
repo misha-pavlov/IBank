@@ -25,6 +25,7 @@ export enum appEnum {
   MoneyOperation = 'MoneyOperation',
   CreditsNavigator = 'CreditsNavigator',
   SavingsNavigator = 'SavingsNavigator',
+  CashbackNavigator = 'CashbackNavigator',
 }
 
 export enum creditsEnum {
@@ -39,4 +40,8 @@ export enum savingsEnum {
   SavingSettings = 'SavingSettings',
   SavingStatistic = 'SavingStatistic',
   SavingCardSelection = 'SavingCardSelection',
+}
+
+export enum cashbackEnum {
+  Cashback = 'Cashback',
 }

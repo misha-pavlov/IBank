@@ -1,6 +1,7 @@
 export { default as AddNewCard } from './AddNewCard/AddNewCard';
 export { default as Capital } from './Capital/Capital';
 export { default as Card } from './Card/Card';
+export { default as Cashback } from './Cashback/Cashback';
 export { default as CreateSaving } from './CreateSaving/CreateSaving';
 export { default as Credits } from './Credits/Credits';
 export { default as CreditSettings } from './CreditSettings/CreditSettings';

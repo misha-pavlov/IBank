@@ -4,7 +4,7 @@ import { Text, View } from 'react-native';
 import { appEnum, cardEnum, creditsEnum, savingsEnum } from '../config/screens';
 import { colors } from '../config/colors';
 import { CardIcon, CashbackIcon, CreditIcon, MoreIcon, SavingIcon } from '../assets/svg';
-import { CardNavigator, CreditsNavigator, SavingsNavigator } from '.';
+import { CardNavigator, CashbackNavigator, CreditsNavigator, SavingsNavigator } from '.';
 
 const Tab = createBottomTabNavigator();
 
@@ -49,12 +49,12 @@ const IBankTabs = () => {
         component={SavingsNavigator}
       />
       <Tab.Screen
-        name="Cashback"
+        name={appEnum.CashbackNavigator}
         options={{
           headerShown: false,
           tabBarIcon: ({ color }) => <CashbackIcon fill={color} />,
         }}
-        component={Screen}
+        component={CashbackNavigator}
       />
       <Tab.Screen
         name="More"
