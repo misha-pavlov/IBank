@@ -2,7 +2,16 @@ import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import { emptyBlackWithBackButton, emptyBlackWithoutBackButton } from '../common/navigationOptions';
 import { appEnum, cardEnum, savingsEnum } from '../config/screens';
-import { MoneyOperation, Savings, CreateSaving, Saving, TopUp, SavingSettings, SavingCardSelection } from '../screens';
+import {
+  MoneyOperation,
+  Savings,
+  CreateSaving,
+  Saving,
+  TopUp,
+  SavingSettings,
+  SavingCardSelection,
+  SavingStatistic,
+} from '../screens';
 import { NSavingsStackParamList } from './types/SavingsNavigator.types';
 
 const SavingsStack = createStackNavigator<NSavingsStackParamList>();
@@ -23,6 +32,11 @@ const SavingsNavigator = () => (
       name={savingsEnum.SavingSettings}
       options={emptyBlackWithBackButton}
       component={SavingSettings}
+    />
+    <SavingsStack.Screen
+      name={savingsEnum.SavingStatistic}
+      options={emptyBlackWithBackButton}
+      component={SavingStatistic}
     />
   </SavingsStack.Navigator>
 );

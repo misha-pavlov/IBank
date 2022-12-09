@@ -139,6 +139,10 @@ export class CardService {
       const saving = await this.savingModel.findById(sendOnSaving);
       await this.savingModel.findByIdAndUpdate(sendOnSaving, {
         saved: saving.saved + amount,
+        // use $push for add new array element in savedFromCards
+        $push: {
+          savedFromCards: { number: cardFrom?.number || 'Magic card', amount },
+        },
       });
       await this.transactionModel.create({
         type: TRANSACTION_TYPE_ENUM.MONEY_SEND,

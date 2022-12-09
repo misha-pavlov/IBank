@@ -1,6 +1,7 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { MoneyOperationParams } from '../../screens/MoneyOperation/MoneyOperation.types';
+import { TSavedFromCards } from '../../types/saving';
 
 export type NSavingsStackParamList = {
   TopUp: { sendOnSaving?: string };
@@ -15,6 +16,7 @@ export type NSavingsStackParamList = {
   Saving: { savingId: string };
   MoneyOperation: MoneyOperationParams;
   SavingSettings: { savingId: string };
+  SavingStatistic: { savedFromCards: TSavedFromCards };
   SavingCardSelection: { savingId: string; isBreakSaving?: boolean };
 };
 

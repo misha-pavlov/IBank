@@ -1,3 +1,8 @@
+export type TSavedFromCards = Array<{
+  number: string;
+  amount: number;
+}>;
+
 export type TSaving = {
   _id: string;
   name: string;
@@ -6,8 +11,5 @@ export type TSaving = {
   owner: string;
   description: string;
   imageUrl: string;
-  savedFromCards: {
-    number: string;
-    amount: number;
-  };
+  savedFromCards: TSavedFromCards;
 };

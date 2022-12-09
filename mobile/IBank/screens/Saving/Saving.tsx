@@ -19,7 +19,10 @@ import { TSaving } from '../../types/saving';
 const rotateStyle = { transform: [{ rotate: '75deg' }] };
 
 const Saving = () => {
-  const { setOptions, navigate } = useNavigation<NSavingsNavigatorNavigationProp<'TopUp' | 'SavingSettings'>>();
+  const { setOptions, navigate } =
+    useNavigation<
+      NSavingsNavigatorNavigationProp<'TopUp' | 'SavingSettings' | 'SavingStatistic' | 'SavingCardSelection'>
+    >();
   const { params } = useRoute<NSavingsNavigatorRouteProp<'Saving'>>();
   const { savingId } = params;
 
@@ -37,7 +40,7 @@ const Saving = () => {
     );
   }
 
-  const { name, saved, savingPoint, imageUrl } = data?.getSavingById as TSaving;
+  const { name, saved, savingPoint, imageUrl, savedFromCards } = data?.getSavingById as TSaving;
 
   const calculateHeightAccordingSaved = () => {
     if (saved === 0) {
@@ -117,7 +120,12 @@ const Saving = () => {
                 text="Settings"
                 onPress={() => navigate(savingsEnum.SavingSettings, { savingId })}
               />
-              <RoundTouchable withBorder icon={<StatisticIcon />} text="Statistic" onPress={() => console.log('123')} />
+              <RoundTouchable
+                withBorder
+                icon={<StatisticIcon />}
+                text="Statistic"
+                onPress={() => navigate(savingsEnum.SavingStatistic, { savedFromCards })}
+              />
               <RoundTouchable
                 withBorder
                 icon={<ArrowDownIcon size={6} color={colors.gray100} />}
