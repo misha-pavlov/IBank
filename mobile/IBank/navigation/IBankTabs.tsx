@@ -1,7 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Text, View } from 'react-native';
-import { appEnum, cardEnum, creditsEnum, savingsEnum } from '../config/screens';
+import { appEnum, cardEnum, cashbackEnum, creditsEnum, savingsEnum } from '../config/screens';
 import { colors } from '../config/colors';
 import { CardIcon, CashbackIcon, CreditIcon, MoreIcon, SavingIcon } from '../assets/svg';
 import { CardNavigator, CashbackNavigator, CreditsNavigator, SavingsNavigator } from '.';
@@ -53,6 +53,7 @@ const IBankTabs = () => {
         options={{
           headerShown: false,
           tabBarIcon: ({ color }) => <CashbackIcon fill={color} />,
+          title: cashbackEnum.Cashback,
         }}
         component={CashbackNavigator}
       />

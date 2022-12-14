@@ -50,6 +50,16 @@ input CardInput {
   usedInternetLimit: Float!
 }
 
+type Cashback {
+  _id: ObjectId!
+  connectedInUsers: [String!]!
+  createdAt: DateTime!
+  deleted: Boolean!
+  image: String!
+  percent: Float!
+  title: String!
+}
+
 """
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
@@ -91,6 +101,7 @@ type Query {
   getCardById(_id: ObjectId!): Card!
   getCardTransactions(cardId: String!, searchTerm: String): [GetCardTransactionsPayload!]!
   getCardTransactionsByDates(cardId: String!, endDate: DateTime!, startDate: DateTime!): GetCardTransactionsByDatesPayload!
+  getCashbacks: Cashback!
   getSavingById(savingId: ObjectId!): Saving!
   getSavingsForUser(owner: ObjectId!): [Saving!]!
   getUser: UserPayload!

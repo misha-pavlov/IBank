@@ -26,7 +26,7 @@ const Cashback = () => {
 
         <View position="absolute" bottom={-20} w="100%" pl="16px" pr="16px">
           <IBankButtonWithIcon
-            text="Get cashback"
+            text="Withdraw cashback"
             icon={<TopUpIconV2 />}
             backgroundColor={colors.pink}
             onPress={() => console.log('123')}
