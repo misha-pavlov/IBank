@@ -1,4 +1,4 @@
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { useNavigation } from '@react-navigation/native';
 import { FlashList } from '@shopify/flash-list';
 import { AddIcon, Avatar, CheckCircleIcon, HStack, Text, View, VStack } from 'native-base';
@@ -11,6 +11,7 @@ import { colors } from '../../config/colors';
 import { getFormattedAmount } from '../../helpers/generalHelpers';
 import { useCurrentUser } from '../../hooks';
 import { TCashback } from '../../types/cashback';
+import { SWITCH_CASHBACK } from './gql/Cashback.mutations';
 import { GET_CASHBACKS } from './gql/Cashback.queries';
 
 const Cashback = () => {
@@ -25,6 +26,19 @@ const Cashback = () => {
   }, [setOptions]);
 
   const { data, loading } = useQuery(GET_CASHBACKS);
+  const [switchCashbackMutate] = useMutation(SWITCH_CASHBACK, {
+    onError: err => console.error('SWITCH_CASHBACK = ', err),
+  });
+
+  const switchCashback = useCallback(
+    (cashbackId: string) => {
+      switchCashbackMutate({
+        variables: { userId: user?._id, cashbackId },
+        refetchQueries: [{ query: GET_CASHBACKS }],
+      });
+    },
+    [switchCashbackMutate, user?._id],
+  );
 
   const renderItem = useCallback(
     ({ item }: { item: TCashback }) => {
@@ -49,7 +63,7 @@ const Cashback = () => {
             </VStack>
           </HStack>
 
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => switchCashback(item._id)}>
             {user && item.connectedInUsers.includes(user?._id) ? (
               <CheckCircleIcon color={colors.gray100} />
             ) : (
@@ -59,7 +73,7 @@ const Cashback = () => {
         </HStack>
       );
     },
-    [user],
+    [switchCashback, user],
   );
 
   return (
