@@ -1,5 +1,6 @@
 import { Text, View } from 'native-base';
 import React from 'react';
+import { MoreIcon } from '../assets/svg';
 import {
   AdvIcon,
   AnimalsIcon,
@@ -80,6 +81,9 @@ export const getTransactionIconByType = (type?: string) => {
 
     case TRANSACTION_TYPE_ENUM.MOBILE:
       return <RoundTouchable icon={<MobileIcon />} backgroundColor={colors.green600} disabled />;
+
+    case TRANSACTION_TYPE_ENUM.MORE:
+      return <RoundTouchable icon={<MoreIcon />} backgroundColor={colors.green600} disabled />;
 
     case TRANSACTION_TYPE_ENUM.MONEY_SEND:
       return <RoundTouchable icon={<MoneySendIcon />} backgroundColor={colors.green600} disabled />;

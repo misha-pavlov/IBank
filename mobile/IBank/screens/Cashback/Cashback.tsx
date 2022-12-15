@@ -9,14 +9,18 @@ import { BlackContentWrapper, WhiteText } from '../../common/common.styles';
 import { IBankButtonWithIcon } from '../../components';
 import { colors } from '../../config/colors';
 import { getFormattedAmount } from '../../helpers/generalHelpers';
-import { useCurrentUser } from '../../hooks';
+import { useCurrentCard, useCurrentUser } from '../../hooks';
 import { TCashback } from '../../types/cashback';
-import { SWITCH_CASHBACK } from './gql/Cashback.mutations';
+import { GET_CARD_TRANSACTIONS } from '../Card/screens/Amount/Amount.queries';
+import { SWITCH_CASHBACK, WITHDRAW_CASHBACK } from './gql/Cashback.mutations';
 import { GET_CASHBACKS } from './gql/Cashback.queries';
+
+const STATIC_CASHBACK = 10;
 
 const Cashback = () => {
   const { setOptions } = useNavigation();
   const { user } = useCurrentUser();
+  const { currentCard } = useCurrentCard();
 
   useEffect(() => {
     setOptions({
@@ -29,6 +33,9 @@ const Cashback = () => {
   const [switchCashbackMutate] = useMutation(SWITCH_CASHBACK, {
     onError: err => console.error('SWITCH_CASHBACK = ', err),
   });
+  const [withdrawCashbackMutate] = useMutation(WITHDRAW_CASHBACK, {
+    onError: err => console.error('WITHDRAW_CASHBACK = ', err),
+  });
 
   const switchCashback = useCallback(
     (cashbackId: string) => {
@@ -39,6 +46,13 @@ const Cashback = () => {
     },
     [switchCashbackMutate, user?._id],
   );
+
+  const withdrawCashback = useCallback(() => {
+    withdrawCashbackMutate({
+      variables: { userId: user?._id, cardId: currentCard._id, amount: STATIC_CASHBACK },
+      refetchQueries: [{ query: GET_CARD_TRANSACTIONS, variables: { cardId: currentCard._id, searchTerm: '' } }],
+    });
+  }, [currentCard._id, user?._id, withdrawCashbackMutate]);
 
   const renderItem = useCallback(
     ({ item }: { item: TCashback }) => {
@@ -80,7 +94,7 @@ const Cashback = () => {
     <BlackContentWrapper withoutPadding>
       <View backgroundColor={colors.green3} pb={50}>
         <WhiteText textAlign="center" fontSize={40}>
-          {getFormattedAmount(123)} $
+          {getFormattedAmount(STATIC_CASHBACK)} $
         </WhiteText>
 
         <View position="absolute" bottom={-20} w="100%" pl="16px" pr="16px">
@@ -88,7 +102,7 @@ const Cashback = () => {
             text="Withdraw cashback"
             icon={<TopUpIconV2 />}
             backgroundColor={colors.pink}
-            onPress={() => console.log('123')}
+            onPress={withdrawCashback}
           />
         </View>
       </View>

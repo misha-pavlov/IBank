@@ -98,4 +98,13 @@ export class CardResolver {
       newPayByPartsLimit,
     );
   }
+
+  @Mutation(() => Boolean)
+  async withdrawCashback(
+    @Args('cardId') cardId: Types.ObjectId,
+    @Args('userId') userId: Types.ObjectId,
+    @Args('amount') amount: number,
+  ): Promise<boolean> {
+    return this.cardService.withdrawCashback(cardId, userId, amount);
+  }
 }

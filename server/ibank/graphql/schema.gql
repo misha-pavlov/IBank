@@ -89,6 +89,7 @@ type Mutation {
   switchCashback(cashbackId: ObjectId!, userId: ObjectId!): Boolean!
   updateCard(cardId: ObjectId, newCreditLimit: Float, newExpired: DateTime, newInternetLimit: Float, newIsBlocked: Boolean, newPayByPartsLimit: Float, newPin: String, newType: String): Card!
   updateSaving(newDescription: String, newImageUrl: String, newName: String, newSavingPoint: Float, savingId: ObjectId!): Saving!
+  withdrawCashback(amount: Float!, cardId: ObjectId!, userId: ObjectId!): Boolean!
   withdrawPart(amount: Float!, savingId: ObjectId!, to: ObjectId!): Boolean!
 }
 

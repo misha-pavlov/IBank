@@ -202,4 +202,28 @@ export class CardService {
       payByPartsLimit: newPayByPartsLimit,
     });
   }
+
+  async withdrawCashback(
+    cardId: Types.ObjectId,
+    userId: Types.ObjectId,
+    amount: number,
+  ): Promise<boolean> {
+    const card = await this.getCardById(cardId);
+    const newAmount = card.amount + amount;
+
+    await Promise.all([
+      this.transactionModel.create({
+        type: TRANSACTION_TYPE_ENUM.MORE,
+        amount,
+        cardId,
+        title: 'From cashback',
+        userId,
+        amountOnCardAfter: newAmount,
+        isCanceled: false,
+      }),
+      this.cardModel.findByIdAndUpdate(cardId, { amount: newAmount }),
+    ]);
+
+    return false;
+  }
 }

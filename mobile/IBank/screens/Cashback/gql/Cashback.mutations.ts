@@ -5,3 +5,9 @@ export const SWITCH_CASHBACK = gql`
     switchCashback(userId: $userId, cashbackId: $cashbackId)
   }
 `;
+
+export const WITHDRAW_CASHBACK = gql`
+  mutation withdrawCashback($userId: ObjectId!, $cardId: ObjectId!, $amount: Float!) {
+    withdrawCashback(userId: $userId, cardId: $cardId, amount: $amount)
+  }
+`;
