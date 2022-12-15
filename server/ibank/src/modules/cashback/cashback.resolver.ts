@@ -7,7 +7,7 @@ import { CashbackService } from './cashback.service';
 export class CashbackResolver {
   constructor(private cashbackService: CashbackService) {}
 
-  @Query(() => Cashback)
+  @Query(() => [Cashback])
   async getCashbacks(): Promise<Cashback[]> {
     return this.cashbackService.getCashbacks();
   }

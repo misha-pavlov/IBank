@@ -101,7 +101,7 @@ type Query {
   getCardById(_id: ObjectId!): Card!
   getCardTransactions(cardId: String!, searchTerm: String): [GetCardTransactionsPayload!]!
   getCardTransactionsByDates(cardId: String!, endDate: DateTime!, startDate: DateTime!): GetCardTransactionsByDatesPayload!
-  getCashbacks: Cashback!
+  getCashbacks: [Cashback!]!
   getSavingById(savingId: ObjectId!): Saving!
   getSavingsForUser(owner: ObjectId!): [Saving!]!
   getUser: UserPayload!
