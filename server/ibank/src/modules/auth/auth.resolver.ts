@@ -22,7 +22,10 @@ export class AuthResolver {
   }
 
   @Mutation(() => AuthPayload)
-  async signIn(@Args('phone') phone: string, @Args('pin') pin: string) {
+  async signIn(
+    @Args('phone') phone: string,
+    @Args('pin') pin: string,
+  ): Promise<AuthPayload> {
     return this.authService.signIn(phone, pin);
   }
 
@@ -33,7 +36,7 @@ export class AuthResolver {
     @Args('fullName') fullName: string,
     @Args('birthday') birthday: Date,
     @Args('sex') sex: USER_SEX_ENUM,
-  ) {
+  ): Promise<SignUpPayload> {
     return this.authService.signUp(phone, pin, fullName, birthday, sex);
   }
 }

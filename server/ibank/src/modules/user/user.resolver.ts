@@ -23,7 +23,7 @@ export class UserResolver {
   async checkUserPin(
     @Args('userId') userId: Types.ObjectId,
     @Args('pin') pin: string,
-  ) {
+  ): Promise<boolean> {
     return this.userService.checkUserPin(userId, pin);
   }
 
@@ -32,7 +32,7 @@ export class UserResolver {
     @Args('userId') userId: Types.ObjectId,
     @Args({ name: 'searchTerm', nullable: true })
     searchTerm: string,
-  ) {
+  ): Promise<Card[]> {
     return this.userService.getUserSavedCards(userId, searchTerm);
   }
 
@@ -42,7 +42,7 @@ export class UserResolver {
     @Args('fullName') fullName: string,
     @Args('phone') phone: string,
     @Args('birthday') birthday: Date,
-  ) {
+  ): Promise<User> {
     return this.userService.editProfile(userId, fullName, phone, birthday);
   }
 
@@ -50,7 +50,7 @@ export class UserResolver {
   async addToSavedCards(
     @Args('userId') userId: Types.ObjectId,
     @Args('card') card: CardInput,
-  ) {
+  ): Promise<User> {
     return this.userService.addToSavedCards(userId, card);
   }
 }

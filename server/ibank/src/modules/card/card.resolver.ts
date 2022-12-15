@@ -16,27 +16,27 @@ export class CardResolver {
     searchTerm: string,
     @Args({ name: 'excludeIds', type: () => [String], nullable: true })
     excludeIds?: string[],
-  ) {
+  ): Promise<Card[]> {
     return this.cardService.getUserCards(owner, searchTerm, excludeIds);
   }
 
   @Query(() => Number)
-  async getUserCapital(@Args('owner') owner: string) {
+  async getUserCapital(@Args('owner') owner: string): Promise<number> {
     return this.cardService.getUserCapital(owner);
   }
 
   @Query(() => Card)
-  async getUserFirstCard(@Args('owner') owner: string) {
+  async getUserFirstCard(@Args('owner') owner: string): Promise<Card> {
     return this.cardService.getUserFirstCard(owner);
   }
 
   @Query(() => Card)
-  async getCardById(@Args('_id') _id: Types.ObjectId) {
+  async getCardById(@Args('_id') _id: Types.ObjectId): Promise<Card> {
     return this.cardService.getCardById(_id);
   }
 
   @Query(() => Card, { nullable: true })
-  async isCardExist(@Args('number') number: number) {
+  async isCardExist(@Args('number') number: number): Promise<Card> {
     return this.cardService.isCardExist(number);
   }
 
@@ -47,7 +47,7 @@ export class CardResolver {
     @Args('ownerFullName') ownerFullName: string,
     @Args('isMasterCard') isMasterCard: boolean,
     @Args('type') type: CARD_TYPE_ENUM,
-  ) {
+  ): Promise<Card> {
     return this.cardService.createCard(
       owner,
       ownerFullName,
@@ -65,7 +65,7 @@ export class CardResolver {
     @Args('sendOnNumber', { nullable: true }) sendOnNumber?: string,
     @Args('type', { nullable: true }) type?: TRANSACTION_TYPE_ENUM,
     @Args('sendOnSaving', { nullable: true }) sendOnSaving?: Types.ObjectId,
-  ) {
+  ): Promise<boolean> {
     return this.cardService.moneySend(
       amount,
       to,
@@ -86,7 +86,7 @@ export class CardResolver {
     @Args('newCreditLimit', { nullable: true }) newCreditLimit: number,
     @Args('newInternetLimit', { nullable: true }) newInternetLimit: number,
     @Args('newPayByPartsLimit', { nullable: true }) newPayByPartsLimit: number,
-  ) {
+  ): Promise<Card> {
     return this.cardService.updateCard(
       cardId,
       newPin,

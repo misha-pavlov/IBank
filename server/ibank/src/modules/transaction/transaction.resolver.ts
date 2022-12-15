@@ -16,7 +16,7 @@ export class TransactionResolver {
     @Args('cardId') cardId: string,
     @Args({ name: 'searchTerm', nullable: true })
     searchTerm: string,
-  ) {
+  ): Promise<GetCardTransactionsPayload[]> {
     return this.transactionService.getCardTransactions(cardId, searchTerm);
   }
 
@@ -25,7 +25,7 @@ export class TransactionResolver {
     @Args('cardId') cardId: string,
     @Args('startDate') startDate: Date,
     @Args('endDate') endDate: Date,
-  ) {
+  ): Promise<GetCardTransactionsByDatesPayload> {
     return this.transactionService.getCardTransactionsByDates(
       cardId,
       startDate,
@@ -41,7 +41,7 @@ export class TransactionResolver {
     @Args('userId') userId: string,
     @Args('amountOnCardAfter') amountOnCardAfter: number,
     @Args('isCanceled', { nullable: true }) isCanceled: boolean,
-  ) {
+  ): Promise<Transaction> {
     return this.transactionService.createTransaction(
       type,
       amount,

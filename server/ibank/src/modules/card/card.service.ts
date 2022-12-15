@@ -191,7 +191,7 @@ export class CardService {
     newType?: CARD_TYPE_ENUM,
     newInternetLimit?: number,
     newPayByPartsLimit?: number,
-  ) {
+  ): Promise<Card> {
     return this.cardModel.findByIdAndUpdate(cardId, {
       pin: newPin,
       type: newType,

@@ -9,17 +9,23 @@ export class SavingResolver {
   constructor(private savingService: SavingService) {}
 
   @Query(() => [Saving])
-  async getSavingsForUser(@Args('owner') owner: Types.ObjectId) {
+  async getSavingsForUser(
+    @Args('owner') owner: Types.ObjectId,
+  ): Promise<Saving[]> {
     return this.savingService.getSavingsForUser(owner);
   }
 
   @Query(() => Number)
-  async getUserSavingsSavedSum(@Args('owner') owner: Types.ObjectId) {
+  async getUserSavingsSavedSum(
+    @Args('owner') owner: Types.ObjectId,
+  ): Promise<number> {
     return this.savingService.getUserSavingsSavedSum(owner);
   }
 
   @Query(() => Saving)
-  async getSavingById(@Args('savingId') savingId: Types.ObjectId) {
+  async getSavingById(
+    @Args('savingId') savingId: Types.ObjectId,
+  ): Promise<Saving> {
     return this.savingService.getSavingById(savingId);
   }
 
@@ -28,7 +34,7 @@ export class SavingResolver {
     @Args('savingPoint') savingPoint: number,
     @Args('name') name: string,
     @Args('owner') owner: Types.ObjectId,
-  ) {
+  ): Promise<Saving> {
     return this.savingService.createSaving(name, savingPoint, owner);
   }
 
@@ -39,7 +45,7 @@ export class SavingResolver {
     @Args('newImageUrl', { nullable: true }) newImageUrl?: string,
     @Args('newSavingPoint', { nullable: true }) newSavingPoint?: number,
     @Args('newDescription', { nullable: true }) newDescription?: string,
-  ) {
+  ): Promise<Saving> {
     return this.savingService.updateSaving(
       savingId,
       newName,
@@ -54,7 +60,7 @@ export class SavingResolver {
     @Args('to') to: Types.ObjectId,
     @Args('amount') amount: number,
     @Args('savingId') savingId: Types.ObjectId,
-  ) {
+  ): Promise<boolean> {
     return this.savingService.withdrawPart(savingId, to, amount);
   }
 
@@ -62,7 +68,7 @@ export class SavingResolver {
   async breakSaving(
     @Args('to') to: Types.ObjectId,
     @Args('savingId') savingId: Types.ObjectId,
-  ) {
+  ): Promise<boolean> {
     return this.savingService.breakSaving(savingId, to);
   }
 }
