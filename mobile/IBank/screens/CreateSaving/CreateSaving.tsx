@@ -193,7 +193,6 @@ const CreateSaving = () => {
             borderColor={colors.black}
             onChangeText={onChangeText}
             keyboardType={isFirstStep ? 'default' : 'numeric'}
-            // TODO: add format
             value={getValue()}
             _focus={{ backgroundColor: colors.black, borderColor: colors.black }}
           />

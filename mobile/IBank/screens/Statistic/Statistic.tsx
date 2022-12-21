@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
+import React, { memo, useCallback, useEffect, useState } from 'react';
 import { FlatList, Flex, Text, View } from 'native-base';
 import { isEqual } from 'lodash';
 import { ActivityIndicator } from 'react-native';
@@ -14,7 +14,6 @@ import { TCard } from '../../types/card';
 
 // TODO: fix bug with selectedDates after closing calendarPiker
 const Statistic = () => {
-  const isFirstRender = useRef(true);
   const { setOptions } = useNavigation();
   const { currentCard } = useCurrentCard();
   const [selectedCard, setSelectedCard] = useState<TCard>(currentCard);
@@ -46,7 +45,6 @@ const Statistic = () => {
           </WhiteText>
 
           <CalendarPiker
-            isFirstRender={isFirstRender}
             selectedCard={selectedCard}
             cardTransactionsByDates={cardTransactionsByDates}
             setCardTransactionsByDates={setCardTransactionsByDates}

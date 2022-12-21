@@ -19,7 +19,6 @@ import { IBankBlackButton } from '../../../../components';
 // constants
 import { colors } from '../../../../config/colors';
 import { constants } from '../../../../config/constants';
-import { ApolloFetchPolicy } from '../../../../types/apollo';
 // gql
 import { GET_CARD_TRANSACTIONS_BY_DATES } from './CalendarPiker.queries';
 // types
@@ -34,17 +33,11 @@ type TDates = {
 
 type TCalendarPiker = {
   selectedCard: TCard;
-  isFirstRender: React.MutableRefObject<boolean>;
   cardTransactionsByDates?: GetCardTransactionsByDates;
   setCardTransactionsByDates: React.Dispatch<React.SetStateAction<GetCardTransactionsByDates | undefined>>;
 };
 
-const CalendarPiker: FC<TCalendarPiker> = ({
-  selectedCard,
-  isFirstRender,
-  cardTransactionsByDates,
-  setCardTransactionsByDates,
-}) => {
+const CalendarPiker: FC<TCalendarPiker> = ({ selectedCard, cardTransactionsByDates, setCardTransactionsByDates }) => {
   const { width, height } = useWindowDimensions();
 
   const [endDate, setEndDate] = useState(moment());
@@ -80,14 +73,7 @@ const CalendarPiker: FC<TCalendarPiker> = ({
   };
 
   const { data } = useQuery(GET_CARD_TRANSACTIONS_BY_DATES, {
-    fetchPolicy: ApolloFetchPolicy.CacheAndNetwork,
     variables: { cardId: selectedCard._id, startDate: startDate.toDate(), endDate: endDate.toDate() },
-    onCompleted: ({ getCardTransactionsByDates }) => {
-      if (!cardTransactionsByDates && isFirstRender.current) {
-        isFirstRender.current = false;
-        setCardTransactionsByDates(getCardTransactionsByDates);
-      }
-    },
   });
 
   // Bottom sheet link: https://gorhom.github.io/react-native-bottom-sheet/
