@@ -2,6 +2,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { MoneyOperationParams } from '../../screens/MoneyOperation/MoneyOperation.types';
 import { TCard } from '../../types/card';
+import { TTransaction } from './../../types/transaction';
 
 export type NCardStackParamList = {
   Card: undefined;
@@ -14,6 +15,7 @@ export type NCardStackParamList = {
   EditProfile: undefined;
   HeaderModal: undefined;
   OtherPayments: undefined;
+  Transaction: TTransaction;
   MoneyOperation: MoneyOperationParams;
   DoneTransaction: { card: TCard; showSaveCardSwitcher: boolean };
 };

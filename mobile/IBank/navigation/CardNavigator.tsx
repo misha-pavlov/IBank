@@ -15,6 +15,7 @@ import {
   SendOnCard,
   Statistic,
   TopUp,
+  Transaction,
 } from '../screens';
 import OtherPayments from '../screens/OtherPayments/OtherPayments';
 
@@ -50,6 +51,7 @@ const CardNavigator = () => (
     <CardStack.Screen name={appEnum.MoneyOperation} options={emptyBlackWithBackButton} component={MoneyOperation} />
     <CardStack.Screen name={cardEnum.OtherPayments} options={emptyBlackWithBackButton} component={OtherPayments} />
     <CardStack.Screen name={cardEnum.EditProfile} options={emptyBlackWithBackButton} component={EditProfile} />
+    <CardStack.Screen name={cardEnum.Transaction} options={emptyBlackWithBackButton} component={Transaction} />
     <CardStack.Screen name={cardEnum.AddNewCard} options={emptyBlackWithBackButton} component={AddNewCard} />
     <CardStack.Screen name={cardEnum.SendOnCard} options={emptyBlackWithBackButton} component={SendOnCard} />
     <CardStack.Screen name={cardEnum.Statistic} options={emptyBlackWithBackButton} component={Statistic} />

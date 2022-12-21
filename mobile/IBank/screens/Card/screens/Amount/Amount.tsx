@@ -40,7 +40,8 @@ const Amount: FC<TAmount> = ({ renderPaginaton, moveToNextScreen, currentCard })
   const [searchTerm, setSearchTerm] = useState('');
   const debounced = useDebounced(searchTerm);
 
-  const { navigate } = useNavigation<NCardNavigatorNavigationProp<'TopUp' | 'SendOnCard' | 'OtherPayments'>>();
+  const { navigate } =
+    useNavigation<NCardNavigatorNavigationProp<'TopUp' | 'SendOnCard' | 'OtherPayments' | 'Transaction'>>();
   const { data, loading } = useQuery(GET_CARD_TRANSACTIONS, {
     variables: { cardId: currentCard._id, searchTerm: debounced },
   });
@@ -69,9 +70,11 @@ const Amount: FC<TAmount> = ({ renderPaginaton, moveToNextScreen, currentCard })
 
   const renderItem = useCallback(
     ({ item }: { item: TTransaction }) => (
-      <TransactionItem text={item.title} type={item.type} additionalText={item.type} amount={item.amount} />
+      <TouchableOpacity onPress={() => navigate(cardEnum.Transaction, { ...item })}>
+        <TransactionItem text={item.title} type={item.type} additionalText={item.type} amount={item.amount} />
+      </TouchableOpacity>
     ),
-    [],
+    [navigate],
   );
 
   const renderAmountHeader = useMemo(() => {

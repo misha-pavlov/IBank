@@ -34,3 +34,4 @@ export { default as UpdateCardIcon } from './UpdateCardIcon';
 export { default as Visa } from './Visa';
 export { default as Visibility } from './Visibility';
 export { default as VisibilityOff } from './VisibilityOff';
+export { default as WalletIcon } from './WalletIcon';
