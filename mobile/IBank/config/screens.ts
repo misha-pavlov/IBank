@@ -23,6 +23,7 @@ export enum appEnum {
   Pin = 'Pin',
   Loading = 'Loading',
   CardNavigator = 'CardNavigator',
+  MoreNavigator = 'MoreNavigator',
   MoneyOperation = 'MoneyOperation',
   CreditsNavigator = 'CreditsNavigator',
   SavingsNavigator = 'SavingsNavigator',
@@ -45,4 +46,10 @@ export enum savingsEnum {
 
 export enum cashbackEnum {
   Cashback = 'Cashback',
+}
+
+export enum moreEnum {
+  More = 'More',
+  Invite = 'Invite',
+  CustomerService = 'CustomerService',
 }

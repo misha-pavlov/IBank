@@ -63,6 +63,7 @@ export const colors = {
   lightGreenA400: '#76FF03',
 
   aqua: '#21CFD7',
+  aqua1: '#31BCE5',
 
   whiteRed: '#A2858F',
 
