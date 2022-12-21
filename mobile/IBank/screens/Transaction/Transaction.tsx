@@ -13,7 +13,6 @@ const Transaction = () => {
   const { setOptions } = useNavigation<NCardNavigatorNavigationProp<'Transaction'>>();
   const { params } = useRoute<NCardNavigatorRouteProp<'Transaction'>>();
   const { type, title, createdAt, amount, amountOnCardAfter } = params;
-  console.log('🚀 ~ file: Transaction.tsx:8 ~ Transaction ~ params', params);
 
   useEffect(() => {
     setOptions({ headerStyle: { backgroundColor: colors.lightGreen, shadowColor: colors.lightGreen } });
