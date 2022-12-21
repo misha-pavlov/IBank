@@ -61,7 +61,7 @@ const Amount: FC<TAmount> = ({ renderPaginaton, moveToNextScreen, currentCard })
     ({ section }: { section: { title: string } }) => (
       <View>
         <WhiteText textAlign="center" fontWeight={600} fontSize={16} mb="24px">
-          {dateToFromNowDaily(moment(section.title))}
+          {dateToFromNowDaily(moment(new Date(section.title)))}
         </WhiteText>
       </View>
     ),

@@ -23,7 +23,6 @@ import { CardType } from '../../types/card';
 // hooks
 import { useUserLoggedIn } from '../../hooks';
 
-// TODO: fix bug with fields cleaning when user select card type
 const SignUp = () => {
   const [fields, setFields] = useState({
     phone: '',
@@ -67,16 +66,13 @@ const SignUp = () => {
     }
   }, [createCardMutate, fields, newUserId, newUserJWT, setUserAsLoggedIn, newUserFullName]);
 
-  const onFieldChange = useCallback(
-    (value: string, field: string) => {
-      setFields({ ...fields, [field]: value });
-    },
-    [fields],
-  );
+  const onFieldChange = useCallback((value: string, field: string) => {
+    setFields(prevProps => ({ ...prevProps, [field]: value }));
+  }, []);
 
   const onChangeDate = useCallback(
     (event: DateTimePickerEvent, selectedDate?: Date) => {
-      setFields({ ...fields, birthday: moment(selectedDate || '').toString() });
+      setFields({ ...fields, birthday: moment(new Date(selectedDate || '')).toString() });
     },
     [fields],
   );
@@ -151,7 +147,7 @@ const SignUp = () => {
             <DateTimePicker
               mode="date"
               style={signUpStyles.birthdayPicker}
-              value={moment(fields.birthday === '' ? new Date() : fields.birthday).toDate()}
+              value={moment(fields.birthday === '' ? new Date() : new Date(fields.birthday)).toDate()}
               onChange={onChangeDate}
             />
           </Stack>

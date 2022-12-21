@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Center, KeyboardAvoidingView, ScrollView } from 'native-base';
+import { KeyboardAvoidingView, ScrollView, View } from 'native-base';
+import { useWindowDimensions } from 'react-native';
 import { BankNameHeader, BlackContentWrapper, commonStyles } from '../../common/common.styles';
 import { BestCardText, HeaderBlock } from './SignIn.styles';
 import { constants } from '../../config/constants';
@@ -13,6 +14,7 @@ const cardNumber = '1234 1234 1234 1234';
 
 const SignIn = () => {
   const [currentStage, setCurrentStage] = useState<'pin' | 'phone'>(constants.signUpStages.phone);
+  const { width } = useWindowDimensions();
 
   const keyboardVerticalOffset = getKeyboardVerticalOffsetForSignUp(currentStage === constants.signUpStages.phone);
 
@@ -27,9 +29,15 @@ const SignIn = () => {
             <BankNameHeader>{constants.appName}</BankNameHeader>
           </HeaderBlock>
 
-          <Center>
-            <Card cardNumber={cardNumber} expiredDate="10/10/29" isMasterCard type={CardType.PLATINUM} withFlip />
-          </Center>
+          <View ml={(width - 300) / 2}>
+            <Card
+              cardNumber={cardNumber}
+              expiredDate={new Date('10/10/29')}
+              isMasterCard
+              type={CardType.PLATINUM}
+              withFlip
+            />
+          </View>
 
           <BestCardText withMargin>Best card only with</BestCardText>
           <BestCardText>{constants.appName}</BestCardText>

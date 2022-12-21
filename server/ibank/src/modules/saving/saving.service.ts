@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Types } from 'mongoose';
+import { CATS_MEMES_IMAGE_URLS } from '../auth/static/images';
 
 import { Card, CardModel } from '../card/card.schema';
 import {
@@ -23,9 +24,12 @@ export class SavingService {
     savingPoint: number,
     owner: Types.ObjectId,
   ): Promise<Saving> {
+    const randomNumber = Math.floor(Math.random() * 10);
+    const imageUrl = CATS_MEMES_IMAGE_URLS[randomNumber];
     return this.savingModel.create({
       name,
       owner,
+      imageUrl,
       saved: 0,
       savingPoint,
       savedFromCards: [],

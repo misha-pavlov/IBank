@@ -12,9 +12,12 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { NativeBaseProvider } from 'native-base';
 import { ApolloProvider } from '@apollo/client';
+import { LogBox } from 'react-native';
 import RootNavigator from './navigation/RootNavigator';
 import Store from './store/store';
 import { client } from './apollo/connect';
+
+LogBox.ignoreLogs(['Non-serializable values were found in the navigation state']);
 
 const App = () => {
   return (
