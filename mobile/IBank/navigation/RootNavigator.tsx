@@ -1,12 +1,12 @@
 import React, { useContext, useState } from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { appEnum, authEnum, cardEnum } from '../config/screens';
 import IBankTabs from './IBankTabs';
 import { Context } from '../store/store';
 import { emptyBlackWithBackButton } from '../common/navigationOptions';
 import { LoadingScreen, Pin, SignIn, SignUp } from '../screens';
 
-const RootStack = createStackNavigator();
+const RootStack = createNativeStackNavigator();
 
 const RootNavigator = () => {
   const { state } = useContext(Context);
@@ -14,12 +14,10 @@ const RootNavigator = () => {
 
   if (loading) {
     return (
-      <RootStack.Navigator>
-        <RootStack.Screen
-          name={appEnum.Loading}
-          options={{ headerShown: false }}
-          component={() => <LoadingScreen setLoading={setLoading} />}
-        />
+      <RootStack.Navigator initialRouteName={appEnum.Loading}>
+        <RootStack.Screen name={appEnum.Loading} options={{ headerShown: false }}>
+          {() => <LoadingScreen setLoading={setLoading} />}
+        </RootStack.Screen>
       </RootStack.Navigator>
     );
   }
